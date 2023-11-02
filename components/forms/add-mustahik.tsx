@@ -20,10 +20,26 @@ const formSchema = z.object({
   status: z.enum(["green", "yellow", "red"], {
     required_error: "Required",
   }),
+  address: z.object({
+    village: z.string().min(1).max(50),
+    union: z.string().min(1).max(50),
+    post_office: z.string().min(1).max(50),
+    police_station: z.string().min(1).max(50),
+    district: z.string().min(1).max(50),
+  }),
+
+  bank_account: z.object({
+    name: z.string().min(1).max(50),
+    bank: z.string().min(1).max(50),
+    number: z.string().min(1).max(50),
+    branch: z.string().min(1).max(50),
+  }),
 });
 
 import CandidateFields from "@/components/forms/candidate-fields";
 import StatusRadio from "./status-radio";
+import AddressFields from "./address-fields";
+import BankAccountFields from "./bank-account-fields";
 
 export default function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,14 +59,25 @@ export default function ProfileForm() {
             <CandidateFields />
           </section>
         </section>
-
         <section>
           <h1 className="text-lg mb-2">অবস্থা</h1>
           <section className="grid grid-cols-3 gap-4">
             <StatusRadio />
           </section>
         </section>
+        <section>
+          <h1 className="text-lg mb-2">ঠিকানা</h1>
+          <section className="grid grid-cols-3 gap-4">
+            <AddressFields />
+          </section>
+        </section>
 
+        <section>
+          <h1 className="text-lg mb-2">ব্যাংক একাউন্ট</h1>
+          <section className="grid grid-cols-3 gap-4">
+            <BankAccountFields />
+          </section>
+        </section>
         <Button type="submit">Submit</Button>
       </form>
     </Form>
