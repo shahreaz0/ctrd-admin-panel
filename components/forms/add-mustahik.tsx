@@ -6,7 +6,12 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Card } from "../ui/card";
+
+import CandidateFields from "@/components/forms/candidate-fields";
+import StatusRadio from "./status-radio";
+import AddressFields from "./address-fields";
+import BankAccountFields from "./bank-account-fields";
+import FamilyInfoFields from "./family-info-fields";
 
 const formSchema = z.object({
   candidate: z.object({
@@ -34,16 +39,38 @@ const formSchema = z.object({
     number: z.string().min(1).max(50),
     branch: z.string().min(1).max(50),
   }),
-});
 
-import CandidateFields from "@/components/forms/candidate-fields";
-import StatusRadio from "./status-radio";
-import AddressFields from "./address-fields";
-import BankAccountFields from "./bank-account-fields";
+  family_info: z.array(
+    z.object({
+      name: z.string().min(1).max(50),
+      age: z.string().min(1).max(100),
+      gender: z.string().min(1).max(100),
+      education: z.string().min(1).max(100),
+      relation: z.string().min(1).max(100),
+      profession: z.string().min(1).max(100),
+      special: z.string().min(1).max(100),
+      medication: z.string().min(1).max(100),
+    })
+  ),
+});
 
 export default function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      family_info: [
+        {
+          name: "",
+          age: "",
+          education: "",
+          gender: "",
+          medication: "",
+          profession: "",
+          relation: "",
+          special: "",
+        },
+      ],
+    },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -78,6 +105,12 @@ export default function ProfileForm() {
             <BankAccountFields />
           </section>
         </section>
+
+        <section>
+          <h1 className="text-lg mb-2">পারিবারিক তথ্য</h1>
+          <FamilyInfoFields />
+        </section>
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
