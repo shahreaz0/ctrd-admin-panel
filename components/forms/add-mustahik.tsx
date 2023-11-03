@@ -13,6 +13,8 @@ import AddressFields from "./address-fields";
 import BankAccountFields from "./bank-account-fields";
 import FamilyInfoFields from "./family-info-fields";
 import FamilyPropertyFields from "./family-property-fields";
+import DebtorsFields from "./debtors-fields";
+import YearlyIncomeSourceFields from "./yearly-income-source-fields";
 
 const formSchema = z.object({
   candidate: z.object({
@@ -62,6 +64,30 @@ const formSchema = z.object({
     cash_amount: z.string().min(1).max(100),
     loan_amount: z.string().min(1).max(100),
   }),
+
+  debtors: z.array(
+    z.object({
+      ngo: z.string().min(1).max(100),
+      bank: z.string().min(1).max(100),
+      samabay: z.string().min(1).max(100),
+      dadan: z.string().min(1).max(100),
+      others: z.string().min(1).max(100),
+      debt_purpose: z.string().min(1).max(100),
+    })
+  ),
+
+  yearly_income_source: z.object({
+    farming: z.string().min(1).max(100),
+    small_business: z.string().min(1).max(100),
+    cattle: z.string().min(1).max(100),
+    kutir_business: z.string().min(1).max(100),
+    govt_fund: z.string().min(1).max(100),
+    job_income: z.string().min(1).max(100),
+    others_income: z.string().min(1).max(100),
+    total_worthy_income: z.string().min(1).max(100),
+    total_unworthy_income: z.string().min(1).max(100),
+    total_yearly_income: z.string().min(1).max(100),
+  }),
 });
 
 export default function ProfileForm() {
@@ -79,6 +105,9 @@ export default function ProfileForm() {
           relation: "",
           special: "",
         },
+      ],
+      debtors: [
+        { bank: "", dadan: "", debt_purpose: "", ngo: "", others: "", samabay: "" },
       ],
     },
   });
@@ -125,6 +154,18 @@ export default function ProfileForm() {
           <h1 className="text-lg mb-2">পারিবারিক সম্পত্তি</h1>
           <section className="grid grid-cols-3 gap-4">
             <FamilyPropertyFields />
+          </section>
+        </section>
+
+        <section>
+          <h1 className="text-lg mb-2">দেনার পরিমাণ</h1>
+          <DebtorsFields />
+        </section>
+
+        <section>
+          <h1 className="text-lg mb-2">বাৎসরিক পারিবারিক আয়ের উৎস</h1>
+          <section className="grid grid-cols-3 gap-4">
+            <YearlyIncomeSourceFields />
           </section>
         </section>
 
