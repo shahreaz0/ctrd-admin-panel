@@ -12,6 +12,7 @@ import StatusRadio from "./status-radio";
 import AddressFields from "./address-fields";
 import BankAccountFields from "./bank-account-fields";
 import FamilyInfoFields from "./family-info-fields";
+import FamilyPropertyFields from "./family-property-fields";
 
 const formSchema = z.object({
   candidate: z.object({
@@ -52,6 +53,15 @@ const formSchema = z.object({
       medication: z.string().min(1).max(100),
     })
   ),
+  family_property: z.object({
+    house_percent: z.string().min(1).max(100),
+    land_percent: z.string().min(1).max(100),
+    cattle_number: z.string().min(1).max(100),
+    produce_machine: z.string().min(1).max(100),
+    hen_number: z.string().min(1).max(100),
+    cash_amount: z.string().min(1).max(100),
+    loan_amount: z.string().min(1).max(100),
+  }),
 });
 
 export default function ProfileForm() {
@@ -79,7 +89,7 @@ export default function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 w-1/2">
         <section>
           <h1 className="text-lg mb-2">মুস্তাহিক প্রার্থী</h1>
           <section className="grid grid-cols-3 gap-4">
@@ -109,6 +119,13 @@ export default function ProfileForm() {
         <section>
           <h1 className="text-lg mb-2">পারিবারিক তথ্য</h1>
           <FamilyInfoFields />
+        </section>
+
+        <section>
+          <h1 className="text-lg mb-2">পারিবারিক সম্পত্তি</h1>
+          <section className="grid grid-cols-3 gap-4">
+            <FamilyPropertyFields />
+          </section>
         </section>
 
         <Button type="submit">Submit</Button>
