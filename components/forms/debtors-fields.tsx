@@ -1,5 +1,7 @@
 "use client";
 
+import { Fragment } from "react";
+import { Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import {
@@ -9,11 +11,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Input } from "@/components/ui/input";
-import { Button } from "../ui/button";
 
-import { Trash2 } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function DebtorsFields() {
   const form = useFormContext();
@@ -27,8 +27,8 @@ export default function DebtorsFields() {
     <section>
       {fields.map((field, index) => {
         return (
-          <>
-            <section className="flex items-center justify-between mt-4 first:mt-0">
+          <Fragment key={field.id}>
+            <section className="mt-4 flex items-center justify-between first:mt-0">
               <p className="text-base font-medium underline">তথ্য {index + 1}</p>
               {index > 0 && (
                 <Button
@@ -132,16 +132,14 @@ export default function DebtorsFields() {
                 )}
               />
             </section>
-          </>
+          </Fragment>
         );
       })}
 
       <Button
-        className="w-full mt-4"
+        className="mt-4 w-full"
         type="button"
-        onClick={() => {
-          append({ name: "", age: "" });
-        }}
+        onClick={() => append({ name: "", age: "" })}
       >
         Add Another
       </Button>

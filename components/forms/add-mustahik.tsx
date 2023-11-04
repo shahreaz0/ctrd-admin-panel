@@ -6,14 +6,14 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-
 import CandidateFields from "@/components/forms/candidate-fields";
-import StatusRadio from "./status-radio";
+
 import AddressFields from "./address-fields";
 import BankAccountFields from "./bank-account-fields";
+import DebtorsFields from "./debtors-fields";
 import FamilyInfoFields from "./family-info-fields";
 import FamilyPropertyFields from "./family-property-fields";
-import DebtorsFields from "./debtors-fields";
+import StatusRadio from "./status-radio";
 import YearlyIncomeSourceFields from "./yearly-income-source-fields";
 
 const formSchema = z.object({
@@ -118,52 +118,52 @@ export default function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 w-1/2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-1/2 space-y-12">
         <section>
-          <h1 className="text-lg mb-2">মুস্তাহিক প্রার্থী</h1>
+          <h1 className="mb-2 text-lg">মুস্তাহিক প্রার্থী</h1>
           <section className="grid grid-cols-3 gap-4">
             <CandidateFields />
           </section>
         </section>
         <section>
-          <h1 className="text-lg mb-2">অবস্থা</h1>
+          <h1 className="mb-2 text-lg">অবস্থা</h1>
           <section className="grid grid-cols-3 gap-4">
             <StatusRadio />
           </section>
         </section>
         <section>
-          <h1 className="text-lg mb-2">ঠিকানা</h1>
+          <h1 className="mb-2 text-lg">ঠিকানা</h1>
           <section className="grid grid-cols-3 gap-4">
             <AddressFields />
           </section>
         </section>
 
         <section>
-          <h1 className="text-lg mb-2">ব্যাংক একাউন্ট</h1>
+          <h1 className="mb-2 text-lg">ব্যাংক একাউন্ট</h1>
           <section className="grid grid-cols-3 gap-4">
             <BankAccountFields />
           </section>
         </section>
 
         <section>
-          <h1 className="text-lg mb-2">পারিবারিক তথ্য</h1>
+          <h1 className="mb-2 text-lg">পারিবারিক তথ্য</h1>
           <FamilyInfoFields />
         </section>
 
         <section>
-          <h1 className="text-lg mb-2">পারিবারিক সম্পত্তি</h1>
+          <h1 className="mb-2 text-lg">পারিবারিক সম্পত্তি</h1>
           <section className="grid grid-cols-3 gap-4">
             <FamilyPropertyFields />
           </section>
         </section>
 
         <section>
-          <h1 className="text-lg mb-2">দেনার পরিমাণ</h1>
+          <h1 className="mb-2 text-lg">দেনার পরিমাণ</h1>
           <DebtorsFields />
         </section>
 
         <section>
-          <h1 className="text-lg mb-2">বাৎসরিক পারিবারিক আয়ের উৎস</h1>
+          <h1 className="mb-2 text-lg">বাৎসরিক পারিবারিক আয়ের উৎস</h1>
           <section className="grid grid-cols-3 gap-4">
             <YearlyIncomeSourceFields />
           </section>
