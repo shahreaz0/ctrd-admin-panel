@@ -85,17 +85,20 @@ export default function FamilyInfoFields() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>লিঙ্গ</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="male">পুরুষ</SelectItem>
-                        <SelectItem value="female">নারী</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <section className="relative">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+
+                        <SelectContent position="popper">
+                          <SelectItem value="male">পুরুষ</SelectItem>
+                          <SelectItem value="female">নারী</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </section>
                     <FormMessage />
                   </FormItem>
                 )}

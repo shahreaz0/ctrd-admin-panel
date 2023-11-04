@@ -1,7 +1,9 @@
+import AddMustahik from "@/components/forms/add-mustahik";
+
 export default function DashboardPage() {
   return (
     <section>
-      <h1>Dashboard Page</h1>
+      <AddMustahik />
     </section>
   );
 }

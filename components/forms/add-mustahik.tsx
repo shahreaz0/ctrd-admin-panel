@@ -90,7 +90,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function ProfileForm() {
+export default function AddMustahik() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -117,60 +117,62 @@ export default function ProfileForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-1/2 space-y-12">
-        <section>
-          <h1 className="mb-2 text-lg">মুস্তাহিক প্রার্থী</h1>
-          <section className="grid grid-cols-3 gap-4">
-            <CandidateFields />
+    <section>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="m-auto w-2/3 space-y-8">
+          <section>
+            <h1 className="mb-2 text-lg">মুস্তাহিক প্রার্থী</h1>
+            <section className="grid grid-cols-3 gap-4">
+              <CandidateFields />
+            </section>
           </section>
-        </section>
-        <section>
-          <h1 className="mb-2 text-lg">অবস্থা</h1>
-          <section className="grid grid-cols-3 gap-4">
-            <StatusRadio />
+          <section>
+            <h1 className="mb-2 text-lg">অবস্থা</h1>
+            <section className="grid grid-cols-3 gap-4">
+              <StatusRadio />
+            </section>
           </section>
-        </section>
-        <section>
-          <h1 className="mb-2 text-lg">ঠিকানা</h1>
-          <section className="grid grid-cols-3 gap-4">
-            <AddressFields />
+          <section>
+            <h1 className="mb-2 text-lg">ঠিকানা</h1>
+            <section className="grid grid-cols-3 gap-4">
+              <AddressFields />
+            </section>
           </section>
-        </section>
 
-        <section>
-          <h1 className="mb-2 text-lg">ব্যাংক একাউন্ট</h1>
-          <section className="grid grid-cols-3 gap-4">
-            <BankAccountFields />
+          <section>
+            <h1 className="mb-2 text-lg">ব্যাংক একাউন্ট</h1>
+            <section className="grid grid-cols-3 gap-4">
+              <BankAccountFields />
+            </section>
           </section>
-        </section>
 
-        <section>
-          <h1 className="mb-2 text-lg">পারিবারিক তথ্য</h1>
-          <FamilyInfoFields />
-        </section>
-
-        <section>
-          <h1 className="mb-2 text-lg">পারিবারিক সম্পত্তি</h1>
-          <section className="grid grid-cols-3 gap-4">
-            <FamilyPropertyFields />
+          <section>
+            <h1 className="mb-2 text-lg">পারিবারিক তথ্য</h1>
+            <FamilyInfoFields />
           </section>
-        </section>
 
-        <section>
-          <h1 className="mb-2 text-lg">দেনার পরিমাণ</h1>
-          <DebtorsFields />
-        </section>
-
-        <section>
-          <h1 className="mb-2 text-lg">বাৎসরিক পারিবারিক আয়ের উৎস</h1>
-          <section className="grid grid-cols-3 gap-4">
-            <YearlyIncomeSourceFields />
+          <section>
+            <h1 className="mb-2 text-lg">পারিবারিক সম্পত্তি</h1>
+            <section className="grid grid-cols-3 gap-4">
+              <FamilyPropertyFields />
+            </section>
           </section>
-        </section>
 
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+          <section>
+            <h1 className="mb-2 text-lg">দেনার পরিমাণ</h1>
+            <DebtorsFields />
+          </section>
+
+          <section>
+            <h1 className="mb-2 text-lg">বাৎসরিক পারিবারিক আয়ের উৎস</h1>
+            <section className="grid grid-cols-3 gap-4">
+              <YearlyIncomeSourceFields />
+            </section>
+          </section>
+
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    </section>
   );
 }
