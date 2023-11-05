@@ -18,7 +18,7 @@ export default function CandidateFields() {
     <>
       <FormField
         control={form.control}
-        name="candidate.name"
+        name="mustahikCandidate.name"
         render={({ field }) => (
           <FormItem>
             <FormLabel>প্রার্থীর নাম</FormLabel>
@@ -33,7 +33,7 @@ export default function CandidateFields() {
 
       <FormField
         control={form.control}
-        name="candidate.religion"
+        name="mustahikCandidate.religion"
         render={({ field }) => (
           <FormItem>
             <FormLabel>ধর্ম</FormLabel>
@@ -48,7 +48,7 @@ export default function CandidateFields() {
 
       <FormField
         control={form.control}
-        name="candidate.age"
+        name="mustahikCandidate.age"
         render={({ field }) => (
           <FormItem>
             <FormLabel>বয়স</FormLabel>
@@ -63,7 +63,7 @@ export default function CandidateFields() {
 
       <FormField
         control={form.control}
-        name="candidate.profession"
+        name="mustahikCandidate.occupation"
         render={({ field }) => (
           <FormItem>
             <FormLabel>পেশা</FormLabel>
@@ -78,7 +78,7 @@ export default function CandidateFields() {
 
       <FormField
         control={form.control}
-        name="candidate.guardian_name"
+        name="mustahikCandidate.fatherOrHusbandName"
         render={({ field }) => (
           <FormItem>
             <FormLabel>পিতা/ স্বামীর নাম</FormLabel>
@@ -93,7 +93,7 @@ export default function CandidateFields() {
 
       <FormField
         control={form.control}
-        name="candidate.identification_number"
+        name="mustahikCandidate.identificationNumber"
         render={({ field }) => (
           <FormItem>
             <FormLabel>সনাক্তকরণ নম্বর</FormLabel>

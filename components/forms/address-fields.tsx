@@ -48,7 +48,7 @@ export default function AddressFields() {
 
       <FormField
         control={form.control}
-        name="address.post_office"
+        name="address.postOffice"
         render={({ field }) => (
           <FormItem>
             <FormLabel>পোস্টঅফিস</FormLabel>
@@ -63,7 +63,7 @@ export default function AddressFields() {
 
       <FormField
         control={form.control}
-        name="address.police_station"
+        name="address.thana"
         render={({ field }) => (
           <FormItem>
             <FormLabel>থানা </FormLabel>

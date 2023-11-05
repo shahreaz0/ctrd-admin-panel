@@ -27,7 +27,7 @@ export default function FamilyInfoFields() {
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "family_info",
+    name: "familialInformation",
   });
 
   return (
@@ -52,7 +52,7 @@ export default function FamilyInfoFields() {
             <section key={field.id} className="grid grid-cols-3 gap-4">
               <FormField
                 control={form.control}
-                name={`family_info.${index}.name`}
+                name={`familialInformation.${index}.name`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>নাম</FormLabel>
@@ -66,7 +66,7 @@ export default function FamilyInfoFields() {
               />
               <FormField
                 control={form.control}
-                name={`family_info.${index}.age`}
+                name={`familialInformation.${index}.age`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>বয়স</FormLabel>
@@ -81,7 +81,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`family_info.${index}.gender`}
+                name={`familialInformation.${index}.gender`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>লিঙ্গ</FormLabel>
@@ -106,12 +106,12 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`family_info.${index}.education`}
+                name={`familialInformation.${index}.educationLevel`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>শিক্ষা </FormLabel>
                     <FormControl>
-                      <Input {...field} type="number" />
+                      <Input {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -121,12 +121,12 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`family_info.${index}.relation`}
+                name={`familialInformation.${index}.relationToHeadOfFamily`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>পরিবার প্রধানের সাথে সম্পর্ক </FormLabel>
+                    <FormLabel>পরিবার প্রধানের সাথে সম্পর্ক</FormLabel>
                     <FormControl>
-                      <Input {...field} type="number" />
+                      <Input {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -136,12 +136,12 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`family_info.${index}.profession`}
+                name={`familialInformation.${index}.occupation`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>পেশা ( ছাত্র / ছাত্রী হলে শ্রেণী )</FormLabel>
                     <FormControl>
-                      <Input {...field} type="number" />
+                      <Input {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -151,14 +151,24 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`family_info.${index}.special`}
+                name={`familialInformation.${index}.disability`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>প্রতিবন্ধী / শিশু / রোগাক্রান্ত / বেকার</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="number" />
-                    </FormControl>
+                    <FormLabel>প্রতিবন্ধী</FormLabel>
+                    <section className="relative">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
 
+                        <SelectContent position="popper">
+                          <SelectItem value="yes">হ্যা</SelectItem>
+                          <SelectItem value="no">না</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </section>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -166,12 +176,87 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`family_info.${index}.medication`}
+                name={`familialInformation.${index}.child`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>শিশু</FormLabel>
+                    <section className="relative">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+
+                        <SelectContent position="popper">
+                          <SelectItem value="yes">হ্যা</SelectItem>
+                          <SelectItem value="no">না</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </section>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name={`familialInformation.${index}.sick`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>রোগাক্রান্ত</FormLabel>
+                    <section className="relative">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+
+                        <SelectContent>
+                          <SelectItem value="yes">হ্যা</SelectItem>
+                          <SelectItem value="no">না</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </section>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name={`familialInformation.${index}.jobless`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>বেকার</FormLabel>
+                    <section className="relative">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+
+                        <SelectContent position="popper">
+                          <SelectItem value="yes">হ্যা</SelectItem>
+                          <SelectItem value="no">না</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </section>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name={`familialInformation.${index}.ongoingMedicineOrTreatment`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>নিয়মিত ঔষধ / চিকিৎসা</FormLabel>
                     <FormControl>
-                      <Input {...field} type="number" />
+                      <Input {...field} />
                     </FormControl>
 
                     <FormMessage />

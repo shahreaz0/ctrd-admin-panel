@@ -6,73 +6,83 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import CandidateFields from "@/components/forms/candidate-fields";
 
 import AddressFields from "./address-fields";
 import BankAccountFields from "./bank-account-fields";
-import DebtorsFields from "./debtors-fields";
+import CandidateFields from "./candidate-fields";
+import ConditionRadio from "./condition-radio";
+import DebtDescriptionFields from "./debt-description-fields";
 import FamilyInfoFields from "./family-info-fields";
-import FamilyPropertyFields from "./family-property-fields";
-import StatusRadio from "./status-radio";
+import LandAndDebtFields from "./land-and-debt-fields";
 import YearlyIncomeSourceFields from "./yearly-income-source-fields";
 
 const formSchema = z.object({
-  candidate: z.object({
+  mustahikCandidate: z.object({
     name: z.string().min(1).max(50),
     religion: z.string().min(1).max(50),
     age: z.string().min(1).max(100),
-    profession: z.string().min(1).max(50),
-    guardian_name: z.string().min(1).max(50),
-    identification_number: z.string().min(1).max(100),
+    occupation: z.string().min(1).max(50),
+    identificationNumber: z.string().min(1).max(100),
+    fatherOrHusbandName: z.string().min(1).max(50),
   }),
-  status: z.enum(["green", "yellow", "red"], {
+  condition: z.enum(["green", "yellow", "red"], {
     required_error: "Required",
   }),
   address: z.object({
     village: z.string().min(1).max(50),
     union: z.string().min(1).max(50),
-    post_office: z.string().min(1).max(50),
-    police_station: z.string().min(1).max(50),
+    postOffice: z.string().min(1).max(50),
+    thana: z.string().min(1).max(50),
     district: z.string().min(1).max(50),
   }),
-
-  bank_account: z.object({
-    name: z.string().min(1).max(50),
-    bank: z.string().min(1).max(50),
-    number: z.string().min(1).max(50),
-    branch: z.string().min(1).max(50),
-  }),
-
-  family_info: z.array(
+  bankAccount: z.array(
+    z.object({
+      name: z.string().min(1).max(50),
+      bank: z.string().min(1).max(50),
+      accountNo: z.string().min(1).max(50),
+      branch: z.string().min(1).max(50),
+    })
+  ),
+  familialInformation: z.array(
     z.object({
       name: z.string().min(1).max(50),
       age: z.string().min(1).max(100),
       gender: z.string().min(1).max(100),
-      education: z.string().min(1).max(100),
-      relation: z.string().min(1).max(100),
-      profession: z.string().min(1).max(100),
-      special: z.string().min(1).max(100),
-      medication: z.string().min(1).max(100),
+      educationLevel: z.string().min(1).max(100),
+      relationToHeadOfFamily: z.string().min(1).max(100),
+      occupation: z.string().min(1).max(100),
+      disability: z.enum(["yes", "no"], {
+        required_error: "Required",
+      }),
+      child: z.enum(["yes", "no"], {
+        required_error: "Required",
+      }),
+      sick: z.enum(["yes", "no"], {
+        required_error: "Required",
+      }),
+      jobless: z.enum(["yes", "no"], {
+        required_error: "Required",
+      }),
+      ongoingMedicineOrTreatment: z.string().min(1).max(100),
     })
   ),
-  family_property: z.object({
-    house_percent: z.string().min(1).max(100),
-    land_percent: z.string().min(1).max(100),
-    cattle_number: z.string().min(1).max(100),
-    produce_machine: z.string().min(1).max(100),
-    hen_number: z.string().min(1).max(100),
-    cash_amount: z.string().min(1).max(100),
-    loan_amount: z.string().min(1).max(100),
+  landAndDebtDescription: z.object({
+    house: z.string().min(1).max(100),
+    land: z.string().min(1).max(100),
+    numberOfCowsOrGoats: z.string().min(1).max(100),
+    cultivationInstruments: z.string().min(1).max(100),
+    numberOfChickensOrDucks: z.string().min(1).max(100),
+    existingAssetInCurrency: z.string().min(1).max(100),
+    totalDebt: z.string().min(1).max(100),
   }),
-
-  debtors: z.array(
+  debtDescription: z.array(
     z.object({
       ngo: z.string().min(1).max(100),
       bank: z.string().min(1).max(100),
-      samabay: z.string().min(1).max(100),
-      dadan: z.string().min(1).max(100),
-      others: z.string().min(1).max(100),
-      debt_purpose: z.string().min(1).max(100),
+      somobay: z.string().min(1).max(100),
+      dadon: z.string().min(1).max(100),
+      misc: z.string().min(1).max(100),
+      purposeOfDebt: z.string().min(1).max(100),
     })
   ),
 
@@ -94,20 +104,33 @@ export default function AddMustahik() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      family_info: [
+      bankAccount: [
+        { accountNo: undefined, bank: undefined, branch: undefined, name: undefined },
+      ],
+      familialInformation: [
         {
-          name: "",
-          age: "",
-          education: "",
-          gender: "",
-          medication: "",
-          profession: "",
-          relation: "",
-          special: "",
+          name: undefined,
+          age: undefined,
+          educationLevel: undefined,
+          gender: undefined,
+          ongoingMedicineOrTreatment: undefined,
+          occupation: undefined,
+          relationToHeadOfFamily: undefined,
+          disability: undefined,
+          child: undefined,
+          jobless: undefined,
+          sick: undefined,
         },
       ],
-      debtors: [
-        { bank: "", dadan: "", debt_purpose: "", ngo: "", others: "", samabay: "" },
+      debtDescription: [
+        {
+          bank: undefined,
+          dadon: undefined,
+          purposeOfDebt: undefined,
+          ngo: undefined,
+          misc: undefined,
+          somobay: undefined,
+        },
       ],
     },
   });
@@ -129,7 +152,7 @@ export default function AddMustahik() {
           <section>
             <h1 className="mb-2 text-lg">অবস্থা</h1>
             <section className="grid grid-cols-3 gap-4">
-              <StatusRadio />
+              <ConditionRadio />
             </section>
           </section>
           <section>
@@ -141,9 +164,7 @@ export default function AddMustahik() {
 
           <section>
             <h1 className="mb-2 text-lg">ব্যাংক একাউন্ট</h1>
-            <section className="grid grid-cols-3 gap-4">
-              <BankAccountFields />
-            </section>
+            <BankAccountFields />
           </section>
 
           <section>
@@ -154,13 +175,13 @@ export default function AddMustahik() {
           <section>
             <h1 className="mb-2 text-lg">পারিবারিক সম্পত্তি</h1>
             <section className="grid grid-cols-3 gap-4">
-              <FamilyPropertyFields />
+              <LandAndDebtFields />
             </section>
           </section>
 
           <section>
             <h1 className="mb-2 text-lg">দেনার পরিমাণ</h1>
-            <DebtorsFields />
+            <DebtDescriptionFields />
           </section>
 
           <section>
