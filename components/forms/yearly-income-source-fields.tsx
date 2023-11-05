@@ -14,24 +14,24 @@ import { Input } from "@/components/ui/input";
 export default function YearlyIncomeSourceFields() {
   const form = useFormContext();
 
-  //   yearly_income_source: z.object({
-  //     farming: z.string().min(1).max(100),
-  //     small_business: z.string().min(1).max(100),
-  //     cattle: z.string().min(1).max(100),
-  //     kutir_business: z.string().min(1).max(100),
-  //     govt_fund: z.string().min(1).max(100),
-  //     job_income: z.string().min(1).max(100),
-  //     others_income: z.string().min(1).max(100),
-  //     total_worthy_income: z.string().min(1).max(100),
-  //     total_unworthy_income: z.string().min(1).max(100),
-  //     total_yearly_income: z.string().min(1).max(100),
-  //   }),
+  // sourceOfIncome: z.object({
+  //   farming: z.string().min(1).max(100),
+  //   business: z.string().min(1).max(100),
+  //   animals: z.string().min(1).max(100),
+  //   kutirBusiness: z.string().min(1).max(100),
+  //   governmentGrants: z.string().min(1).max(100),
+  //   job: z.string().min(1).max(100),
+  //   miscSources: z.string().min(1).max(100),
+  //   totalAmountOfCalculatableIncome: z.string().min(1).max(100),
+  //   totalAmountOfUnverifiedIncome: z.string().min(1).max(100),
+  //   totalYearlyIncome: z.string().min(1).max(100),
+  // }),
 
   return (
     <>
       <FormField
         control={form.control}
-        name="yearly_income_source.farming"
+        name="sourceOfIncome.farming"
         render={({ field }) => (
           <FormItem>
             <FormLabel>কৃষিকাজ</FormLabel>
@@ -45,7 +45,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.small_business"
+        name="sourceOfIncome.business"
         render={({ field }) => (
           <FormItem>
             <FormLabel>ক্ষুদ্র ব্যাবসা</FormLabel>
@@ -59,7 +59,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.cattle"
+        name="sourceOfIncome.animals"
         render={({ field }) => (
           <FormItem>
             <FormLabel>গরু / ছাগল</FormLabel>
@@ -73,7 +73,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.kutir_business"
+        name="sourceOfIncome.kutirBusiness"
         render={({ field }) => (
           <FormItem>
             <FormLabel>কুটির ব্যাবসা</FormLabel>
@@ -87,7 +87,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.govt_fund"
+        name="sourceOfIncome.governmentGrants"
         render={({ field }) => (
           <FormItem>
             <FormLabel>সরকারি ভাতা (বিধবা / বয়স্ক)</FormLabel>
@@ -101,7 +101,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.job_income"
+        name="sourceOfIncome.job"
         render={({ field }) => (
           <FormItem>
             <FormLabel>চাকুরী হতে আয়</FormLabel>
@@ -115,7 +115,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.others_income"
+        name="sourceOfIncome.miscSources"
         render={({ field }) => (
           <FormItem>
             <FormLabel>অন্যান্য উৎস হতে আয়</FormLabel>
@@ -129,7 +129,7 @@ export default function YearlyIncomeSourceFields() {
 
       <FormField
         control={form.control}
-        name="yearly_income_source.total_worthy_income"
+        name="sourceOfIncome.totalAmountOfCalculatableIncome"
         render={({ field }) => (
           <FormItem>
             <FormLabel>মোট যাচাইযোগ্য আয়</FormLabel>
@@ -142,7 +142,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.total_unworthy_income"
+        name="sourceOfIncome.totalAmountOfUnverifiedIncome"
         render={({ field }) => (
           <FormItem>
             <FormLabel>মোট যাচাই অযোগ্য আয়</FormLabel>
@@ -155,7 +155,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="yearly_income_source.total_yearly_income"
+        name="sourceOfIncome.totalYearlyIncome"
         render={({ field }) => (
           <FormItem>
             <FormLabel>মোট বাৎসরিক আয়</FormLabel>

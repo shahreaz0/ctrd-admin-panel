@@ -86,17 +86,17 @@ const formSchema = z.object({
     })
   ),
 
-  yearly_income_source: z.object({
-    farming: z.string().min(1).max(100),
-    small_business: z.string().min(1).max(100),
-    cattle: z.string().min(1).max(100),
-    kutir_business: z.string().min(1).max(100),
-    govt_fund: z.string().min(1).max(100),
-    job_income: z.string().min(1).max(100),
-    others_income: z.string().min(1).max(100),
-    total_worthy_income: z.string().min(1).max(100),
-    total_unworthy_income: z.string().min(1).max(100),
-    total_yearly_income: z.string().min(1).max(100),
+  sourceOfIncome: z.object({
+    farming: z.coerce.number().nonnegative().min(1),
+    business: z.coerce.number().nonnegative().min(1),
+    animals: z.coerce.number().nonnegative().min(1),
+    kutirBusiness: z.coerce.number().nonnegative().min(1),
+    governmentGrants: z.coerce.number().nonnegative().min(1),
+    job: z.coerce.number().nonnegative().min(1),
+    miscSources: z.coerce.number().nonnegative().min(1),
+    totalAmountOfCalculatableIncome: z.coerce.number().nonnegative().min(1),
+    totalAmountOfUnverifiedIncome: z.coerce.number().nonnegative().min(1),
+    totalYearlyIncome: z.coerce.number().nonnegative().min(1),
   }),
 });
 
@@ -122,16 +122,16 @@ export default function AddMustahik() {
           sick: undefined,
         },
       ],
-      debtDescription: [
-        {
-          bank: undefined,
-          dadon: undefined,
-          purposeOfDebt: undefined,
-          ngo: undefined,
-          misc: undefined,
-          somobay: undefined,
-        },
-      ],
+      // debtDescription: [
+      //   {
+      //     bank: undefined,
+      //     dadon: undefined,
+      //     purposeOfDebt: undefined,
+      //     ngo: undefined,
+      //     misc: undefined,
+      //     somobay: undefined,
+      //   },
+      // ],
     },
   });
 

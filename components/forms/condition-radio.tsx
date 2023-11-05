@@ -17,7 +17,7 @@ export default function StatusRadio() {
   return (
     <FormField
       control={form.control}
-      name="status"
+      name="condition"
       render={({ field }) => (
         <FormItem className="space-y-3">
           <FormLabel>বর্তমান অবস্থা</FormLabel>
