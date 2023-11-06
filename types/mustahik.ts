@@ -151,85 +151,157 @@ export const mustahik = {
 
 export const formSchema = z.object({
   mustahikCandidate: z.object({
-    name: z.string().min(1).max(50),
-    religion: z.string().min(1).max(50),
-    age: z.string().min(1).max(100),
-    occupation: z.string().min(1).max(50),
-    identificationNumber: z.string().min(1).max(100),
-    fatherOrHusbandName: z.string().min(1).max(50),
+    name: z.string().min(1, "Required").max(100),
+    religion: z.string().min(1, "Required").max(100),
+    age: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .positive("Please enter positive number")
+      .max(150),
+    occupation: z.string().min(1, "Required").max(100),
+    identificationNumber: z.string().min(1, "Required").max(100),
+    fatherOrHusbandName: z.string().min(1, "Required").max(100),
   }),
   condition: z.enum(["green", "yellow", "red"], {
     required_error: "Required",
   }),
   address: z.object({
-    village: z.string().min(1).max(50),
-    union: z.string().min(1).max(50),
-    postOffice: z.string().min(1).max(50),
-    thana: z.string().min(1).max(50),
-    district: z.string().min(1).max(50),
+    village: z.string().min(1, "Required").max(100),
+    union: z.string().min(1, "Required").max(100),
+    postOffice: z.string().min(1, "Required").max(100),
+    thana: z.string().min(1, "Required").max(100),
+    district: z.string().min(1, "Required").max(100),
   }),
-
   bankAccount: z.array(
     z.object({
-      name: z.string().min(1).max(50),
-      bank: z.string().min(1).max(50),
-      accountNo: z.string().min(1).max(50),
-      branch: z.string().min(1).max(50),
+      name: z.string().min(1, "Required").max(100),
+      bank: z.string().min(1, "Required").max(100),
+      accountNo: z.string().min(1, "Required").max(100),
+      branch: z.string().min(1, "Required").max(100),
     })
   ),
   familialInformation: z.array(
     z.object({
-      name: z.string().min(1).max(50),
-      age: z.string().min(1).max(100),
-      gender: z.string().min(1).max(100),
-      educationLevel: z.string().min(1).max(100),
-      relationToHeadOfFamily: z.string().min(1).max(100),
-      occupation: z.string().min(1).max(100),
-      disability: z.enum(["yes", "no"], {
+      name: z.string().min(1, "Required").max(50),
+      age: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .positive("Please enter positive number")
+        .max(150),
+      gender: z.enum(["male", "female"], {
         required_error: "Required",
       }),
-      child: z.enum(["yes", "no"], {
-        required_error: "Required",
-      }),
-      sick: z.enum(["yes", "no"], {
-        required_error: "Required",
-      }),
-      jobless: z.enum(["yes", "no"], {
-        required_error: "Required",
-      }),
-      ongoingMedicineOrTreatment: z.string().min(1).max(100),
+      educationLevel: z.string().min(1, "Required").max(100),
+      relationToHeadOfFamily: z.string().min(1, "Required").max(100),
+      occupation: z.string().min(1, "Required").max(100),
+      disability: z
+        .enum(["yes", "no"], {
+          required_error: "Required",
+        })
+        .transform((value) => value === "yes"),
+      child: z
+        .enum(["yes", "no"], {
+          required_error: "Required",
+        })
+        .transform((value) => value === "yes"),
+      sick: z
+        .enum(["yes", "no"], {
+          required_error: "Required",
+        })
+        .transform((value) => value === "yes"),
+      jobless: z
+        .enum(["yes", "no"], {
+          required_error: "Required",
+        })
+        .transform((value) => value === "yes"),
+      ongoingMedicineOrTreatment: z.string().min(1, "Required").max(100),
     })
   ),
   landAndDebtDescription: z.object({
-    house: z.string().min(1).max(100),
-    land: z.string().min(1).max(100),
-    numberOfCowsOrGoats: z.string().min(1).max(100),
-    cultivationInstruments: z.string().min(1).max(100),
-    numberOfChickensOrDucks: z.string().min(1).max(100),
-    existingAssetInCurrency: z.string().min(1).max(100),
-    totalDebt: z.string().min(1).max(100),
+    house: z.string().min(1, "Required").max(100),
+    land: z.string().min(1, "Required").max(100),
+    numberOfCowsOrGoats: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    cultivationInstruments: z.string().min(1, "Required").max(100),
+    numberOfChickensOrDucks: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    existingAssetInCurrency: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    totalDebt: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
   }),
   debtDescription: z.array(
     z.object({
-      ngo: z.string().min(1).max(100),
-      bank: z.string().min(1).max(100),
-      somobay: z.string().min(1).max(100),
-      dadon: z.string().min(1).max(100),
-      misc: z.string().min(1).max(100),
-      purposeOfDebt: z.string().min(1).max(100),
+      ngo: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      bank: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      somobay: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      dadon: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      misc: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      purposeOfDebt: z.string().min(1, "Required").max(100),
     })
   ),
 
   sourceOfIncome: z.object({
-    farming: z.coerce.number().min(1).max(100),
-    business: z.coerce.number().min(1).max(100),
-    animals: z.coerce.number().min(1).max(100),
-    kutirBusiness: z.coerce.number().min(1).max(100),
-    governmentGrants: z.coerce.number().min(1).max(100),
-    job: z.coerce.number().min(1).max(100),
-    miscSources: z.coerce.number().min(1).max(100),
-    totalAmountOfCalculatableIncome: z.coerce.number().min(1).max(100),
-    totalAmountOfUnverifiedIncome: z.coerce.number().min(1).max(100),
-    totalYearlyIncome: z.coerce.number().min(1).max(100),
+    farming: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    business: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    animals: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    kutirBusiness: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    governmentGrants: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    job: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    miscSources: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    totalAmountOfCalculatableIncome: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    totalAmountOfUnverifiedIncome: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    totalYearlyIncome: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
   }),
 });

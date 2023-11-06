@@ -11,10 +11,14 @@ import AddressFields from "./address-fields";
 import BankAccountFields from "./bank-account-fields";
 import CandidateFields from "./candidate-fields";
 import ConditionRadio from "./condition-radio";
+import CriteriaEmployementFields from "./criteria-employment-fields";
+import CriteriaInsaniatFields from "./criteria-insaniat-fields";
 import DebtDescriptionFields from "./debt-description-fields";
 import FamilyInfoFields from "./family-info-fields";
+import HealthInfoFields from "./health-info-fields";
+import IncomeSourceFields from "./income-source-fields";
 import LandAndDebtFields from "./land-and-debt-fields";
-import YearlyIncomeSourceFields from "./yearly-income-source-fields";
+import SpendingFields from "./spending-fields";
 
 const formSchema = z.object({
   mustahikCandidate: z.object({
@@ -40,23 +44,25 @@ const formSchema = z.object({
   }),
   bankAccount: z.array(
     z.object({
-      name: z.string().min(1).max(50),
-      bank: z.string().min(1).max(50),
-      accountNo: z.string().min(1).max(50),
-      branch: z.string().min(1).max(50),
+      name: z.string().min(1, "Required").max(100),
+      bank: z.string().min(1, "Required").max(100),
+      accountNo: z.string().min(1, "Required").max(100),
+      branch: z.string().min(1, "Required").max(100),
     })
   ),
   familialInformation: z.array(
     z.object({
-      name: z.string().min(1).max(50),
+      name: z.string().min(1, "Required").max(50),
       age: z.coerce
         .number({ invalid_type_error: "Required" })
         .positive("Please enter positive number")
         .max(150),
-      gender: z.string().min(1).max(100),
-      educationLevel: z.string().min(1).max(100),
-      relationToHeadOfFamily: z.string().min(1).max(100),
-      occupation: z.string().min(1).max(100),
+      gender: z.enum(["male", "female"], {
+        required_error: "Required",
+      }),
+      educationLevel: z.string().min(1, "Required").max(100),
+      relationToHeadOfFamily: z.string().min(1, "Required").max(100),
+      occupation: z.string().min(1, "Required").max(100),
       disability: z
         .enum(["yes", "no"], {
           required_error: "Required",
@@ -81,22 +87,49 @@ const formSchema = z.object({
     })
   ),
   landAndDebtDescription: z.object({
-    house: z.string().min(1).max(100),
-    land: z.string().min(1).max(100),
-    numberOfCowsOrGoats: z.string().min(1).max(100),
-    cultivationInstruments: z.string().min(1).max(100),
-    numberOfChickensOrDucks: z.string().min(1).max(100),
-    existingAssetInCurrency: z.string().min(1).max(100),
-    totalDebt: z.string().min(1).max(100),
+    house: z.string().min(1, "Required").max(100),
+    land: z.string().min(1, "Required").max(100),
+    numberOfCowsOrGoats: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    cultivationInstruments: z.string().min(1, "Required").max(100),
+    numberOfChickensOrDucks: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    existingAssetInCurrency: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    totalDebt: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
   }),
   debtDescription: z.array(
     z.object({
-      ngo: z.string().min(1).max(100),
-      bank: z.string().min(1).max(100),
-      somobay: z.string().min(1).max(100),
-      dadon: z.string().min(1).max(100),
-      misc: z.string().min(1).max(100),
-      purposeOfDebt: z.string().min(1).max(100),
+      ngo: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      bank: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      somobay: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      dadon: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      misc: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .nonnegative("Please enter positive number")
+        .safe(),
+      purposeOfDebt: z.string().min(1, "Required").max(100),
     })
   ),
 
@@ -141,6 +174,66 @@ const formSchema = z.object({
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
+  }),
+  fieldsOfSpending: z.object({
+    food: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    education: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    medicineOrTreatment: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    debtInstallments: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    misc: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    totalYearlySpending: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+  }),
+  healthRelatedInfo: z.object({
+    lastingSicknesses: z.string().min(1, "Required").max(100),
+    ongoingTreatmentOrMedicine: z.string().min(1, "Required").max(100),
+    pregnancy: z
+      .enum(["yes", "no"], {
+        required_error: "Required",
+      })
+      .transform((value) => value === "yes"),
+    chronicSickness: z
+      .enum(["yes", "no"], {
+        required_error: "Required",
+      })
+      .transform((value) => value === "yes"),
+    cataract: z
+      .enum(["yes", "no"], {
+        required_error: "Required",
+      })
+      .transform((value) => value === "yes"),
+    hearingProblem: z
+      .enum(["yes", "no"], {
+        required_error: "Required",
+      })
+      .transform((value) => value === "yes"),
+    disable: z
+      .enum(["yes", "no"], {
+        required_error: "Required",
+      })
+      .transform((value) => value === "yes"),
+    healthEducation: z
+      .enum(["yes", "no"], {
+        required_error: "Required",
+      })
+      .transform((value) => value === "yes"),
   }),
 });
 
@@ -231,7 +324,39 @@ export default function AddMustahik() {
           <section>
             <h1 className="mb-2 text-lg">বাৎসরিক পারিবারিক আয়ের উৎস</h1>
             <section className="grid grid-cols-3 gap-4">
-              <YearlyIncomeSourceFields />
+              <IncomeSourceFields />
+            </section>
+          </section>
+
+          <section>
+            <h1 className="mb-2 text-lg">বাৎসরিক পারিবারিক বায়ের খাতসমূহ</h1>
+            <section className="grid grid-cols-3 gap-4">
+              <SpendingFields />
+            </section>
+          </section>
+
+          <section>
+            <h1 className="mb-2 text-lg">স্বাস্থ্য সংক্রান্ত তথ্য </h1>
+            <section className="grid grid-cols-3 gap-4">
+              <HealthInfoFields />
+            </section>
+          </section>
+
+          <section>
+            <h1 className="text-lg">চাহিদা নিরুপন</h1>
+            <section className="mt-2 grid grid-cols-3 gap-4">
+              <section>
+                <h1 className="mb-2 text-base text-gray-400">ইনসানিয়াত</h1>
+                <CriteriaInsaniatFields />
+              </section>
+              <section>
+                <h1 className="mb-2 text-base text-gray-400">কর্মসংস্থান</h1>
+                <CriteriaEmployementFields />
+              </section>
+              <section>
+                <h1 className="mb-2 text-base text-gray-400">শিক্ষা</h1>
+                <CriteriaInsaniatFields />
+              </section>
             </section>
           </section>
 
