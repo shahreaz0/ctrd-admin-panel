@@ -9,8 +9,6 @@ import { cn } from "@/lib/utils";
 export default function Sidebar() {
   const pathname = usePathname();
 
-  console.log(pathname);
-
   return (
     <div className="flex h-screen basis-1/5 flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
