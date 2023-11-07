@@ -144,3 +144,38 @@ export const mustahik = {
     fiSabilillah: false,
   }, //only one codition should be taken so it can be only mustahik or fakir or miskin, but right now our instruction is to make everything mandatory
 };
+
+export const users = {
+  id: 234234,
+  firstName: "John",
+  lastName: "Doe",
+  fathersName: "Muhammad Ali",
+  mothersName: "Mary Smith",
+  NID: "1234567890",
+  avatar: "base64",
+  presentAddress: "123 Main Street, City, Country",
+  permanentAddress: "456 Oak Avenue, Town, Country",
+  dateOfJoining: "2023-01-15",
+  monthlySalary: 5000,
+  department: "Human Resources",
+  projectManager: {
+    id: 923898,
+    firstName: "Jane",
+    lastName: "Smith",
+    avatar: "base64",
+  },
+  dateOfBirth: "1995-12-05",
+  status: "active", //active means can log in
+  enrolled: [
+    {
+      programName: "Program X",
+      programUUID: "123e4567-e89b-12d3-a456-426614174002",
+      programStatus: "fieldWorker",
+    },
+    {
+      programName: "Program Y",
+      programUUID: "123e4567-e89b-12d3-a456-426614174003",
+      programStatus: "manager",
+    },
+  ],
+};
