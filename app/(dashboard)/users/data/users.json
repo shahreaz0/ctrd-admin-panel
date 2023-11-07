@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "phoneNumber": "019996653542",
     "firstName": "John",
     "lastName": "Doe",
     "fathersName": "Muhammad Ali",
@@ -34,7 +35,8 @@
     ]
   },
   {
-    "id": 1,
+    "id": 2,
+    "phoneNumber": "019996653542",
     "firstName": "John",
     "lastName": "Doe",
     "fathersName": "Muhammad Ali",
@@ -53,7 +55,7 @@
       "avatar": "base64"
     },
     "dateOfBirth": "1995-12-05",
-    "status": "active",
+    "status": "inactive",
     "enrolled": [
       {
         "programName": "Program X",
@@ -68,7 +70,8 @@
     ]
   },
   {
-    "id": 1,
+    "id": 3,
+    "phoneNumber": "019996653542",
     "firstName": "John",
     "lastName": "Doe",
     "fathersName": "Muhammad Ali",
@@ -87,7 +90,7 @@
       "avatar": "base64"
     },
     "dateOfBirth": "1995-12-05",
-    "status": "active",
+    "status": "inactive",
     "enrolled": [
       {
         "programName": "Program X",
@@ -102,7 +105,8 @@
     ]
   },
   {
-    "id": 1,
+    "id": 4,
+    "phoneNumber": "019996653542",
     "firstName": "John",
     "lastName": "Doe",
     "fathersName": "Muhammad Ali",

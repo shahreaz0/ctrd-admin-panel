@@ -1,12 +1,12 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { Metadata } from "next";
-import { z } from "zod";
+
+import { User } from "@/types/user";
 
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
 import { UserNav } from "./components/user-nav";
-import { taskSchema } from "./data/schema";
 
 export const metadata: Metadata = {
   title: "Users",
@@ -15,25 +15,23 @@ export const metadata: Metadata = {
 
 async function getTasks() {
   const data = await fs.readFile(
-    path.join(process.cwd(), "app/(dashboard)/tasks/data/tasks.json")
+    path.join(process.cwd(), "app/(dashboard)/users/data/users.json")
   );
 
-  const tasks = JSON.parse(data.toString());
-
-  return z.array(taskSchema).parse(tasks);
+  return JSON.parse(data.toString()) as User[];
 }
 
 export default async function TaskPage() {
-  const tasks = await getTasks();
+  const users = await getTasks();
 
   return (
     <>
-      <div className="relative hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+      <div className="relative   flex-1 flex-col space-y-8 px-8 md:flex">
         <div className="flex justify-between">
           <p className="text-lg font-medium">Users</p>
           <UserNav />
         </div>
-        <DataTable data={tasks} columns={columns} />
+        <DataTable data={users} columns={columns} />
       </div>
     </>
   );
