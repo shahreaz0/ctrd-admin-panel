@@ -1,6 +1,16 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { cn } from "@/lib/utils";
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
+  console.log(pathname);
+
   return (
     <div className="flex h-screen basis-1/5 flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
@@ -10,24 +20,30 @@ export default function Sidebar() {
 
         <ul className="mt-6 space-y-1">
           <li>
-            <a
-              href=""
-              className="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
+            <Link
+              href="/dashboard"
+              className={cn(
+                "block rounded-l px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+                pathname === "/dashboard" && "bg-gray-100 text-gray-700"
+              )}
             >
               Dashboard
-            </a>
+            </Link>
           </li>
 
           <li>
-            <a
-              href=""
-              className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            <Link
+              href="/users"
+              className={cn(
+                "block rounded-l px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+                pathname === "/users" && "bg-gray-100 text-gray-700"
+              )}
             >
               Users
-            </a>
+            </Link>
           </li>
 
-          <li>
+          {/* <li>
             <details className="group [&_summary::-webkit-details-marker]:hidden">
               <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
                 <span className="text-sm font-medium"> Approved </span>
@@ -77,15 +93,18 @@ export default function Sidebar() {
                 </li>
               </ul>
             </details>
-          </li>
+          </li> */}
 
           <li>
-            <a
-              href=""
-              className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            <Link
+              href="/programs"
+              className={cn(
+                "block rounded-l px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+                pathname === "/programs" && "bg-gray-100 text-gray-700"
+              )}
             >
               Programs
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
