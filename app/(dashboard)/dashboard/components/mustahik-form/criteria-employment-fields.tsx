@@ -10,19 +10,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { Input } from "../ui/input";
+import { Input } from "../../../../../components/ui/input";
 
-export default function CriteriaEducationFields() {
+export default function CriteriaEmployementFields() {
   const form = useFormContext();
 
-  //   education: {
-  //     childrensEducation: true,
-  //     educationHelp: true,
-  //     books: true,
-  //     instruments: true,
-  //     childrensClothings: true,
-  //     food: true,
-  //     quranEducation: true,
+  //   employment: {
+  //     biniyog: true,
+  //     land: true,
+  //     kutir: true,
+  //     cultivatingInstruments: true,
+  //     cowsOrGoats: true,
+  //     hensOrDucks: true,
+  //     business: true,
+  //     farmingEquipments: true,
   //     misc: true,
   //   },
 
@@ -30,10 +31,10 @@ export default function CriteriaEducationFields() {
     <section className="space-y-4">
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.childrensEducation"
+        name="criteriaToGrant.employment.biniyog"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>শিশু শিক্ষা</FormLabel>
+            <FormLabel>বিনিয়োগ পুঁজি</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -45,10 +46,10 @@ export default function CriteriaEducationFields() {
 
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.educationHelp"
+        name="criteriaToGrant.employment.land"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>শিক্ষা সহায়তা</FormLabel>
+            <FormLabel>কৃষিজমি</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -60,10 +61,10 @@ export default function CriteriaEducationFields() {
 
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.books"
+        name="criteriaToGrant.employment.kutir"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>পাঠ্যবই</FormLabel>
+            <FormLabel>কুটির</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -75,10 +76,10 @@ export default function CriteriaEducationFields() {
 
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.instruments"
+        name="criteriaToGrant.employment.cultivatingInstruments"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>শিক্ষা উপকরণ</FormLabel>
+            <FormLabel>উৎপাদন যন্ত্র</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -90,10 +91,10 @@ export default function CriteriaEducationFields() {
 
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.childrensClothings"
+        name="criteriaToGrant.employment.cowsOrGoats"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>শিশু বস্ত্র</FormLabel>
+            <FormLabel>গবাদি পশু</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -104,10 +105,10 @@ export default function CriteriaEducationFields() {
       />
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.food"
+        name="criteriaToGrant.employment.hensOrDucks"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>পুষ্টিকর খাবার</FormLabel>
+            <FormLabel>হাঁস মুরগি</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -118,10 +119,10 @@ export default function CriteriaEducationFields() {
       />
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.quranEducation"
+        name="criteriaToGrant.employment.business"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>কুরআন শিক্ষা</FormLabel>
+            <FormLabel>ক্ষুদ্র ব্যাবসায়ের জন্য পুঁজি</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -132,7 +133,21 @@ export default function CriteriaEducationFields() {
       />
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.misc"
+        name="criteriaToGrant.employment.farmingEquipments"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>কৃষি যন্ত্র</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="criteriaToGrant.employment.misc"
         render={({ field }) => (
           <FormItem>
             <FormLabel>অন্যান্য</FormLabel>

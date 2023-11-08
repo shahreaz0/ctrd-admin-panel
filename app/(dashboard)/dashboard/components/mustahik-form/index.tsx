@@ -344,6 +344,7 @@ export default function AddMustahik() {
       opinion,
     };
 
+    // eslint-disable-next-line no-console
     console.log(payload);
   }
 
