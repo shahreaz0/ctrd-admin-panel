@@ -5,8 +5,8 @@ import { Metadata } from "next";
 import { User } from "@/types/user";
 
 import { columns } from "./components/columns";
-import { DataTable } from "./components/data-table";
-import { UserNav } from "./components/user-nav";
+import DataTable from "./components/data-table";
+import UserNav from "./components/user-nav";
 
 export const metadata: Metadata = {
   title: "Users",
