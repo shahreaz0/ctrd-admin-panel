@@ -13,14 +13,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { Button } from "../../../../../components/ui/button";
+import { Button } from "../../../../components/ui/button";
 
-export default function BankAccountFields() {
+export default function DebtorsFields() {
   const form = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "bankAccount",
+    name: "debtDescription",
   });
 
   return (
@@ -45,12 +45,26 @@ export default function BankAccountFields() {
             <section key={field.id} className="grid grid-cols-3 gap-4">
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.name`}
+                name={`debtDescription.${index}.ngo`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>নাম</FormLabel>
+                    <FormLabel>NGO</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} type="number" />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={`debtDescription.${index}.bank`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bank</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="number" />
                     </FormControl>
 
                     <FormMessage />
@@ -60,12 +74,12 @@ export default function BankAccountFields() {
 
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.bank`}
+                name={`debtDescription.${index}.somobay`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ব্যাংক</FormLabel>
+                    <FormLabel>সমবায়</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} type="number" />
                     </FormControl>
 
                     <FormMessage />
@@ -75,12 +89,12 @@ export default function BankAccountFields() {
 
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.accountNo`}
+                name={`debtDescription.${index}.dadon`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>একাউন্ট নং</FormLabel>
+                    <FormLabel>দাদন</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} type="number" />
                     </FormControl>
 
                     <FormMessage />
@@ -90,10 +104,25 @@ export default function BankAccountFields() {
 
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.branch`}
+                name={`debtDescription.${index}.misc`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ব্রাঞ্চ</FormLabel>
+                    <FormLabel>অন্যান্য</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="number" />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name={`debtDescription.${index}.purposeOfDebt`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>দেনার উদ্দেশ্য</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -110,14 +139,16 @@ export default function BankAccountFields() {
       <Button
         className="mt-4 w-full"
         type="button"
-        onClick={() => {
+        onClick={() =>
           append({
-            accountNo: "",
-            bank: "",
-            branch: "",
-            name: "",
-          });
-        }}
+            bank: undefined,
+            dadon: undefined,
+            purposeOfDebt: undefined,
+            ngo: undefined,
+            misc: undefined,
+            somobay: undefined,
+          })
+        }
       >
         Add Another
       </Button>
