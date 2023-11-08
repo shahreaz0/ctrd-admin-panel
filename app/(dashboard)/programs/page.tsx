@@ -1,7 +1,11 @@
+import Programs from "./components/programs";
+
 export default function ProgramsPage() {
   return (
     <section className="px-8">
-      <h2>Programs</h2>
+      <p className="text-lg font-medium">Programs</p>
+
+      <Programs />
     </section>
   );
 }

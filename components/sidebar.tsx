@@ -9,11 +9,13 @@ import { cn } from "@/lib/utils";
 export default function Sidebar() {
   const pathname = usePathname();
 
+  // bg-primary text-primary-foreground
+
   return (
     <div className="flex h-screen basis-1/5 flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
         <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-          Logo
+          CTRD
         </span>
 
         <ul className="mt-6 space-y-1">
@@ -21,8 +23,9 @@ export default function Sidebar() {
             <Link
               href="/dashboard"
               className={cn(
-                "block rounded-l px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
-                pathname === "/dashboard" && "bg-gray-100 text-gray-700"
+                "block rounded-md px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+                pathname === "/dashboard" &&
+                  "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
               )}
             >
               Dashboard
@@ -33,8 +36,9 @@ export default function Sidebar() {
             <Link
               href="/users"
               className={cn(
-                "block rounded-l px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
-                pathname === "/users" && "bg-gray-100 text-gray-700"
+                "block rounded-md px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+                pathname === "/users" &&
+                  "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
               )}
             >
               Users
@@ -97,8 +101,9 @@ export default function Sidebar() {
             <Link
               href="/programs"
               className={cn(
-                "block rounded-l px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
-                pathname === "/programs" && "bg-gray-100 text-gray-700"
+                "block rounded-md px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+                pathname === "/programs" &&
+                  "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
               )}
             >
               Programs
