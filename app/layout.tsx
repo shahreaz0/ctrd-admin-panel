@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import React from "react";
 import { Metadata } from "next";
+import { Toaster } from "sonner";
 
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={cn("bg-background font-sans antialiased", fontSans.variable)}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
+          <Toaster richColors />
           <TailwindIndicator />
         </ThemeProvider>
       </body>

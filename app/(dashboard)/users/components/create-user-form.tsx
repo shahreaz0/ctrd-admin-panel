@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 import { cn } from "@/lib/utils";
@@ -53,6 +54,8 @@ export default function CreateUserForm(props: Props) {
     console.log(values);
 
     props.isOpen(false);
+
+    toast.success("User created", { description: "User has been created successfully." });
   }
 
   return (
