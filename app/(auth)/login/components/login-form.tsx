@@ -109,11 +109,7 @@ export default function LoginForm() {
             </Link>
           </section>
 
-          <Button
-            type="submit"
-            className="mt-4 w-full"
-            disabled={isLoading || !form.formState.isValid}
-          >
+          <Button type="submit" className="mt-4 w-full" disabled={isLoading}>
             {isLoading && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Login
           </Button>
         </form>
