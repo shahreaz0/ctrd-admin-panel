@@ -12,12 +12,7 @@ export default function PasswordInput(props: InputProps) {
 
   return (
     <div className="relative">
-      <Input
-        type={passwordShow ? "text" : "password"}
-        placeholder="Pa$$w0rd!"
-        {...props}
-        className="pr-12"
-      />
+      <Input type={passwordShow ? "text" : "password"} {...props} className="pr-12" />
       <span className="absolute inset-y-0 right-3 inline-flex items-center">
         {passwordShow ? (
           <Eye

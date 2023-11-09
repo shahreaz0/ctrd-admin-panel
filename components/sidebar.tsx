@@ -9,14 +9,14 @@ import { cn } from "@/lib/utils";
 export default function Sidebar() {
   const pathname = usePathname();
 
-  // bg-primary text-primary-foreground
-
   return (
     <div className="flex h-screen basis-1/5 flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
-        <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-          CTRD
-        </span>
+        <Link href="/">
+          <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
+            CTRD
+          </span>
+        </Link>
 
         <ul className="mt-6 space-y-1">
           <li>
