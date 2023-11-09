@@ -1,12 +1,10 @@
-"use client";
-
-import ModeToggle from "@/components/mode-toggle";
+import Image from "next/image";
+import logo from "@/public/the-citizen-trust.svg";
 
 export default function Home() {
   return (
-    <main>
-      <ModeToggle />
-      <h1>CTRD Admin Panel</h1>
+    <main className="flex h-screen items-center justify-center">
+      <Image src={logo} alt="The Citizen Trust" width={100} className="mb-16" />
     </main>
   );
 }
