@@ -10,7 +10,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen basis-1/5 flex-col justify-between border-e bg-white">
+    <div className="flex h-screen w-[300px] flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
         <Link href="/">
           <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
