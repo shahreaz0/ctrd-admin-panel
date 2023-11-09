@@ -1,6 +1,15 @@
 import { ReactNode } from "react";
+import Link from "next/link";
 import { Menu } from "lucide-react";
 
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import Sidebar from "@/components/sidebar";
 
 type Props = {
@@ -14,7 +23,31 @@ export default function DashboardLayout(props: Props) {
       </section>
 
       <section className="absolute right-8 top-4 z-50 block cursor-pointer md:hidden">
-        <Menu className="h-6 w-6 " />
+        <Sheet>
+          <SheetTrigger>
+            <Menu className="h-6 w-6 " />
+          </SheetTrigger>
+          <SheetContent className="w-[250px]">
+            <SheetHeader>
+              <SheetTitle>
+                <p className="mt-8 text-right">CTRD Admin Panel</p>
+              </SheetTitle>
+              <SheetDescription>
+                <ul className="mt-4 space-y-2 text-right">
+                  <li>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link href="/users">Users</Link>
+                  </li>
+                  <li>
+                    <Link href="/programs">Programs</Link>
+                  </li>
+                </ul>
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </section>
 
       <section className="h-screen w-full overflow-auto border-red-700 py-4">
