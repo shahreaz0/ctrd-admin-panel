@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import logo from "@/public/the-citizen-trust.svg";
 
 import { Card } from "@/components/ui/card";
 
 import LoginForm from "./components/login-form";
+
+export const metadata: Metadata = {
+  title: "Login",
+  description: "User login form",
+};
 
 export default function LoginPage() {
   return (

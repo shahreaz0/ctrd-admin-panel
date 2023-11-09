@@ -1,7 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RotateCw } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -34,11 +37,24 @@ export default function LoginForm() {
     resolver: zodResolver(formSchema),
   });
 
+  const [isLoading, setLoading] = useState(false);
+
+  const router = useRouter();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     // eslint-disable-next-line no-console
     console.log(values);
 
-    toast.success("User created", { description: "User has been created successfully." });
+    setLoading(true);
+
+    toast.success("Welcome Back!", {
+      description: "You have successfully logged in.",
+    });
+
+    setTimeout(() => {
+      router.push("/dashboard");
+      setLoading(false);
+    }, 2000);
   }
 
   return (
@@ -93,8 +109,12 @@ export default function LoginForm() {
             </Link>
           </section>
 
-          <Button type="submit" className="mt-4 w-full">
-            Login
+          <Button
+            type="submit"
+            className="mt-4 w-full"
+            disabled={isLoading || !form.formState.isValid}
+          >
+            {isLoading && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Login
           </Button>
         </form>
       </Form>
