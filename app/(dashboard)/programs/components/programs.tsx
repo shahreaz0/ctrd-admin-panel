@@ -24,14 +24,15 @@ export default function Programs() {
 
       <RadioGroup defaultValue="p1" className="grid grid-cols-4 gap-4">
         <div>
-          <RadioGroupItem value="p1" id="p2" className="peer sr-only" />
+          <RadioGroupItem value="p1" id="p1" className="peer sr-only" />
           <Label
-            htmlFor="p2"
+            htmlFor="p1"
             className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
           >
             Program
           </Label>
         </div>
+
         <div>
           <RadioGroupItem value="p2" id="p2" className="peer sr-only" />
           <Label

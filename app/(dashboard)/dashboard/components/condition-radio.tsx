@@ -1,5 +1,6 @@
 "use client";
 
+import { Label } from "@radix-ui/react-label";
 import { useFormContext } from "react-hook-form";
 
 import {
@@ -25,27 +26,48 @@ export default function StatusRadio() {
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="flex space-y-1"
+              className="grid grid-cols-3 gap-4"
             >
-              <FormItem className="flex items-center space-x-3 space-y-0">
+              <FormItem>
                 <FormControl>
-                  <RadioGroupItem value="green" />
+                  <div>
+                    <RadioGroupItem value="green" id="green" className="peer sr-only" />
+                    <Label
+                      htmlFor="green"
+                      className="flex flex-col items-center justify-between rounded-md border border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      সবুজ
+                    </Label>
+                  </div>
                 </FormControl>
-                <FormLabel className="font-normal text-green-600">সবুজ</FormLabel>
               </FormItem>
 
-              <FormItem className="flex items-center space-x-3 space-y-0">
+              <FormItem>
                 <FormControl>
-                  <RadioGroupItem value="yellow" />
+                  <div>
+                    <RadioGroupItem value="yellow" id="yellow" className="peer sr-only" />
+                    <Label
+                      htmlFor="yellow"
+                      className="flex flex-col items-center justify-between rounded-md border border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      হলুদ
+                    </Label>
+                  </div>
                 </FormControl>
-                <FormLabel className="font-normal text-yellow-600">হলুদ</FormLabel>
               </FormItem>
 
-              <FormItem className="flex items-center space-x-3 space-y-0">
+              <FormItem className="cursor-pointer">
                 <FormControl>
-                  <RadioGroupItem value="red" />
+                  <div>
+                    <RadioGroupItem value="red" id="red" className="peer sr-only" />
+                    <Label
+                      htmlFor="red"
+                      className="flex flex-col items-center justify-between rounded-md border border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      লাল
+                    </Label>
+                  </div>
                 </FormControl>
-                <FormLabel className="font-normal text-red-600">লাল</FormLabel>
               </FormItem>
             </RadioGroup>
           </FormControl>

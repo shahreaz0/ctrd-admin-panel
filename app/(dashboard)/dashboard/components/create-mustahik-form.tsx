@@ -360,9 +360,9 @@ export default function AddMustahik() {
           </section>
           <section>
             <h1 className="mb-2 text-lg">অবস্থা</h1>
-            <section className="grid grid-cols-3 gap-4">
-              <ConditionRadio />
-            </section>
+            {/* <section className="grid grid-cols-3 gap-4"> */}
+            <ConditionRadio />
+            {/* </section> */}
           </section>
           <section>
             <h1 className="mb-2 text-lg">ঠিকানা</h1>
