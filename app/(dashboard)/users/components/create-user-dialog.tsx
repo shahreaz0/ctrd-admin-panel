@@ -17,14 +17,21 @@ type Props = {
 
 export default function CreateUserDialog(props: Props) {
   return (
-    <Dialog open={props.open} onOpenChange={props.isOpen}>
-      <DialogContent className="top-[50%] max-h-[500px] max-w-[700px] overflow-auto">
+    <Dialog
+      open={props.open}
+      onOpenChange={() => {
+        props.isOpen(false);
+        setTimeout(() => (document.body.style.pointerEvents = ""), 200);
+      }}
+    >
+      <DialogContent className="top-[50%] max-h-[80vh] max-w-[700px] overflow-auto">
         <DialogHeader>
           <DialogTitle>Create User</DialogTitle>
           <DialogDescription>
             Please give necessary information to create a user
           </DialogDescription>
         </DialogHeader>
+
         <CreateUserForm isOpen={props.isOpen} />
       </DialogContent>
     </Dialog>

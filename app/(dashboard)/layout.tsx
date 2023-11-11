@@ -25,7 +25,9 @@ export default function DashboardLayout(props: Props) {
       <section className="absolute right-8 top-4 z-50 block cursor-pointer md:hidden">
         <Sheet>
           <SheetTrigger>
-            <Menu className="h-6 w-6 " />
+            <section className="border border-gray-300 bg-gray-200 p-1">
+              <Menu className="h-5 w-5 text-gray-600" />
+            </section>
           </SheetTrigger>
           <SheetContent className="w-[250px]">
             <SheetHeader>

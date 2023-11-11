@@ -18,7 +18,7 @@ type Props = {
 export default function CreateProgramDialog(props: Props) {
   return (
     <Dialog open={props.open} onOpenChange={props.isOpen}>
-      <DialogContent className="top-[50%] max-h-[500px] max-w-[700px] overflow-auto">
+      <DialogContent className="top-[50%] max-h-[80vh] max-w-[700px] overflow-auto">
         <DialogHeader>
           <DialogTitle>Create Program</DialogTitle>
           <DialogDescription>
