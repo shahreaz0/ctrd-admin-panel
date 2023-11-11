@@ -8,6 +8,8 @@ import { columns } from "./components/columns";
 import DataTable from "./components/data-table";
 import UserNav from "./components/user-nav";
 
+// import UserTable from "./components/user-table";
+
 export const metadata: Metadata = {
   title: "Users",
   description: "Manage all users",
@@ -32,6 +34,8 @@ export default async function TaskPage() {
           <UserNav />
         </div>
         <DataTable data={users} columns={columns} />
+
+        {/* <UserTable /> */}
       </div>
     </>
   );
