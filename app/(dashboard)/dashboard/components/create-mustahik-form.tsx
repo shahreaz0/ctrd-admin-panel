@@ -351,7 +351,7 @@ export default function AddMustahik() {
   return (
     <section>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="m-auto space-y-8 px-8 ">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="m-auto space-y-8">
           <section>
             <h1 className="mb-2 text-lg">মুস্তাহিক প্রার্থী</h1>
             <section className="grid grid-cols-3 gap-4">
