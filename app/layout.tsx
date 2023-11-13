@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import React from "react";
 import { Metadata } from "next";
 import { Toaster } from "sonner";
@@ -8,6 +7,10 @@ import { cn } from "@/lib/utils";
 import RQProvider from "@/components/rq-provider";
 import TailwindIndicator from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
+
+import "@/styles/globals.css";
+
+//
 
 export const metadata: Metadata = {
   title: "CTRD Admin Panel",
