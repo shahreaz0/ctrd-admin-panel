@@ -33,7 +33,7 @@ export default async function TaskPage() {
           <p className="text-lg font-medium">Users</p>
           <UserNav />
         </div>
-        <DataTable data={users} columns={columns} />
+        <DataTable data={users} columns={columns} loading={true} />
 
         {/* <UserTable /> */}
       </div>

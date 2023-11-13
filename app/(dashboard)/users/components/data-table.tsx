@@ -65,8 +65,16 @@ export default function DataTable<TData, TValue>(props: DataTableProps<TData, TV
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  if (props.loading) {
-    return <DataTableLoading columnCount={6} rowCount={4} />;
+  const [loader, setLoader] = React.useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 500);
+  }, [loader]);
+
+  if (loader) {
+    return <DataTableLoading columnCount={table.getAllColumns().length} rowCount={4} />;
   }
 
   return (
