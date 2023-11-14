@@ -12,7 +12,7 @@ export default function Programs() {
 
   return (
     <section>
-      <RadioGroup defaultValue="p1" className="grid grid-cols-8 gap-4">
+      <RadioGroup defaultValue="p1" className="grid grid-cols-2 gap-4 md:grid-cols-4 ">
         <div>
           <RadioGroupItem value="p1" id="p1" className="peer sr-only" />
           <Label

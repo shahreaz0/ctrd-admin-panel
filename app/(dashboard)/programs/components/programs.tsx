@@ -14,15 +14,15 @@ export default function Programs() {
   const [open, isOpen] = useState(false);
 
   return (
-    <section className="my-4">
+    <section className="relative my-4">
       <section className="mb-4 flex gap-4">
-        <Input placeholder="Search..." className="w-[400px]" />
-        <Button onClick={() => isOpen(true)}>
+        <Input placeholder="Search..." className="max-w-[400px]" />
+        <Button onClick={() => isOpen(true)} className="min-w-[150px]">
           <PlusCircle className="mr-2 h-4 w-4" /> Add Program
         </Button>
       </section>
 
-      <RadioGroup defaultValue="p1" className="grid grid-cols-4 gap-4">
+      <RadioGroup defaultValue="p1" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <div>
           <RadioGroupItem value="p1" id="p1" className="peer sr-only" />
           <Label

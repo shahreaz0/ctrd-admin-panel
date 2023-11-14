@@ -349,7 +349,7 @@ export default function AddMustahik() {
   }
 
   return (
-    <section>
+    <section className="relative">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="m-auto space-y-8">
           <section>
