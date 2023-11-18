@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RotateCw } from "lucide-react";
@@ -9,9 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -21,18 +18,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import PasswordInput from "@/components/passoword-input";
 
 const formSchema = z.object({
   email: z
     .string({ required_error: "Email is required." })
     .email("Please enter a valid email."),
-  password: z
-    .string({ required_error: "Password is required." })
-    .nonempty({ message: "Password field cannot be empty" }),
 });
 
-export default function LoginForm() {
+export default function ForgotPasswordForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -75,39 +68,6 @@ export default function LoginForm() {
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <PasswordInput {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <section className="flex justify-between">
-            <div className="flex items-center space-x-2">
-              <Checkbox id="terms" />
-              <label
-                htmlFor="terms"
-                className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Rememder Me
-              </label>
-            </div>
-
-            <Link
-              href="/forgot-password"
-              className={cn(buttonVariants({ variant: "link" }), "p-0")}
-            >
-              Forgot Password?
-            </Link>
-          </section>
 
           <Button type="submit" className="mt-4 w-full" disabled={isLoading}>
             {isLoading && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Login

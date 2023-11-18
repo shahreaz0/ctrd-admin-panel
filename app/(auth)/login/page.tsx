@@ -16,6 +16,8 @@ export default function LoginPage() {
     <section className="flex h-screen  items-center justify-center">
       <Card className="w-full p-8 sm:w-[400px]">
         <Image src={logo} alt="The Citizen Trust" width={100} className="m-auto" />
+
+        <p className="mb-2 mt-8 text-lg font-medium text-primary">Welcome Back!</p>
         <LoginForm />
       </Card>
     </section>
