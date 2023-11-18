@@ -31,7 +31,7 @@ export default function ForgotPasswordForm() {
 
   return (
     <section>
-      <section className="my-4 flex justify-center">
+      <section className="mt-4 flex justify-center">
         <OtpInput
           value={otp}
           onChange={setOtp}
@@ -39,7 +39,7 @@ export default function ForgotPasswordForm() {
           renderInput={(props) => (
             <Input
               {...props}
-              className="mx-2 h-14 border text-center text-3xl"
+              className="mx-2 h-14 border text-center text-3xl first:ml-0 last:mr-0"
               style={{
                 width: "100%",
               }}
@@ -47,6 +47,10 @@ export default function ForgotPasswordForm() {
           )}
         />
       </section>
+
+      <p className="mb-4 mt-2 cursor-pointer text-xs font-medium text-primary">
+        Resend verfication code
+      </p>
       <Button className="w-full">Verify</Button>
     </section>
   );
