@@ -52,9 +52,7 @@ export default function DashboardLayout(props: Props) {
         </Sheet>
       </section>
 
-      <section className="h-screen w-full overflow-auto border-red-700 py-4">
-        {props.children}
-      </section>
+      <section className="h-screen w-full overflow-auto">{props.children}</section>
     </section>
   );
 }

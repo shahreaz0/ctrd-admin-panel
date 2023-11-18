@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import AddMustahik from "@/app/(dashboard)/dashboard/components/create-mustahik-form";
 
 import Programs from "./components/programs";
+import Stats from "./components/stats";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -11,11 +12,14 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <section className="space-y-16 px-8">
+    <section className="space-y-16 p-8">
       <section className="relative">
         <p className="mb-4 text-base font-semibold text-primary">Avaiable Programs</p>
         <Programs />
       </section>
+
+      <Stats />
+
       <section>
         <p className="mb-4 text-base font-semibold text-primary">
           Add A Mustahik Under Program

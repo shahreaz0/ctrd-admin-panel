@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LogOut } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -13,9 +14,16 @@ export default function Sidebar() {
     <div className="flex h-screen w-[300px] flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
         <Link href="/">
-          <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-            CTRD
-          </span>
+          {/* <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
+            
+          </span> */}
+          <Image
+            src="/the-citizen-trust.svg"
+            alt="CTRD"
+            width={40}
+            height={40}
+            className="ml-2"
+          />
         </Link>
 
         <ul className="mt-6 space-y-1">
@@ -122,12 +130,14 @@ export default function Sidebar() {
             className="h-10 w-10 rounded-full object-cover"
           />
 
-          <div>
-            <p className="text-xs">
+          <div className="flex w-full items-center justify-between">
+            <div className="text-xs">
               <strong className="block font-medium">Eric Frusciante</strong>
 
               <span> eric@frusciante.com </span>
-            </p>
+            </div>
+
+            <LogOut className="h-4 w-4" />
           </div>
         </a>
       </div>
