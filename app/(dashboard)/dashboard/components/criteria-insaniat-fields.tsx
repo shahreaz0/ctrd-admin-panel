@@ -9,13 +9,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 
 export default function CriteriaInsaniatFields() {
   const form = useFormContext();
@@ -31,77 +33,65 @@ export default function CriteriaInsaniatFields() {
     <section className="space-y-4">
       <FormField
         control={form.control}
-        name={`criteriaToGrant.insaniat.house`}
+        name="criteriaToGrant.insaniat.house"
         render={({ field }) => (
           <FormItem>
             <FormLabel>ঘর নির্মাণ</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
 
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
             <FormMessage />
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
-        name={`criteriaToGrant.insaniat.food`}
+        name="criteriaToGrant.insaniat.food"
         render={({ field }) => (
           <FormItem>
             <FormLabel>খাদ্য সহায়তা</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
 
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
             <FormMessage />
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
-        name={`criteriaToGrant.insaniat.orphan`}
+        name="criteriaToGrant.insaniat.orphan"
         render={({ field }) => (
           <FormItem>
             <FormLabel>এতিম ভাতা</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
 
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
             <FormMessage />
           </FormItem>
         )}
       />
+
       <FormField
+        control={form.control}
+        name="criteriaToGrant.insaniat.clothes"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>পরিধেয় বস্ত্র</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      {/* <FormField
         control={form.control}
         name={`criteriaToGrant.insaniat.clothes`}
         render={({ field }) => (
@@ -124,7 +114,7 @@ export default function CriteriaInsaniatFields() {
             <FormMessage />
           </FormItem>
         )}
-      />
+      /> */}
     </section>
   );
 }

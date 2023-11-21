@@ -14,11 +14,21 @@ import { Input } from "@/components/ui/input";
 export default function FamilyPropertyFields() {
   const form = useFormContext();
 
+  // landAndDebtDesc: {
+  //   house: "Test",
+  //   land: "Test",
+  //   numberOfCowsAndGoats: 0,
+  //   cultivationInstruments: "Test",
+  //   numberOfChickenAndDucks: 0,
+  //   existingAssetInCurrency: 0,
+  //   totalDebt: 0,
+  // },
+
   return (
     <>
       <FormField
         control={form.control}
-        name="landAndDebtDescription.house"
+        name="landAndDebtDesc.house"
         render={({ field }) => (
           <FormItem>
             <FormLabel>ঘর (শতাংশ)</FormLabel>
@@ -33,7 +43,7 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDescription.land"
+        name="landAndDebtDesc.land"
         render={({ field }) => (
           <FormItem>
             <FormLabel>কৃষিজমি (শতাংশ)</FormLabel>
@@ -48,7 +58,7 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDescription.numberOfCowsOrGoats"
+        name="landAndDebtDesc.numberOfCowsAndGoats"
         render={({ field }) => (
           <FormItem>
             <FormLabel>গরু ও ছাগলের সংখ্যা</FormLabel>
@@ -63,7 +73,7 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDescription.cultivationInstruments"
+        name="landAndDebtDesc.cultivationInstruments"
         render={({ field }) => (
           <FormItem>
             <FormLabel>উৎপাদনশীল যন্ত্রপাতি</FormLabel>
@@ -78,7 +88,7 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDescription.numberOfChickensOrDucks"
+        name="landAndDebtDesc.numberOfChickenAndDucks"
         render={({ field }) => (
           <FormItem>
             <FormLabel>হাঁস ও মুরগির সংখ্যা</FormLabel>
@@ -93,7 +103,7 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDescription.existingAssetInCurrency"
+        name="landAndDebtDesc.existingAssetInCurrency"
         render={({ field }) => (
           <FormItem>
             <FormLabel>নগদ / স্বর্ণ / রৌপ্য (টাকায়) </FormLabel>
@@ -108,7 +118,7 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDescription.totalDebt"
+        name="landAndDebtDesc.totalDebt"
         render={({ field }) => (
           <FormItem>
             <FormLabel>সর্বমোট দেনার পরিমাণ</FormLabel>

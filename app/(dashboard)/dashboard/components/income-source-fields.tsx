@@ -14,18 +14,15 @@ import { Input } from "@/components/ui/input";
 export default function YearlyIncomeSourceFields() {
   const form = useFormContext();
 
-  // sourceOfIncome: z.object({
-  //   farming: z.string().min(1).max(100),
-  //   business: z.string().min(1).max(100),
-  //   animals: z.string().min(1).max(100),
-  //   kutirBusiness: z.string().min(1).max(100),
-  //   governmentGrants: z.string().min(1).max(100),
-  //   job: z.string().min(1).max(100),
-  //   miscSources: z.string().min(1).max(100),
-  //   totalAmountOfCalculatableIncome: z.string().min(1).max(100),
-  //   totalAmountOfUnverifiedIncome: z.string().min(1).max(100),
-  //   totalYearlyIncome: z.string().min(1).max(100),
-  // }),
+  // sourceOfIncome: {
+  //   farming: 0,
+  //   business: 0,
+  //   animals: 0,
+  //   kutirBusiness: 0,
+  //   governmentGrants: 0,
+  //   jobSalary: 0,
+  //   misc: 0,
+  // },
 
   return (
     <>
@@ -101,7 +98,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="sourceOfIncome.job"
+        name="sourceOfIncome.jobSalary"
         render={({ field }) => (
           <FormItem>
             <FormLabel>চাকুরী হতে আয়</FormLabel>
@@ -115,7 +112,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="sourceOfIncome.miscSources"
+        name="sourceOfIncome.misc"
         render={({ field }) => (
           <FormItem>
             <FormLabel>অন্যান্য উৎস হতে আয়</FormLabel>
@@ -127,7 +124,7 @@ export default function YearlyIncomeSourceFields() {
         )}
       />
 
-      <FormField
+      {/* <FormField
         control={form.control}
         name="sourceOfIncome.totalAmountOfCalculatableIncome"
         render={({ field }) => (
@@ -165,7 +162,7 @@ export default function YearlyIncomeSourceFields() {
             <FormMessage />
           </FormItem>
         )}
-      />
+      /> */}
     </>
   );
 }

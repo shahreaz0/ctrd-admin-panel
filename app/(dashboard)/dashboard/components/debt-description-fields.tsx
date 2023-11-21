@@ -20,8 +20,19 @@ export default function DebtorsFields() {
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "debtDescription",
+    name: "debtDescriptions",
   });
+
+  // debtDescriptions: [
+  //   {
+  //     ngo: 0,
+  //     bank: 0,
+  //     shomobay: 0,
+  //     dadon: 0,
+  //     misc: 0,
+  //     purpose: "Test",
+  //   },
+  // ],
 
   return (
     <section>
@@ -45,7 +56,7 @@ export default function DebtorsFields() {
             <section key={field.id} className="grid grid-cols-3 gap-4">
               <FormField
                 control={form.control}
-                name={`debtDescription.${index}.ngo`}
+                name={`debtDescriptions.${index}.ngo`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>NGO</FormLabel>
@@ -59,7 +70,7 @@ export default function DebtorsFields() {
               />
               <FormField
                 control={form.control}
-                name={`debtDescription.${index}.bank`}
+                name={`debtDescriptions.${index}.bank`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Bank</FormLabel>
@@ -74,7 +85,7 @@ export default function DebtorsFields() {
 
               <FormField
                 control={form.control}
-                name={`debtDescription.${index}.somobay`}
+                name={`debtDescriptions.${index}.shomobay`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>সমবায়</FormLabel>
@@ -89,7 +100,7 @@ export default function DebtorsFields() {
 
               <FormField
                 control={form.control}
-                name={`debtDescription.${index}.dadon`}
+                name={`debtDescriptions.${index}.dadon`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>দাদন</FormLabel>
@@ -104,7 +115,7 @@ export default function DebtorsFields() {
 
               <FormField
                 control={form.control}
-                name={`debtDescription.${index}.misc`}
+                name={`debtDescriptions.${index}.misc`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>অন্যান্য</FormLabel>
@@ -119,7 +130,7 @@ export default function DebtorsFields() {
 
               <FormField
                 control={form.control}
-                name={`debtDescription.${index}.purposeOfDebt`}
+                name={`debtDescriptions.${index}.purpose`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>দেনার উদ্দেশ্য</FormLabel>

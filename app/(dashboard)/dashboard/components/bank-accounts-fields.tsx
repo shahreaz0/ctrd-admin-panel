@@ -18,9 +18,16 @@ import { Button } from "../../../../components/ui/button";
 export default function BankAccountFields() {
   const form = useFormContext();
 
+  // bankAccounts
+
+  // accountHolderName: "Test",
+  // bankName: "Test",
+  // accountNumber: "Test",
+  // branchName: "Test",
+
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "bankAccount",
+    name: "bankAccounts",
   });
 
   return (
@@ -45,7 +52,7 @@ export default function BankAccountFields() {
             <section key={field.id} className="grid grid-cols-3 gap-4">
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.name`}
+                name={`bankAccounts.${index}.accountHolderName`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>নাম</FormLabel>
@@ -60,7 +67,7 @@ export default function BankAccountFields() {
 
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.bank`}
+                name={`bankAccounts.${index}.bankName`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>ব্যাংক</FormLabel>
@@ -75,7 +82,7 @@ export default function BankAccountFields() {
 
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.accountNo`}
+                name={`bankAccounts.${index}.accountNumber`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>একাউন্ট নং</FormLabel>
@@ -90,7 +97,7 @@ export default function BankAccountFields() {
 
               <FormField
                 control={form.control}
-                name={`bankAccount.${index}.branch`}
+                name={`bankAccounts.${index}.branchName`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>ব্রাঞ্চ</FormLabel>

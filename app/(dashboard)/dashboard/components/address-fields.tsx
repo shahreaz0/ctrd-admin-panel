@@ -18,7 +18,7 @@ export default function AddressFields() {
     <>
       <FormField
         control={form.control}
-        name="address.village"
+        name="village"
         render={({ field }) => (
           <FormItem>
             <FormLabel>গ্রামঃ</FormLabel>
@@ -33,7 +33,7 @@ export default function AddressFields() {
 
       <FormField
         control={form.control}
-        name="address.union"
+        name="union"
         render={({ field }) => (
           <FormItem>
             <FormLabel>ইউনিয়ন</FormLabel>
@@ -48,7 +48,7 @@ export default function AddressFields() {
 
       <FormField
         control={form.control}
-        name="address.postOffice"
+        name="postOffice"
         render={({ field }) => (
           <FormItem>
             <FormLabel>পোস্টঅফিস</FormLabel>
@@ -63,7 +63,7 @@ export default function AddressFields() {
 
       <FormField
         control={form.control}
-        name="address.thana"
+        name="thana"
         render={({ field }) => (
           <FormItem>
             <FormLabel>থানা </FormLabel>
@@ -78,7 +78,7 @@ export default function AddressFields() {
 
       <FormField
         control={form.control}
-        name="address.district"
+        name="district"
         render={({ field }) => (
           <FormItem>
             <FormLabel>জেলা</FormLabel>

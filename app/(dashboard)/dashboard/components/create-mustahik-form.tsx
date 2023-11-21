@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { formatISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -8,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
 import AddressFields from "./address-fields";
-import BankAccountFields from "./bank-account-fields";
+import BankAccountFields from "./bank-accounts-fields";
 import CandidateFields from "./candidate-fields";
 import ConditionRadio from "./condition-radio";
 import CriteriaEducationFields from "./criteria-education-fields";
@@ -20,68 +21,246 @@ import HealthInfoFields from "./health-info-fields";
 import IncomeSourceFields from "./income-source-fields";
 import LandAndDebtFields from "./land-and-debt-fields";
 import MustahikRadio from "./mutahik-radio";
-import OpinionMultiCheckbox from "./opinion-multi-checkbox";
+// import OpinionMultiCheckbox from "./opinion-multi-checkbox";
 import SpendingFields from "./spending-fields";
 
+// eslint-disable-next-line no-unused-vars
+const a = {
+  name: "Test One",
+  religion: "Islam",
+  dateOfBirth: "2023-11-21T10:29:29.017Z",
+  gender: 0,
+  occupation: "Rickshaw Puller",
+  identificationNumber: "1231231122",
+  fatherOrHusbandName: "John Cena",
+  village: "Test",
+  union: "Test",
+  postOffice: "Test",
+  thana: "Test",
+  district: "Test",
+  condition: 0,
+  hasGoodPlaceToStay: true,
+  hasSafeToilet: true,
+  hasSafeWaterSource: true,
+  status: 0,
+  bankAccounts: [
+    {
+      accountHolderName: "Test",
+      bankName: "Test",
+      accountNumber: "Test",
+      branchName: "Test",
+    },
+  ],
+  familyMembers: [
+    {
+      name: "Test",
+      dateOfBirth: "2023-11-21T10:29:29.018Z",
+      gender: 0,
+      educationLevel: "Test",
+      relationToHOF: "Test",
+      occupation: "Test",
+      hasDisability: true,
+      isChild: true,
+      isSick: true,
+      isJobless: true,
+      ongoingMedicineOrTreatment: "Test",
+    },
+  ],
+  landAndDebtDesc: {
+    house: "Test",
+    land: "Test",
+    numberOfCowsAndGoats: 0,
+    cultivationInstruments: "Test",
+    numberOfChickenAndDucks: 0,
+    existingAssetInCurrency: 0,
+    totalDebt: 0,
+  },
+  debtDescriptions: [
+    {
+      ngo: 0,
+      bank: 0,
+      shomobay: 0,
+      dadon: 0,
+      misc: 0,
+      purpose: "Test",
+    },
+  ],
+  sourceOfIncome: {
+    farming: 0,
+    business: 0,
+    animals: 0,
+    kutirBusiness: 0,
+    governmentGrants: 0,
+    jobSalary: 0,
+    misc: 0,
+  },
+  fieldsOfSpending: {
+    food: 0,
+    education: 0,
+    medicineOrTreatment: 0,
+    debtInstallments: 0,
+    misc: 0,
+  },
+  healthRelatedInfo: {
+    lastingSickness: "Test",
+    ongoingTreatmentOrMedicine: "Test",
+    hasPregnancy: true,
+    hasChronicSickness: true,
+    hasCataract: true,
+    hasHearingProblem: true,
+    hasDisability: true,
+    hasHealthEducation: true,
+  },
+  criteriaToGrant: {
+    insaniat: {
+      house: "Test",
+      food: "Test",
+      orphan: "Test",
+      clothes: "Test",
+    },
+    employment: {
+      biniyog: "Test",
+      land: "Test",
+      kutir: "Test",
+      cultivatingInstruments: "Test",
+      cowsOrGoats: "Test",
+      hensOrDucks: "Test",
+      business: "Test",
+      farmingEquipments: "Test",
+      misc: "Test",
+    },
+    education: {
+      childrenEducation: "Test",
+      educationHelp: "Test",
+      books: "Test",
+      instruments: "Test",
+      childrenClothing: "Test",
+      food: "Test",
+      quranEducation: "Test",
+      misc: "Test",
+    },
+  },
+  programId: 6,
+};
+
 const formSchema = z.object({
-  mustahikCandidate: z.object({
-    name: z.string().min(1, "Required").max(100),
-    religion: z.string().min(1, "Required").max(100),
-    age: z.coerce
-      .number({ invalid_type_error: "Required" })
-      .positive("Please enter positive number")
-      .max(150),
-    occupation: z.string().min(1, "Required").max(100),
-    identificationNumber: z.string().min(1, "Required").max(100),
-    fatherOrHusbandName: z.string().min(1, "Required").max(100),
+  name: z.string().min(1, "Required").max(100),
+  religion: z.string().min(1, "Required").max(100),
+  dateOfBirth: z.date({ invalid_type_error: "Required" }).transform((value) => {
+    return formatISO(value);
   }),
-  condition: z.enum(["green", "yellow", "red"], {
-    required_error: "Required",
-  }),
-  address: z.object({
-    village: z.string().min(1, "Required").max(100),
-    union: z.string().min(1, "Required").max(100),
-    postOffice: z.string().min(1, "Required").max(100),
-    thana: z.string().min(1, "Required").max(100),
-    district: z.string().min(1, "Required").max(100),
-  }),
-  bankAccount: z.array(
+  gender: z
+    .enum(["male", "female", "other"], {
+      required_error: "Required",
+    })
+    .transform((value) => {
+      const mapper = {
+        male: 0,
+        female: 1,
+        other: 2,
+      };
+
+      return mapper[value];
+    }),
+  occupation: z.string().min(1, "Required").max(100),
+  identificationNumber: z.string().min(1, "Required").max(100),
+  fatherOrHusbandName: z.string().min(1, "Required").max(100),
+  village: z.string().min(1, "Required").max(100),
+  union: z.string().min(1, "Required").max(100),
+  postOffice: z.string().min(1, "Required").max(100),
+  thana: z.string().min(1, "Required").max(100),
+  district: z.string().min(1, "Required").max(100),
+  condition: z
+    .enum(["green", "yellow", "red"], {
+      required_error: "Required",
+    })
+    .transform((value) => {
+      const mapper = {
+        red: 0,
+        green: 1,
+        yellow: 2,
+      };
+
+      return mapper[value];
+    }),
+
+  status: z
+    .enum(
+      [
+        "mustahik",
+        "fakir",
+        "miskin",
+        "amilin",
+        "muallatulKutub",
+        "rikkab",
+        "garimin",
+        "fiSabilillah",
+      ],
+      {
+        required_error: "Required",
+      }
+    )
+    .transform((value) => {
+      const mapper = {
+        mustahik: 0,
+        fakir: 1,
+        miskin: 2,
+        amilin: 3,
+        muallatulKutub: 4,
+        rikkab: 5,
+        garimin: 6,
+        fiSabilillah: 7,
+      };
+
+      return mapper[value];
+    }),
+
+  bankAccounts: z.array(
     z.object({
-      name: z.string().min(1, "Required").max(100),
-      bank: z.string().min(1, "Required").max(100),
-      accountNo: z.string().min(1, "Required").max(100),
-      branch: z.string().min(1, "Required").max(100),
+      accountHolderName: z.string().min(1, "Required").max(100),
+      bankName: z.string().min(1, "Required").max(100),
+      accountNumber: z.string().min(1, "Required").max(100),
+      branchName: z.string().min(1, "Required").max(100),
     })
   ),
-  familialInformation: z.array(
+  familyMembers: z.array(
     z.object({
       name: z.string().min(1, "Required").max(50),
-      age: z.coerce
-        .number({ invalid_type_error: "Required" })
-        .positive("Please enter positive number")
-        .max(150),
-      gender: z.enum(["male", "female"], {
-        required_error: "Required",
+      dateOfBirth: z.date({ invalid_type_error: "Required" }).transform((value) => {
+        return formatISO(value);
       }),
+      gender: z
+        .enum(["male", "female", "other"], {
+          required_error: "Required",
+        })
+        .transform((value) => {
+          const mapper = {
+            male: 0,
+            female: 1,
+            other: 2,
+          };
+
+          return mapper[value];
+        }),
       educationLevel: z.string().min(1, "Required").max(100),
-      relationToHeadOfFamily: z.string().min(1, "Required").max(100),
+      relationToHOF: z.string().min(1, "Required").max(100),
       occupation: z.string().min(1, "Required").max(100),
-      disability: z
+      hasDisability: z
         .enum(["yes", "no"], {
           required_error: "Required",
         })
         .transform((value) => value === "yes"),
-      child: z
+      isChild: z
         .enum(["yes", "no"], {
           required_error: "Required",
         })
         .transform((value) => value === "yes"),
-      sick: z
+      isSick: z
         .enum(["yes", "no"], {
           required_error: "Required",
         })
         .transform((value) => value === "yes"),
-      jobless: z
+      isJobless: z
         .enum(["yes", "no"], {
           required_error: "Required",
         })
@@ -89,15 +268,15 @@ const formSchema = z.object({
       ongoingMedicineOrTreatment: z.string().min(1, "Required").max(100),
     })
   ),
-  landAndDebtDescription: z.object({
+  landAndDebtDesc: z.object({
     house: z.string().min(1, "Required").max(100),
     land: z.string().min(1, "Required").max(100),
-    numberOfCowsOrGoats: z.coerce
+    numberOfCowsAndGoats: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
     cultivationInstruments: z.string().min(1, "Required").max(100),
-    numberOfChickensOrDucks: z.coerce
+    numberOfChickenAndDucks: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
@@ -110,7 +289,8 @@ const formSchema = z.object({
       .nonnegative("Please enter positive number")
       .safe(),
   }),
-  debtDescription: z.array(
+
+  debtDescriptions: z.array(
     z.object({
       ngo: z.coerce
         .number({ invalid_type_error: "Required" })
@@ -120,7 +300,7 @@ const formSchema = z.object({
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
         .safe(),
-      somobay: z.coerce
+      shomobay: z.coerce
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
         .safe(),
@@ -132,7 +312,7 @@ const formSchema = z.object({
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
         .safe(),
-      purposeOfDebt: z.string().min(1, "Required").max(100),
+      purpose: z.string().min(1, "Required").max(100),
     })
   ),
 
@@ -157,27 +337,28 @@ const formSchema = z.object({
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
-    job: z.coerce
+    jobSalary: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
-    miscSources: z.coerce
+    misc: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
-    totalAmountOfCalculatableIncome: z.coerce
-      .number({ invalid_type_error: "Required" })
-      .nonnegative("Please enter positive number")
-      .safe(),
-    totalAmountOfUnverifiedIncome: z.coerce
-      .number({ invalid_type_error: "Required" })
-      .nonnegative("Please enter positive number")
-      .safe(),
-    totalYearlyIncome: z.coerce
-      .number({ invalid_type_error: "Required" })
-      .nonnegative("Please enter positive number")
-      .safe(),
+    // totalAmountOfCalculatableIncome: z.coerce
+    //   .number({ invalid_type_error: "Required" })
+    //   .nonnegative("Please enter positive number")
+    //   .safe(),
+    // totalAmountOfUnverifiedIncome: z.coerce
+    //   .number({ invalid_type_error: "Required" })
+    //   .nonnegative("Please enter positive number")
+    //   .safe(),
+    // totalYearlyIncome: z.coerce
+    //   .number({ invalid_type_error: "Required" })
+    //   .nonnegative("Please enter positive number")
+    //   .safe(),
   }),
+
   fieldsOfSpending: z.object({
     food: z.coerce
       .number({ invalid_type_error: "Required" })
@@ -199,67 +380,79 @@ const formSchema = z.object({
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
-    totalYearlySpending: z.coerce
-      .number({ invalid_type_error: "Required" })
-      .nonnegative("Please enter positive number")
-      .safe(),
   }),
+
   healthRelatedInfo: z.object({
-    lastingSicknesses: z.string().min(1, "Required").max(100),
+    lastingSickness: z.string().min(1, "Required").max(100),
     ongoingTreatmentOrMedicine: z.string().min(1, "Required").max(100),
-    pregnancy: z
+    hasPregnancy: z
       .enum(["yes", "no"], {
         required_error: "Required",
       })
       .transform((value) => value === "yes"),
-    chronicSickness: z
+    hasChronicSickness: z
       .enum(["yes", "no"], {
         required_error: "Required",
       })
       .transform((value) => value === "yes"),
-    cataract: z
+    hasCataract: z
       .enum(["yes", "no"], {
         required_error: "Required",
       })
       .transform((value) => value === "yes"),
-    hearingProblem: z
+    hasHearingProblem: z
       .enum(["yes", "no"], {
         required_error: "Required",
       })
       .transform((value) => value === "yes"),
-    disable: z
+    hasDisability: z
       .enum(["yes", "no"], {
         required_error: "Required",
       })
       .transform((value) => value === "yes"),
-    healthEducation: z
+    hasHealthEducation: z
       .enum(["yes", "no"], {
         required_error: "Required",
       })
       .transform((value) => value === "yes"),
   }),
+
+  // criteriaToGrant: {
+  //   insaniat: {
+  //     house: "Test",
+  //     food: "Test",
+  //     orphan: "Test",
+  //     clothes: "Test",
+  //   },
+  //   employment: {
+  //     biniyog: "Test",
+  //     land: "Test",
+  //     kutir: "Test",
+  //     cultivatingInstruments: "Test",
+  //     cowsOrGoats: "Test",
+  //     hensOrDucks: "Test",
+  //     business: "Test",
+  //     farmingEquipments: "Test",
+  //     misc: "Test",
+  //   },
+  //   education: {
+  //     childrenEducation: "Test",
+  //     educationHelp: "Test",
+  //     books: "Test",
+  //     instruments: "Test",
+  //     childrenClothing: "Test",
+  //     food: "Test",
+  //     quranEducation: "Test",
+  //     misc: "Test",
+  //   },
+  // },
+
   criteriaToGrant: z.object({
     insaniat: z.object({
-      house: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
-      food: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
-      orphan: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
-      clothes: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
+      house: z.string().min(1, "Required").max(100),
+      food: z.string().min(1, "Required").max(100),
+      orphan: z.string().min(1, "Required").max(100),
+      clothes: z.string().min(1, "Required").max(100),
     }),
     employment: z.object({
       biniyog: z.string().min(1, "Required").max(100),
@@ -273,80 +466,88 @@ const formSchema = z.object({
       misc: z.string().min(1, "Required").max(100),
     }),
     education: z.object({
-      childrensEducation: z.string().min(1, "Required").max(100),
+      childrenEducation: z.string().min(1, "Required").max(100),
       educationHelp: z.string().min(1, "Required").max(100),
       books: z.string().min(1, "Required").max(100),
       instruments: z.string().min(1, "Required").max(100),
-      childrensClothings: z.string().min(1, "Required").max(100),
+      childrenClothing: z.string().min(1, "Required").max(100),
       food: z.string().min(1, "Required").max(100),
       quranEducation: z.string().min(1, "Required").max(100),
       misc: z.string().min(1, "Required").max(100),
     }),
   }),
-  mustahik: z.string().min(1, "Required"),
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
+
+  // mustahik: z.string().min(1, "Required"),
+  // items: z.array(z.string()).refine((value) => value.some((item) => item), {
+  //   message: "You have to select at least one item.",
+  // }),
 });
 
 export default function AddMustahik() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bankAccount: [
-        { accountNo: undefined, bank: undefined, branch: undefined, name: undefined },
+      bankAccounts: [
+        {
+          accountHolderName: undefined,
+          bankName: undefined,
+          branchName: undefined,
+          accountNumber: undefined,
+        },
       ],
-      familialInformation: [
+      familyMembers: [
         {
           name: undefined,
-          age: undefined,
+          dateOfBirth: undefined,
           educationLevel: undefined,
           gender: undefined,
           ongoingMedicineOrTreatment: undefined,
           occupation: undefined,
-          relationToHeadOfFamily: undefined,
-          disability: undefined,
-          child: undefined,
-          jobless: undefined,
-          sick: undefined,
+          relationToHOF: undefined,
+          hasDisability: undefined,
+          isChild: undefined,
+          isJobless: undefined,
+          isSick: undefined,
         },
       ],
-      debtDescription: [
+      debtDescriptions: [
         {
           bank: undefined,
           dadon: undefined,
-          purposeOfDebt: undefined,
+          purpose: undefined,
           ngo: undefined,
           misc: undefined,
-          somobay: undefined,
+          shomobay: undefined,
         },
       ],
-      items: [],
+      // items: [],
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    let opinion = {
-      safeWaterSource: false,
-      toilet: false,
-      placeToStay: false,
-    };
+    // let opinion = {
+    //   safeWaterSource: false,
+    //   toilet: false,
+    //   placeToStay: false,
+    // };
 
-    for (let o in opinion) {
-      opinion[o as keyof typeof opinion] = values.items.includes(o);
-    }
+    // for (let o in opinion) {
+    //   opinion[o as keyof typeof opinion] = values.items.includes(o);
+    // }
 
-    const payload = {
-      ...values,
-      mustahik: {
-        [values.mustahik]: true,
-      },
-      opinion,
-    };
+    // const payload = {
+    //   ...values,
+    //   mustahik: {
+    //     [values.mustahik]: true,
+    //   },
+    //   opinion,
+    // };
 
     // eslint-disable-next-line no-console
-    console.log(payload);
+    console.log(values);
   }
+
+  console.log(form.formState.errors);
 
   return (
     <section className="relative">
@@ -360,9 +561,7 @@ export default function AddMustahik() {
           </section>
           <section>
             <h1 className="mb-2 text-lg">অবস্থা</h1>
-            {/* <section className="grid grid-cols-3 gap-4"> */}
             <ConditionRadio />
-            {/* </section> */}
           </section>
           <section>
             <h1 className="mb-2 text-lg">ঠিকানা</h1>
@@ -432,10 +631,10 @@ export default function AddMustahik() {
               </section>
             </section>
 
-            <section className="mt-4">
+            {/* <section className="mt-4">
               <h1 className="mb-2 text-lg">দায়িত্বপ্রাপ্ত মাঠ কর্মকর্তার মন্তব্য</h1>
               <OpinionMultiCheckbox />
-            </section>
+            </section> */}
 
             <section className="mt-4">
               <h1 className="mb-2 text-lg">মুস্তাহিক</h1>

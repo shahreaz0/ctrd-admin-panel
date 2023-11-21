@@ -30,7 +30,7 @@ export default function CriteriaEducationFields() {
     <section className="space-y-4">
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.childrensEducation"
+        name="criteriaToGrant.education.childrenEducation"
         render={({ field }) => (
           <FormItem>
             <FormLabel>শিশু শিক্ষা</FormLabel>
@@ -90,7 +90,7 @@ export default function CriteriaEducationFields() {
 
       <FormField
         control={form.control}
-        name="criteriaToGrant.education.childrensClothings"
+        name="criteriaToGrant.education.childrenClothing"
         render={({ field }) => (
           <FormItem>
             <FormLabel>শিশু বস্ত্র</FormLabel>

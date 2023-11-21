@@ -1,9 +1,13 @@
 "use client";
 
 import { Fragment } from "react";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
 import { Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
 import {
   FormControl,
   FormField,
@@ -12,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -25,9 +30,25 @@ import { Button } from "../../../../components/ui/button";
 export default function FamilyInfoFields() {
   const form = useFormContext();
 
+  // familyMembers: [
+  //   {
+  //     name: "Test",
+  //     dateOfBirth: "2023-11-21T10:29:29.018Z",
+  //     gender: 0,
+  //     educationLevel: "Test",
+  //     relationToHOF: "Test",
+  //     occupation: "Test",
+  //     hasDisability: true,
+  //     isChild: true,
+  //     isSick: true,
+  //     isJobless: true,
+  //     ongoingMedicineOrTreatment: "Test",
+  //   },
+  // ],
+
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "familialInformation",
+    name: "familyMembers",
   });
 
   return (
@@ -52,7 +73,7 @@ export default function FamilyInfoFields() {
             <section key={field.id} className="grid grid-cols-3 gap-4">
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.name`}
+                name={`familyMembers.${index}.name`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>নাম</FormLabel>
@@ -64,15 +85,44 @@ export default function FamilyInfoFields() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.age`}
+                name={`familyMembers.${index}.dateOfBirth`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>বয়স</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="number" />
-                    </FormControl>
+                    <FormLabel>জন্ম দিবস</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
 
                     <FormMessage />
                   </FormItem>
@@ -81,7 +131,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.gender`}
+                name={`familyMembers.${index}.gender`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>লিঙ্গ</FormLabel>
@@ -106,7 +156,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.educationLevel`}
+                name={`familyMembers.${index}.educationLevel`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>শিক্ষা </FormLabel>
@@ -121,7 +171,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.relationToHeadOfFamily`}
+                name={`familyMembers.${index}.relationToHOF`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>পরিবার প্রধানের সাথে সম্পর্ক</FormLabel>
@@ -136,7 +186,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.occupation`}
+                name={`familyMembers.${index}.occupation`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>পেশা ( ছাত্র / ছাত্রী হলে শ্রেণী )</FormLabel>
@@ -151,7 +201,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.disability`}
+                name={`familyMembers.${index}.hasDisability`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>প্রতিবন্ধী</FormLabel>
@@ -176,7 +226,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.child`}
+                name={`familyMembers.${index}.isChild`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>শিশু</FormLabel>
@@ -201,7 +251,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.sick`}
+                name={`familyMembers.${index}.isSick`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>রোগাক্রান্ত</FormLabel>
@@ -226,7 +276,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.jobless`}
+                name={`familyMembers.${index}.isJobless`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>বেকার</FormLabel>
@@ -251,7 +301,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familialInformation.${index}.ongoingMedicineOrTreatment`}
+                name={`familyMembers.${index}.ongoingMedicineOrTreatment`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>নিয়মিত ঔষধ / চিকিৎসা</FormLabel>

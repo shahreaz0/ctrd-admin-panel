@@ -20,7 +20,6 @@ export default function SpendingFields() {
   //     medicineOrTreatment: 4000,
   //     debtInstallments: 5000,
   //     misc: 2000,
-  //     totalYearlySpending: 31000,
   //   },
 
   return (
@@ -95,7 +94,7 @@ export default function SpendingFields() {
           </FormItem>
         )}
       />
-      <FormField
+      {/* <FormField
         control={form.control}
         name="fieldsOfSpending.totalYearlySpending"
         render={({ field }) => (
@@ -108,7 +107,7 @@ export default function SpendingFields() {
             <FormMessage />
           </FormItem>
         )}
-      />
+      /> */}
     </>
   );
 }

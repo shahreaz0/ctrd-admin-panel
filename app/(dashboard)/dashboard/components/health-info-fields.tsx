@@ -21,22 +21,22 @@ import {
 export default function HealthInfoFields() {
   const form = useFormContext();
 
-  //   healthRelatedInfo: {
-  //     lastingSicknesses: "None",
-  //     ongoingTreatmentOrMedicine: "None",
-  //     pregnancy: false,
-  //     chronicSickness: false,
-  //     cataract: false,
-  //     hearingProblem: false,
-  //     disable: false,
-  //     healthEducation: true,
-  //   },
+  // healthRelatedInfo: {
+  //   lastingSickness: "Test",
+  //   ongoingTreatmentOrMedicine: "Test",
+  //   hasPregnancy: true,
+  //   hasChronicSickness: true,
+  //   hasCataract: true,
+  //   hasHearingProblem: true,
+  //   hasDisability: true,
+  //   hasHealthEducation: true,
+  // },
 
   return (
     <>
       <FormField
         control={form.control}
-        name="healthRelatedInfo.lastingSicknesses"
+        name="healthRelatedInfo.lastingSickness"
         render={({ field }) => (
           <FormItem>
             <FormLabel>দীর্ঘস্থায়ী অসুস্থতা</FormLabel>
@@ -65,7 +65,7 @@ export default function HealthInfoFields() {
 
       <FormField
         control={form.control}
-        name={`healthRelatedInfo.pregnancy`}
+        name={`healthRelatedInfo.hasPregnancy`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>গর্ভবতী / প্রসূতী নারী</FormLabel>
@@ -87,9 +87,10 @@ export default function HealthInfoFields() {
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
-        name={`healthRelatedInfo.chronicSickness`}
+        name={`healthRelatedInfo.hasChronicSickness`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>জটিল রোগ / চিকিৎসা</FormLabel>
@@ -111,9 +112,10 @@ export default function HealthInfoFields() {
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
-        name={`healthRelatedInfo.cataract`}
+        name={`healthRelatedInfo.hasCataract`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>চোখের ছানি</FormLabel>
@@ -137,7 +139,7 @@ export default function HealthInfoFields() {
       />
       <FormField
         control={form.control}
-        name={`healthRelatedInfo.hearingProblem`}
+        name={`healthRelatedInfo.hasHearingProblem`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>স্রবণ সমস্যা</FormLabel>
@@ -161,7 +163,7 @@ export default function HealthInfoFields() {
       />
       <FormField
         control={form.control}
-        name={`healthRelatedInfo.disable`}
+        name={`healthRelatedInfo.hasDisability`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>প্রতিবন্ধী</FormLabel>
@@ -186,7 +188,7 @@ export default function HealthInfoFields() {
 
       <FormField
         control={form.control}
-        name={`healthRelatedInfo.healthEducation`}
+        name={`healthRelatedInfo.hasHealthEducation`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>স্বাস্থ্যশিক্ষা</FormLabel>

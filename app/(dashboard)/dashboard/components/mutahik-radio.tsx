@@ -17,7 +17,7 @@ export default function MustahikRadio() {
   return (
     <FormField
       control={form.control}
-      name="mustahik"
+      name="status"
       render={({ field }) => (
         <FormItem className="space-y-3">
           <FormControl>
