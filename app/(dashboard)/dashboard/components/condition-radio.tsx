@@ -28,6 +28,20 @@ export default function StatusRadio() {
               defaultValue={field.value}
               className="grid grid-cols-3 gap-4"
             >
+              <FormItem className="cursor-pointer">
+                <FormControl>
+                  <div>
+                    <RadioGroupItem value="red" id="red" className="peer sr-only" />
+                    <Label
+                      htmlFor="red"
+                      className="flex flex-col items-center justify-between rounded-md border border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      লাল
+                    </Label>
+                  </div>
+                </FormControl>
+              </FormItem>
+
               <FormItem>
                 <FormControl>
                   <div>
@@ -51,20 +65,6 @@ export default function StatusRadio() {
                       className="flex flex-col items-center justify-between rounded-md border border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                     >
                       হলুদ
-                    </Label>
-                  </div>
-                </FormControl>
-              </FormItem>
-
-              <FormItem className="cursor-pointer">
-                <FormControl>
-                  <div>
-                    <RadioGroupItem value="red" id="red" className="peer sr-only" />
-                    <Label
-                      htmlFor="red"
-                      className="flex flex-col items-center justify-between rounded-md border border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      লাল
                     </Label>
                   </div>
                 </FormControl>

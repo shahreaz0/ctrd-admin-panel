@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
@@ -23,6 +24,8 @@ interface DataTableRowActionsProps<TData> {
 }
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
+  const [role, setRole] = useState("admin");
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,16 +36,14 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Roles</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value="roles">
-              <DropdownMenuRadioItem value="Admin">Admin</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="Manager">Manager</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="Employee">Employee</DropdownMenuRadioItem>
+            <DropdownMenuRadioGroup value={role} onValueChange={setRole}>
+              <DropdownMenuRadioItem value="admin">Admin</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="manager">Manager</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="employee">Employee</DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuSubContent>
         </DropdownMenuSub>

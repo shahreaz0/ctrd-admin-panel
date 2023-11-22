@@ -16,11 +16,13 @@ import CriteriaEducationFields from "./criteria-education-fields";
 import CriteriaEmployementFields from "./criteria-employment-fields";
 import CriteriaInsaniatFields from "./criteria-insaniat-fields";
 import DebtDescriptionFields from "./debt-description-fields";
+import ExtraFields from "./extra-fields";
 import FamilyInfoFields from "./family-info-fields";
 import HealthInfoFields from "./health-info-fields";
 import IncomeSourceFields from "./income-source-fields";
 import LandAndDebtFields from "./land-and-debt-fields";
 import MustahikRadio from "./mutahik-radio";
+import ProgramRadioField from "./program-radio";
 // import OpinionMultiCheckbox from "./opinion-multi-checkbox";
 import SpendingFields from "./spending-fields";
 
@@ -214,6 +216,24 @@ const formSchema = z.object({
 
       return mapper[value];
     }),
+
+  hasGoodPlaceToStay: z
+    .enum(["yes", "no"], {
+      required_error: "Required",
+    })
+    .transform((value) => value === "yes"),
+
+  hasSafeToilet: z
+    .enum(["yes", "no"], {
+      required_error: "Required",
+    })
+    .transform((value) => value === "yes"),
+
+  hasSafeWaterSource: z
+    .enum(["yes", "no"], {
+      required_error: "Required",
+    })
+    .transform((value) => value === "yes"),
 
   bankAccounts: z.array(
     z.object({
@@ -476,6 +496,7 @@ const formSchema = z.object({
       misc: z.string().min(1, "Required").max(100),
     }),
   }),
+  programId: z.coerce.number({ invalid_type_error: "Required" }),
 
   // mustahik: z.string().min(1, "Required"),
   // items: z.array(z.string()).refine((value) => value.some((item) => item), {
@@ -520,7 +541,6 @@ export default function AddMustahik() {
           shomobay: undefined,
         },
       ],
-      // items: [],
     },
   });
 
@@ -636,9 +656,21 @@ export default function AddMustahik() {
               <OpinionMultiCheckbox />
             </section> */}
 
-            <section className="mt-4">
+            <section className="mt-8">
+              <h1 className="mb-2 text-lg">অন্যান্য</h1>
+              <section className="grid grid-cols-3 gap-4">
+                <ExtraFields />
+              </section>
+            </section>
+
+            <section className="mt-8">
               <h1 className="mb-2 text-lg">মুস্তাহিক</h1>
               <MustahikRadio />
+            </section>
+
+            <section className="mt-8">
+              <h1 className="mb-2 text-lg">প্রোগ্রাম</h1>
+              <ProgramRadioField />
             </section>
           </section>
 

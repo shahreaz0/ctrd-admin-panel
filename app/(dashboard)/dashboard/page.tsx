@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <section className="space-y-16 p-8">
+    <section className="space-y-16">
       <section className="relative">
         <p className="mb-4 text-base font-semibold text-primary">Avaiable Programs</p>
         <Programs />
