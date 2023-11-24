@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import AddMustahik from "@/app/(dashboard)/dashboard/components/create-mustahik-form";
+import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/components/create-mustahik-form";
 
 import Programs from "./components/programs";
 import Stats from "./components/stats";
@@ -24,7 +24,7 @@ export default function DashboardPage() {
         <p className="mb-4 text-base font-semibold text-primary">
           Add A Mustahik Under Program
         </p>
-        <AddMustahik />
+        <CreateMustahikForm />
       </section>
     </section>
   );

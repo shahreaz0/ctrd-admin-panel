@@ -24,11 +24,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-  fullName: z.string().min(1, "Required").max(100),
-  email: z.string().email(),
+  firstName: z.string().min(1, "Required").max(100),
+  lastName: z.string().min(1, "Required").max(100),
   dateOfBirth: z.date(),
   fathersName: z.string().min(1, "Required").max(100),
   mothersName: z.string().min(1, "Required").max(100),
+  NID: z.string().min(1, "Required").max(100),
   presentAddress: z.string().min(1, "Required").max(500),
   permanentAddress: z.string().min(1, "Required").max(500),
   dateOfJoining: z.date(),
@@ -64,10 +65,10 @@ export default function CreateUserForm(props: Props) {
           <section className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="fullName"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>First Name</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -78,10 +79,10 @@ export default function CreateUserForm(props: Props) {
             />
             <FormField
               control={form.control}
-              name="email"
+              name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Last Name</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -90,36 +91,6 @@ export default function CreateUserForm(props: Props) {
                 </FormItem>
               )}
             />
-
-            <FormField
-              control={form.control}
-              name="fathersName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Father&apos;s Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="mothersName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Mother&apos;s Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <FormField
               control={form.control}
               name="dateOfBirth"
@@ -164,6 +135,78 @@ export default function CreateUserForm(props: Props) {
 
             <FormField
               control={form.control}
+              name="fathersName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Father&apos;s Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="mothersName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Mother&apos;s Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="NID"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>NID</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="presentAddress"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Present Address</FormLabel>
+                  <FormControl>
+                    <Textarea className="resize-none" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="permanentAddress"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Permanent Address</FormLabel>
+                  <FormControl>
+                    <Textarea className="resize-none" {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="dateOfJoining"
               render={({ field }) => (
                 <FormItem>
@@ -199,35 +242,6 @@ export default function CreateUserForm(props: Props) {
                       />
                     </PopoverContent>
                   </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="presentAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Present Address</FormLabel>
-                  <FormControl>
-                    <Textarea className="resize-none" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="permanentAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Permanent Address</FormLabel>
-                  <FormControl>
-                    <Textarea className="resize-none" {...field} />
-                  </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}

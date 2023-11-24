@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
@@ -9,13 +8,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -24,8 +18,6 @@ interface DataTableRowActionsProps<TData> {
 }
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
-  const [role, setRole] = useState("admin");
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,20 +27,15 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
+        <DropdownMenuItem>Details</DropdownMenuItem>
         <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem>Approve</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Roles</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={role} onValueChange={setRole}>
-              <DropdownMenuRadioItem value="admin">Admin</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="manager">Manager</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="employee">Employee</DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log(row.original)}>
+
+        <DropdownMenuItem
+          className="text-red-500"
+          onClick={() => console.log(row.original)}
+        >
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>

@@ -53,6 +53,19 @@ export default function Sidebar() {
             </Link>
           </li>
 
+          <li>
+            <Link
+              href="/applicants"
+              className={cn(
+                "block rounded-md px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700",
+                pathname === "/applicants" &&
+                  "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+              )}
+            >
+              Applicants
+            </Link>
+          </li>
+
           {/* <li>
             <details className="group [&_summary::-webkit-details-marker]:hidden">
               <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">

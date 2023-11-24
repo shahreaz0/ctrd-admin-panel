@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -28,17 +28,14 @@ import FileInput from "@/components/file-input";
 import { MultiSelect } from "@/components/multi-select";
 
 const formSchema = z.object({
-  programName: z.string().min(1, "Required").max(100),
-  programLogo: z.any({ required_error: "Please select a image file" }).array(),
-  programDescription: z.string().min(1, "Required"),
-  programAddress: z.string().min(1, "Required").max(500),
-  programManager: z.string(),
-  fieldWorkers: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-  mustahiks: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
+  name: z.string().min(1, "Required").max(100),
+  icon: z.any({ required_error: "Please select a image file" }).array(),
+  description: z.string().min(1, "Required"),
+  region: z.string().min(1, "Required").max(500),
+  // programManager: z.string(),
+  // fieldWorkers: z.array(z.string()).refine((value) => value.some((item) => item), {
+  //   message: "You have to select at least one item.",
+  // }),
 });
 
 const fieldWorkersData = [
@@ -56,7 +53,10 @@ type Props = {
 export default function CreateProgramForm(props: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "all",
   });
+
+  const [step, setStep] = useState(1);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // eslint-disable-next-line no-console
@@ -69,134 +69,106 @@ export default function CreateProgramForm(props: Props) {
     });
   }
 
+  async function nextButtonHandler() {
+    // hit API to save user
+
+    const isValid = await form.trigger();
+
+    if (isValid) setStep(2);
+  }
+
   return (
     <section>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <section className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="programName"
-              render={({ field }) => (
-                <FormItem className="col-span-2">
-                  <FormLabel>Program Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FileInput
-              accept={{
-                "image/jpeg": [],
-                "image/png": [],
-              }}
-              name="programLogo"
-              className="col-span-2"
-            />
+          <FileInput
+            accept={{
+              "image/jpeg": [],
+              "image/png": [],
+            }}
+            name="icon"
+          />
 
-            <FormField
-              control={form.control}
-              name="programDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Permanent Address</FormLabel>
-                  <FormControl>
-                    <Textarea className="resize-none" {...field} />
-                  </FormControl>
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Permanent Address</FormLabel>
+                <FormControl>
+                  <Textarea className="resize-none" {...field} />
+                </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="programAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Permanent Address</FormLabel>
-                  <FormControl>
-                    <Textarea className="resize-none" {...field} />
-                  </FormControl>
+          <FormField
+            control={form.control}
+            name="region"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Region</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="programManager"
-              render={({ field }) => (
-                <FormItem className="col-span-2">
-                  <FormLabel>Program Manager</FormLabel>
-                  <section className="relative">
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                      </FormControl>
+          {step === 2 && (
+            <div className="space-y-4">
+              <p className="my-4 text-lg font-medium">Step 2</p>
+              <div>
+                <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Select Manager
+                </p>
+                <Select onValueChange={(val) => console.log(val)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
 
-                      <SelectContent position="popper">
-                        <SelectItem value="personA">Person A</SelectItem>
-                        <SelectItem value="personB">Person B</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </section>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                  <SelectContent position="popper">
+                    <SelectItem value="personA">Person A</SelectItem>
+                    <SelectItem value="personB">Person B</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <FormField
-              control={form.control}
-              name="fieldWorkers"
-              render={({ field }) => (
-                <FormItem className="col-span-2">
-                  <FormLabel>Field Workers</FormLabel>
-                  <FormControl>
-                    <section>
-                      <MultiSelect
-                        data={fieldWorkersData}
-                        onChange={(values) => {
-                          field.onChange(values.map(({ value }) => value));
-                        }}
-                      />
-                    </section>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <div>
+                <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Select Field Workers
+                </p>
+                <MultiSelect
+                  data={fieldWorkersData}
+                  onChange={(values) => {
+                    console.log(values);
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
-            <FormField
-              control={form.control}
-              name="mustahiks"
-              render={({ field }) => (
-                <FormItem className="col-span-2">
-                  <FormLabel>Mustahiks</FormLabel>
-                  <FormControl>
-                    <section>
-                      <MultiSelect
-                        data={fieldWorkersData}
-                        onChange={(values) => {
-                          field.onChange(values.map(({ value }) => value));
-                        }}
-                      />
-                    </section>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </section>
-          <Button type="submit" className="mt-4">
-            Submit
+          <Button type="button" className="mt-4" onClick={nextButtonHandler}>
+            Next
           </Button>
         </form>
       </Form>

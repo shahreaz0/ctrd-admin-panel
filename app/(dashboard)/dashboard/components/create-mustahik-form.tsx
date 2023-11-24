@@ -504,7 +504,7 @@ const formSchema = z.object({
   // }),
 });
 
-export default function AddMustahik() {
+export function CreateMustahikForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
