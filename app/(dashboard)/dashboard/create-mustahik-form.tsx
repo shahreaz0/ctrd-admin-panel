@@ -1,5 +1,6 @@
 "use client";
 
+import { CONDITION, GENDER, STATUS } from "@/configs/gobals";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -25,125 +26,6 @@ import ProgramRadioField from "./program-radio";
 // import OpinionMultiCheckbox from "./opinion-multi-checkbox";
 import SpendingFields from "./spending-fields";
 
-// eslint-disable-next-line no-unused-vars
-const a = {
-  name: "Test One",
-  religion: "Islam",
-  dateOfBirth: "2023-11-21T10:29:29.017Z",
-  gender: 0,
-  occupation: "Rickshaw Puller",
-  identificationNumber: "1231231122",
-  fatherOrHusbandName: "John Cena",
-  village: "Test",
-  union: "Test",
-  postOffice: "Test",
-  thana: "Test",
-  district: "Test",
-  condition: 0,
-  hasGoodPlaceToStay: true,
-  hasSafeToilet: true,
-  hasSafeWaterSource: true,
-  status: 0,
-  bankAccounts: [
-    {
-      accountHolderName: "Test",
-      bankName: "Test",
-      accountNumber: "Test",
-      branchName: "Test",
-    },
-  ],
-  familyMembers: [
-    {
-      name: "Test",
-      dateOfBirth: "2023-11-21T10:29:29.018Z",
-      gender: 0,
-      educationLevel: "Test",
-      relationToHOF: "Test",
-      occupation: "Test",
-      hasDisability: true,
-      isChild: true,
-      isSick: true,
-      isJobless: true,
-      ongoingMedicineOrTreatment: "Test",
-    },
-  ],
-  landAndDebtDesc: {
-    house: "Test",
-    land: "Test",
-    numberOfCowsAndGoats: 0,
-    cultivationInstruments: "Test",
-    numberOfChickenAndDucks: 0,
-    existingAssetInCurrency: 0,
-    totalDebt: 0,
-  },
-  debtDescriptions: [
-    {
-      ngo: 0,
-      bank: 0,
-      shomobay: 0,
-      dadon: 0,
-      misc: 0,
-      purpose: "Test",
-    },
-  ],
-  sourceOfIncome: {
-    farming: 0,
-    business: 0,
-    animals: 0,
-    kutirBusiness: 0,
-    governmentGrants: 0,
-    jobSalary: 0,
-    misc: 0,
-  },
-  fieldsOfSpending: {
-    food: 0,
-    education: 0,
-    medicineOrTreatment: 0,
-    debtInstallments: 0,
-    misc: 0,
-  },
-  healthRelatedInfo: {
-    lastingSickness: "Test",
-    ongoingTreatmentOrMedicine: "Test",
-    hasPregnancy: true,
-    hasChronicSickness: true,
-    hasCataract: true,
-    hasHearingProblem: true,
-    hasDisability: true,
-    hasHealthEducation: true,
-  },
-  criteriaToGrant: {
-    insaniat: {
-      house: "Test",
-      food: "Test",
-      orphan: "Test",
-      clothes: "Test",
-    },
-    employment: {
-      biniyog: "Test",
-      land: "Test",
-      kutir: "Test",
-      cultivatingInstruments: "Test",
-      cowsOrGoats: "Test",
-      hensOrDucks: "Test",
-      business: "Test",
-      farmingEquipments: "Test",
-      misc: "Test",
-    },
-    education: {
-      childrenEducation: "Test",
-      educationHelp: "Test",
-      books: "Test",
-      instruments: "Test",
-      childrenClothing: "Test",
-      food: "Test",
-      quranEducation: "Test",
-      misc: "Test",
-    },
-  },
-  programId: 6,
-};
-
 const formSchema = z.object({
   name: z.string().min(1, "Required").max(100),
   religion: z.string().min(1, "Required").max(100),
@@ -158,15 +40,7 @@ const formSchema = z.object({
     .enum(["male", "female", "other"], {
       required_error: "Required",
     })
-    .transform((value) => {
-      const mapper = {
-        male: 0,
-        female: 1,
-        other: 2,
-      };
-
-      return mapper[value];
-    }),
+    .transform((value) => GENDER[value]),
   occupation: z.string().min(1, "Required").max(100),
   identificationNumber: z.string().min(1, "Required").max(100),
   fatherOrHusbandName: z.string().min(1, "Required").max(100),
@@ -179,15 +53,7 @@ const formSchema = z.object({
     .enum(["green", "yellow", "red"], {
       required_error: "Required",
     })
-    .transform((value) => {
-      const mapper = {
-        red: 0,
-        green: 1,
-        yellow: 2,
-      };
-
-      return mapper[value];
-    }),
+    .transform((value) => CONDITION[value]),
 
   status: z
     .enum(
@@ -205,20 +71,7 @@ const formSchema = z.object({
         required_error: "Required",
       }
     )
-    .transform((value) => {
-      const mapper = {
-        mustahik: 0,
-        fakir: 1,
-        miskin: 2,
-        amilin: 3,
-        muallatulKutub: 4,
-        rikkab: 5,
-        garimin: 6,
-        fiSabilillah: 7,
-      };
-
-      return mapper[value];
-    }),
+    .transform((value) => STATUS[value]),
 
   hasGoodPlaceToStay: z
     .enum(["yes", "no"], {

@@ -27,7 +27,6 @@ import {
 
 import { DataTableLoading } from "./data-table-loading";
 import { DataTablePagination } from "./data-table-pagination";
-import { DataTableToolbar } from "./data-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -37,7 +36,7 @@ interface DataTableProps<TData, TValue> {
 
 const emptyArray: [] = [];
 
-export default function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
+export function useDataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -74,12 +73,16 @@ export default function DataTable<TData, TValue>(props: DataTableProps<TData, TV
   }, [loader]);
 
   if (loader) {
-    return <DataTableLoading columnCount={table.getAllColumns().length} rowCount={4} />;
+    return {
+      table,
+      render: (
+        <DataTableLoading columnCount={table.getAllColumns().length} rowCount={4} />
+      ),
+    };
   }
 
-  return (
+  const render = (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -121,4 +124,9 @@ export default function DataTable<TData, TValue>(props: DataTableProps<TData, TV
       <DataTablePagination table={table} />
     </div>
   );
+
+  return {
+    table,
+    render,
+  };
 }

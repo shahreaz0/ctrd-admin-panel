@@ -1,17 +1,23 @@
 "use client";
 
+import { STATUS } from "@/configs/gobals";
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
 
-import type { User } from "@/types/user";
+import type { Mustahik } from "@/types/mustahik";
+// import { format } from "date-fns";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DataTableColumnHeader } from "@/components/core/data-table/data-table-column-header";
 
 import { statuses } from "../data/data";
-import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
+import { TableRowActions } from "./table-row-actions";
 
-export const columns: ColumnDef<User>[] = [
+function getKeyByValue<T extends Record<string, number>>(object: T, value: number) {
+  return Object.keys(object).find((key) => object[key] === value);
+}
+
+export const columns: ColumnDef<Mustahik>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -36,7 +42,7 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "firstName",
     accessorFn: (row) => {
-      return `${row.firstName} ${row.lastName}`;
+      return `${row.name}`;
     },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Employee" />,
     cell: ({ row }) => (
@@ -47,10 +53,10 @@ export const columns: ColumnDef<User>[] = [
         </Avatar>
 
         <section>
-          <p className="m-0">
-            {row.original.firstName} {row.original.lastName}
+          <p className="m-0">{row.original.name}</p>
+          <p className="m-0 text-xs text-gray-500">
+            {getKeyByValue(STATUS, row.original.status)}
           </p>
-          <p className="m-0 text-xs text-gray-500">{row.original.department}</p>
         </section>
       </div>
     ),
@@ -116,7 +122,11 @@ export const columns: ColumnDef<User>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Date of joining" />
     ),
-    cell: (info) => <>{format(new Date(info.getValue() as string), "PPP")}</>,
+    cell: () => {
+      // {format(new Date(info.getValue() as string), "PPP")}
+
+      return "date";
+    },
     enableSorting: false,
   },
   // {
@@ -146,6 +156,6 @@ export const columns: ColumnDef<User>[] = [
   // },
   {
     id: "actions",
-    cell: DataTableRowActions,
+    cell: TableRowActions,
   },
 ];

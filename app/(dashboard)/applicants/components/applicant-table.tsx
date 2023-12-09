@@ -1,14 +1,24 @@
 "use client";
 
-import useGetAllUsers from "@/hooks/rq/users/get-all-users";
+import { useGetAllMustahiks } from "@/hooks/rq/mutahiks/use-get-all-mustahiks";
+import { useDataTable } from "@/components/core/data-table/use-data-table";
 
 import { columns } from "./columns";
-import DataTable from "./data-table";
+import { TableToolbar } from "./table-toolbar";
 
-export default function ApplicantTable() {
-  const { data: users, isLoading } = useGetAllUsers();
+export function ApplicantTable() {
+  const { data: mustahiks, isLoading } = useGetAllMustahiks();
 
-  console.log(users);
+  const { render, table } = useDataTable({
+    data: mustahiks,
+    columns: columns,
+    loading: isLoading,
+  });
 
-  return <DataTable data={users} columns={columns} loading={isLoading} />;
+  return (
+    <section className="space-y-4">
+      <TableToolbar table={table} />
+      {render}
+    </section>
+  );
 }
