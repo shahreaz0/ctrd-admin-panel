@@ -58,10 +58,25 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDesc.numberOfCowsAndGoats"
+        name="landAndDebtDesc.numberOfCows"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>গরু ও ছাগলের সংখ্যা</FormLabel>
+            <FormLabel>গরুর সংখ্যা</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="landAndDebtDesc.numberOfGoats"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>ছাগলের সংখ্যা</FormLabel>
             <FormControl>
               <Input {...field} type="number" />
             </FormControl>
@@ -107,6 +122,21 @@ export default function FamilyPropertyFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>নগদ / স্বর্ণ / রৌপ্য (টাকায়) </FormLabel>
+            <FormControl>
+              <Input {...field} type="number" />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="landAndDebtDesc.interestLoan"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>সুদী দেনার পরিমান</FormLabel>
             <FormControl>
               <Input {...field} type="number" />
             </FormControl>

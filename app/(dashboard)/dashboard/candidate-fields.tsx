@@ -9,32 +9,135 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-import { Input } from "../../../../components/ui/input";
-
-export default function CriteriaEmployementFields() {
+export default function CandidateFields() {
   const form = useFormContext();
 
-  //   employment: {
-  //     biniyog: true,
-  //     land: true,
-  //     kutir: true,
-  //     cultivatingInstruments: true,
-  //     cowsOrGoats: true,
-  //     hensOrDucks: true,
-  //     business: true,
-  //     farmingEquipments: true,
-  //     misc: true,
-  //   },
-
   return (
-    <section className="space-y-4">
+    <>
       <FormField
         control={form.control}
-        name="criteriaToGrant.employment.biniyog"
+        name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>বিনিয়োগ পুঁজি</FormLabel>
+            <FormLabel>প্রার্থীর নাম</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="religion"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>ধর্ম</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="gender"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>লিঙ্গ</FormLabel>
+            <section className="relative">
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                </FormControl>
+
+                <SelectContent position="popper">
+                  <SelectItem value="male">পুরুষ</SelectItem>
+                  <SelectItem value="female">নারী</SelectItem>
+                  <SelectItem value="other">অন্য</SelectItem>
+                </SelectContent>
+              </Select>
+            </section>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="age"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>বয়স</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="occupation"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>পেশা</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="fatherOrHusbandName"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>পিতা/ স্বামীর নাম</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="identificationNumber"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>সনাক্তকরণ নম্বর</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="phoneNumber"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>ফোন নম্বর</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -46,10 +149,10 @@ export default function CriteriaEmployementFields() {
 
       <FormField
         control={form.control}
-        name="criteriaToGrant.employment.land"
+        name="nid"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>কৃষিজমি</FormLabel>
+            <FormLabel>পরিচয়পত্র নম্বর</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>
@@ -58,107 +161,6 @@ export default function CriteriaEmployementFields() {
           </FormItem>
         )}
       />
-
-      <FormField
-        control={form.control}
-        name="criteriaToGrant.employment.kutir"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>কুটির</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="criteriaToGrant.employment.cultivatingInstruments"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>উৎপাদন যন্ত্র</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="criteriaToGrant.employment.cowsOrGoats"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>গবাদি পশু</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="criteriaToGrant.employment.hensOrDucks"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>হাঁস মুরগি</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="criteriaToGrant.employment.business"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>ক্ষুদ্র ব্যাবসায়ের জন্য পুঁজি</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="criteriaToGrant.employment.farmingEquipments"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>কৃষি যন্ত্র</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="criteriaToGrant.employment.misc"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>অন্যান্য</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </section>
+    </>
   );
 }

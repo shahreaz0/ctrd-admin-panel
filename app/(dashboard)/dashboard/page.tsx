@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/components/create-mustahik-form";
+import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/create-mustahik-form";
 
-import Programs from "./components/programs";
-import Stats from "./components/stats";
+import Programs from "./programs";
+import Stats from "./stats";
 
 export const metadata: Metadata = {
   title: "Dashboard",

@@ -9,6 +9,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -81,21 +82,8 @@ export default function ExtraFields() {
         name="hasSafeWaterSource"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>নিরাপদ পানি</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormLabel>পানির উৎস</FormLabel>
+            <Input {...field} />
             <FormMessage />
           </FormItem>
         )}

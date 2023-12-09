@@ -1,13 +1,9 @@
 "use client";
 
 import { Fragment } from "react";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
 import { Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
 import {
   FormControl,
   FormField,
@@ -16,7 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -25,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Button } from "../../../../components/ui/button";
+import { Button } from "../../../components/ui/button";
 
 export default function FamilyInfoFields() {
   const form = useFormContext();
@@ -33,7 +28,7 @@ export default function FamilyInfoFields() {
   // familyMembers: [
   //   {
   //     name: "Test",
-  //     dateOfBirth: "2023-11-21T10:29:29.018Z",
+  //     age: "2023-11-21T10:29:29.018Z",
   //     gender: 0,
   //     educationLevel: "Test",
   //     relationToHOF: "Test",
@@ -43,6 +38,7 @@ export default function FamilyInfoFields() {
   //     isSick: true,
   //     isJobless: true,
   //     ongoingMedicineOrTreatment: "Test",
+  //          phoneNumber: ""
   //   },
   // ],
 
@@ -88,41 +84,13 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familyMembers.${index}.dateOfBirth`}
+                name={`familyMembers.${index}.age`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>জন্ম দিবস</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <FormLabel>বয়স</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="number" />
+                    </FormControl>
 
                     <FormMessage />
                   </FormItem>
@@ -255,20 +223,10 @@ export default function FamilyInfoFields() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>রোগাক্রান্ত</FormLabel>
-                    <section className="relative">
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select" />
-                          </SelectTrigger>
-                        </FormControl>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
 
-                        <SelectContent>
-                          <SelectItem value="yes">হ্যা</SelectItem>
-                          <SelectItem value="no">না</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </section>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -305,6 +263,21 @@ export default function FamilyInfoFields() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>নিয়মিত ঔষধ / চিকিৎসা</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name={`familyMembers.${index}.phoneNumber`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>মোবাইল নম্বর</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>

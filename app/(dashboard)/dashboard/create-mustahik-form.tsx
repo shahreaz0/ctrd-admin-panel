@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formatISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -148,9 +147,13 @@ const a = {
 const formSchema = z.object({
   name: z.string().min(1, "Required").max(100),
   religion: z.string().min(1, "Required").max(100),
-  dateOfBirth: z.date({ invalid_type_error: "Required" }).transform((value) => {
-    return formatISO(value);
-  }),
+  age: z.coerce
+    .number({ invalid_type_error: "Required" })
+    .max(150, "Maximum 150 is allowed")
+    .nonnegative("Please enter positive number")
+    .safe(),
+  phoneNumber: z.string().min(1, "Required").max(100),
+  nid: z.string().min(1, "Required").max(100),
   gender: z
     .enum(["male", "female", "other"], {
       required_error: "Required",
@@ -246,9 +249,11 @@ const formSchema = z.object({
   familyMembers: z.array(
     z.object({
       name: z.string().min(1, "Required").max(50),
-      dateOfBirth: z.date({ invalid_type_error: "Required" }).transform((value) => {
-        return formatISO(value);
-      }),
+      age: z.coerce
+        .number({ invalid_type_error: "Required" })
+        .max(150, "Maximum 150 is allowed")
+        .nonnegative("Please enter positive number")
+        .safe(),
       gender: z
         .enum(["male", "female", "other"], {
           required_error: "Required",
@@ -275,11 +280,7 @@ const formSchema = z.object({
           required_error: "Required",
         })
         .transform((value) => value === "yes"),
-      isSick: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
+      isSick: z.string().min(1, "Required").max(1000),
       isJobless: z
         .enum(["yes", "no"], {
           required_error: "Required",
@@ -291,7 +292,11 @@ const formSchema = z.object({
   landAndDebtDesc: z.object({
     house: z.string().min(1, "Required").max(100),
     land: z.string().min(1, "Required").max(100),
-    numberOfCowsAndGoats: z.coerce
+    numberOfCows: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    numberOfGoats: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
@@ -301,6 +306,11 @@ const formSchema = z.object({
       .nonnegative("Please enter positive number")
       .safe(),
     existingAssetInCurrency: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+
+    interestLoan: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
@@ -365,18 +375,14 @@ const formSchema = z.object({
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
-    // totalAmountOfCalculatableIncome: z.coerce
-    //   .number({ invalid_type_error: "Required" })
-    //   .nonnegative("Please enter positive number")
-    //   .safe(),
-    // totalAmountOfUnverifiedIncome: z.coerce
-    //   .number({ invalid_type_error: "Required" })
-    //   .nonnegative("Please enter positive number")
-    //   .safe(),
-    // totalYearlyIncome: z.coerce
-    //   .number({ invalid_type_error: "Required" })
-    //   .nonnegative("Please enter positive number")
-    //   .safe(),
+    dayIncome: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+    totalYearlyIncome: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
   }),
 
   fieldsOfSpending: z.object({
@@ -397,6 +403,11 @@ const formSchema = z.object({
       .nonnegative("Please enter positive number")
       .safe(),
     misc: z.coerce
+      .number({ invalid_type_error: "Required" })
+      .nonnegative("Please enter positive number")
+      .safe(),
+
+    totalYearlySpending: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
@@ -519,7 +530,7 @@ export function CreateMustahikForm() {
       familyMembers: [
         {
           name: undefined,
-          dateOfBirth: undefined,
+          age: undefined,
           educationLevel: undefined,
           gender: undefined,
           ongoingMedicineOrTreatment: undefined,

@@ -94,7 +94,7 @@ export default function SpendingFields() {
           </FormItem>
         )}
       />
-      {/* <FormField
+      <FormField
         control={form.control}
         name="fieldsOfSpending.totalYearlySpending"
         render={({ field }) => (
@@ -107,7 +107,7 @@ export default function SpendingFields() {
             <FormMessage />
           </FormItem>
         )}
-      /> */}
+      />
     </>
   );
 }
