@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
-import { ApplicantTable } from "./components/applicant-table";
-import UserNav from "./components/user-nav";
+import { ApplicantTable } from "./applicant-table";
+import UserNav from "./user-nav";
 
 export const metadata: Metadata = {
   title: "Applicants",

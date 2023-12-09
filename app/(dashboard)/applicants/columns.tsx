@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/core/data-table/data-table-column-header";
 
-import { statuses } from "../data/data";
+import { statuses } from "./data/data";
 import { TableRowActions } from "./table-row-actions";
 
 function getKeyByValue<T extends Record<string, number>>(object: T, value: number) {

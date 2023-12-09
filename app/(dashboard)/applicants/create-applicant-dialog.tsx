@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { CreateMustahikForm } from "../../dashboard/create-mustahik-form";
+import { CreateMustahikForm } from "../dashboard/create-mustahik-form";
 
 type Props = {
   open: boolean;
