@@ -1,31 +1,14 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { Metadata } from "next";
 
-import { User } from "@/types/user";
-
-import { columns } from "./components/columns";
-import DataTable from "./components/data-table";
-import UserNav from "./components/user-nav";
-
-// import UserTable from "./components/user-table";
+import UserNav from "./user-nav";
+import { UserTable } from "./user-table";
 
 export const metadata: Metadata = {
   title: "Users",
   description: "Manage all users",
 };
 
-async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "app/(dashboard)/users/data/users.json")
-  );
-
-  return JSON.parse(data.toString()) as User[];
-}
-
-export default async function TaskPage() {
-  const users = await getTasks();
-
+export default async function UsersPage() {
   return (
     <>
       <div className="relative   flex-1 flex-col space-y-8 md:flex">
@@ -33,9 +16,8 @@ export default async function TaskPage() {
           <p className="text-lg font-medium">Users</p>
           <UserNav />
         </div>
-        <DataTable data={users} columns={columns} loading={true} />
 
-        {/* <UserTable /> */}
+        <UserTable />
       </div>
     </>
   );

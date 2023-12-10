@@ -7,9 +7,9 @@ import type { User } from "@/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { statuses } from "../data/data";
-import { DataTableColumnHeader } from "./user-table-column-header";
-import { DataTableRowActions } from "./user-table-row-actions";
+import { statuses } from "./data/data";
+import { DataTableColumnHeader } from "./table-column-header";
+import { DataTableRowActions } from "./table-row-actions";
 
 export const columns: ColumnDef<User>[] = [
   {
