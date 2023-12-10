@@ -1,12 +1,11 @@
 export const STATUS = {
-  mustahik: 0,
-  fakir: 1,
-  miskin: 2,
-  amilin: 3,
-  muallatulKutub: 4,
-  rikkab: 5,
-  garimin: 6,
-  fiSabilillah: 7,
+  fakir: 0,
+  miskin: 1,
+  amilin: 2,
+  muallatulKutub: 3,
+  rikkab: 4,
+  garimin: 5,
+  fiSabilillah: 6,
 };
 
 export const GENDER = {

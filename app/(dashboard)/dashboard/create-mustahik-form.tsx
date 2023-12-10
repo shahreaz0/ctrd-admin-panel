@@ -1,6 +1,6 @@
 "use client";
 
-import { CONDITION, GENDER, STATUS } from "@/configs/gobals";
+import { CONDITION, GENDER, STATUS } from "@/configs/globals";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -58,7 +58,6 @@ const formSchema = z.object({
   status: z
     .enum(
       [
-        "mustahik",
         "fakir",
         "miskin",
         "amilin",

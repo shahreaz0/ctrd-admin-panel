@@ -1,53 +1,65 @@
-import {
-  ArrowDownIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
-  CheckCircledIcon,
-  CrossCircledIcon,
-} from "@radix-ui/react-icons";
+import { CheckCircledIcon, CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 
-export const labels = [
+export const conditions = [
   {
-    value: "bug",
-    label: "Bug",
+    value: "0",
+    label: "Red",
+    icon: CrossCircledIcon,
   },
   {
-    value: "feature",
-    label: "Feature",
+    value: "1",
+    label: "Green",
+    icon: CheckCircledIcon,
   },
   {
-    value: "documentation",
-    label: "Documentation",
+    value: "2",
+    label: "Yellow",
+    icon: CircleIcon,
+  },
+];
+
+export const genders = [
+  {
+    label: "Male",
+    value: "0",
+  },
+  {
+    label: "Female",
+    value: "1",
+  },
+  {
+    label: "Other",
+    value: "3",
   },
 ];
 
 export const statuses = [
   {
-    value: "active",
-    label: "Active",
-    icon: CheckCircledIcon,
+    label: "Fakir",
+    value: "0",
   },
   {
-    value: "inactive",
-    label: "Inactive",
-    icon: CrossCircledIcon,
-  },
-];
-
-export const priorities = [
-  {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
+    label: "Miskin",
+    value: "1",
   },
   {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRightIcon,
+    label: "Amilin",
+    value: "2",
   },
   {
-    label: "High",
-    value: "high",
-    icon: ArrowUpIcon,
+    label: "Muallatul Kutub",
+    value: "3",
+  },
+  {
+    label: "Rikkab",
+    value: "4",
+  },
+  {
+    label: "Garimin",
+    value: "5",
+  },
+  {
+    label: "Fi Sabilillah",
+    value: "6",
   },
 ];

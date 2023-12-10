@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/core/data-table/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/core/data-table/data-table-view-options";
 
-import { priorities, statuses } from "./data/data";
+import { conditions, genders, statuses } from "./data/data";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -28,6 +28,14 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+        {table.getColumn("condition") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("condition")}
+            title="Condition"
+            options={conditions}
+          />
+        )}
+
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
@@ -35,13 +43,15 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
             options={statuses}
           />
         )}
-        {table.getColumn("priority") && (
+
+        {table.getColumn("gender") && (
           <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
+            column={table.getColumn("gender")}
+            title="Gender"
+            options={genders}
           />
         )}
+
         {isFiltered && (
           <Button
             variant="ghost"

@@ -3,11 +3,11 @@ export type Mustahik = {
   name: string;
   religion: string;
   age: number;
-  gender: number;
+  gender: string;
   occupation: string;
   identificationNumber: string;
   fatherOrHusbandName: string;
-  condition: number;
+  condition: string;
   village: string;
   union: string;
   postOffice: string;
@@ -16,7 +16,7 @@ export type Mustahik = {
   hasGoodPlaceToStay: string;
   hasSafeToilet: string;
   hasSafeWaterSource: string;
-  status: number;
+  status: string;
   bankAccounts: BankAccount[];
   familyMembers: FamilyMember[];
   landAndDebtDesc: LandAndDebtDesc;

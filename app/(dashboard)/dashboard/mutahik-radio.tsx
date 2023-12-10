@@ -29,13 +29,6 @@ export default function MustahikRadio() {
               >
                 <FormItem className="flex items-center space-x-3 space-y-0">
                   <FormControl>
-                    <RadioGroupItem value="mustahik" />
-                  </FormControl>
-                  <FormLabel className="font-normal">মুস্তাহিক</FormLabel>
-                </FormItem>
-
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
                     <RadioGroupItem value="fakir" />
                   </FormControl>
                   <FormLabel className="font-normal">ফকির</FormLabel>

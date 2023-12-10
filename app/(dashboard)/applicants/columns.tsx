@@ -1,21 +1,15 @@
 "use client";
 
-import { STATUS } from "@/configs/gobals";
 import { ColumnDef } from "@tanstack/react-table";
 
 import type { Mustahik } from "@/types/mustahik";
-// import { format } from "date-fns";
-
+import { generateAvatar } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/core/data-table/data-table-column-header";
 
-import { statuses } from "./data/data";
+import { conditions, genders, statuses } from "./data/data";
 import { TableRowActions } from "./table-row-actions";
-
-function getKeyByValue<T extends Record<string, number>>(object: T, value: number) {
-  return Object.keys(object).find((key) => object[key] === value);
-}
 
 export const columns: ColumnDef<Mustahik>[] = [
   {
@@ -40,50 +34,34 @@ export const columns: ColumnDef<Mustahik>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
+    accessorKey: "name",
     accessorFn: (row) => {
       return `${row.name}`;
     },
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Employee" />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Applicant" />,
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={generateAvatar(row.original.name)} alt={row.original.name} />
+          <AvatarFallback>{row.original.name.slice(2)}</AvatarFallback>
         </Avatar>
 
         <section>
           <p className="m-0">{row.original.name}</p>
-          <p className="m-0 text-xs text-gray-500">
-            {getKeyByValue(STATUS, row.original.status)}
-          </p>
+          <p className="m-0 text-xs text-gray-500">{row.original.occupation}</p>
         </section>
       </div>
     ),
     enableSorting: false,
     enableHiding: false,
   },
-  // {
-  //   accessorKey: "title",
-  //   header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
-  //   cell: ({ row }) => {
-  //     const label = labels.find((label) => label.value === row.original.label);
-
-  //     return (
-  //       <div className="flex space-x-2">
-  //         {label && <Badge variant="outline">{label.label}</Badge>}
-  //         <span className="max-w-[500px] truncate font-medium">
-  //           {row.getValue("title")}
-  //         </span>
-  //       </div>
-  //     );
-  //   },
-  // },
   {
-    accessorKey: "status",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+    accessorKey: "condition",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Condition" />,
     cell: ({ row }) => {
-      const status = statuses.find((status) => status.value === row.getValue("status"));
+      const status = conditions.find(
+        (condition) => condition.value === row.getValue("condition")
+      );
 
       if (!status) {
         return null;
@@ -100,60 +78,69 @@ export const columns: ColumnDef<Mustahik>[] = [
       return value.includes(row.getValue(id));
     },
   },
-  {
-    accessorKey: "phoneNumber",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone Number" />
-    ),
-    enableSorting: false,
-  },
-  {
-    accessorKey: "department",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Department" />,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "NID",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="NID" />,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "dateOfJoining",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Date of joining" />
-    ),
-    cell: () => {
-      // {format(new Date(info.getValue() as string), "PPP")}
 
-      return "date";
+  {
+    accessorKey: "status",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+    cell: ({ row }) => {
+      const status = statuses.find((status) => status.value === row.getValue("status"));
+
+      if (!status) {
+        return null;
+      }
+
+      return (
+        <div className="flex w-[100px] items-center">
+          <span>{status.label}</span>
+        </div>
+      );
     },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "gender",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Gender" />,
+    cell: ({ row }) => {
+      const status = genders.find((g) => g.value === row.getValue("gender"));
+
+      if (!status) {
+        return null;
+      }
+
+      return (
+        <div className="flex w-[100px] items-center">
+          <span>{status.label}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "age",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Age" />,
     enableSorting: false,
   },
-  // {
-  //   accessorKey: "priority",
-  //   header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
-  //   cell: ({ row }) => {
-  //     const priority = priorities.find(
-  //       (priority) => priority.value === row.getValue("priority")
-  //     );
-
-  //     if (!priority) {
-  //       return null;
-  //     }
-
-  //     return (
-  //       <div className="flex items-center">
-  //         {priority.icon && (
-  //           <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-  //         )}
-  //         <span>{priority.label}</span>
-  //       </div>
-  //     );
-  //   },
-  //   filterFn: (row, id, value) => {
-  //     return value.includes(row.getValue(id));
-  //   },
-  // },
+  {
+    accessorKey: "id",
+    accessorFn: (row) => {
+      return `${row.name}`;
+    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Address" />,
+    cell: ({ row }) => (
+      <section>
+        <p className="m-0">{row.original.village}</p>
+        <p className="m-0 text-xs text-gray-500">
+          {row.original.thana}, {row.original.district}
+        </p>
+      </section>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     id: "actions",
     cell: TableRowActions,

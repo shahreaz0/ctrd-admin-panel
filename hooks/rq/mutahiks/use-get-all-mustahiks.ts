@@ -11,5 +11,13 @@ export function useGetAllMustahiks() {
   return useQuery({
     queryKey: ["get-all-mustahiks"],
     queryFn: fetcher,
+    select: (data) => {
+      return data.map((e) => ({
+        ...e,
+        condition: String(e.condition),
+        gender: String(e.condition),
+        status: String(e.status),
+      }));
+    },
   });
 }
