@@ -300,36 +300,6 @@ const formSchema = z.object({
       .transform((value) => value === "yes"),
   }),
 
-  // criteriaToGrant: {
-  //   insaniat: {
-  //     house: "Test",
-  //     food: "Test",
-  //     orphan: "Test",
-  //     clothes: "Test",
-  //   },
-  //   employment: {
-  //     biniyog: "Test",
-  //     land: "Test",
-  //     kutir: "Test",
-  //     cultivatingInstruments: "Test",
-  //     cowsOrGoats: "Test",
-  //     hensOrDucks: "Test",
-  //     business: "Test",
-  //     farmingEquipments: "Test",
-  //     misc: "Test",
-  //   },
-  //   education: {
-  //     childrenEducation: "Test",
-  //     educationHelp: "Test",
-  //     books: "Test",
-  //     instruments: "Test",
-  //     childrenClothing: "Test",
-  //     food: "Test",
-  //     quranEducation: "Test",
-  //     misc: "Test",
-  //   },
-  // },
-
   criteriaToGrant: z.object({
     insaniat: z.object({
       house: z.string().min(1, "Required").max(100),
@@ -360,11 +330,6 @@ const formSchema = z.object({
     }),
   }),
   programId: z.coerce.number({ invalid_type_error: "Required" }),
-
-  // mustahik: z.string().min(1, "Required"),
-  // items: z.array(z.string()).refine((value) => value.some((item) => item), {
-  //   message: "You have to select at least one item.",
-  // }),
 });
 
 export function CreateMustahikForm() {
@@ -408,29 +373,9 @@ export function CreateMustahikForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // let opinion = {
-    //   safeWaterSource: false,
-    //   toilet: false,
-    //   placeToStay: false,
-    // };
-
-    // for (let o in opinion) {
-    //   opinion[o as keyof typeof opinion] = values.items.includes(o);
-    // }
-
-    // const payload = {
-    //   ...values,
-    //   mustahik: {
-    //     [values.mustahik]: true,
-    //   },
-    //   opinion,
-    // };
-
     // eslint-disable-next-line no-console
     console.log(values);
   }
-
-  console.log(form.formState.errors);
 
   return (
     <section className="relative">
