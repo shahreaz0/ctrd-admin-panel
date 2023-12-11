@@ -5,8 +5,8 @@ import type { User } from "@/types/user";
 
 let url =
   process.env.NODE_ENV === "production"
-    ? "https://ctrd-admin.vercel.app/users/api"
-    : "http://localhost:3000/users/api";
+    ? "https://ctrd-admin.vercel.app/api/users"
+    : "http://localhost:3000/api/users";
 
 function userFetcher() {
   return axios.get<{ data: User[] }>(url).then((res) => res.data.data);

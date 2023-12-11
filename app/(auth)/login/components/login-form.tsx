@@ -1,15 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RotateCw } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import * as z from "zod";
 
 import { cn } from "@/lib/utils";
+import { useLogin } from "@/hooks/rq/auth/use-login";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -33,28 +32,19 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const router = useRouter();
+  const { mutate: login, isPending } = useLogin();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  const [isLoading, setLoading] = useState(false);
-
-  const router = useRouter();
-
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // eslint-disable-next-line no-console
-    console.log(values);
-
-    setLoading(true);
-
-    toast.success("Welcome Back!", {
-      description: "You have successfully logged in.",
+    login(values, {
+      onSuccess: () => {
+        router.push("/dashboard");
+      },
     });
-
-    setTimeout(() => {
-      router.push("/dashboard");
-      setLoading(false);
-    }, 2000);
   }
 
   return (
@@ -109,8 +99,8 @@ export default function LoginForm() {
             </Link>
           </section>
 
-          <Button type="submit" className="mt-4 w-full" disabled={isLoading}>
-            {isLoading && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Login
+          <Button type="submit" className="mt-4 w-full" disabled={isPending}>
+            {isPending && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Login
           </Button>
         </form>
       </Form>

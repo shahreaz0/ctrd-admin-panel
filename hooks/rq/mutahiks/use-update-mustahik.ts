@@ -8,10 +8,10 @@ type Payload = {
 };
 
 function fn(payload: Payload) {
-  return request.put(`/api/MustahikProgram/${payload.id}`, payload.data);
+  return request.put(`/api/Mustahik/${payload.id}`, payload.data);
 }
 
-export function useUpdateProgram() {
+export function useUpdateMustahik() {
   return useMutation({
     mutationFn: fn,
   });
