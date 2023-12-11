@@ -2,13 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 import { LogOut } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Sidebar() {
   const pathname = usePathname();
+
+  const router = useRouter();
+
+  function logoutHandler() {
+    localStorage.clear();
+    deleteCookie("token");
+    router.push("/login");
+  }
 
   return (
     <div className="flex h-screen w-[300px] flex-col justify-between border-e bg-white">
@@ -145,12 +160,27 @@ export default function Sidebar() {
 
           <div className="flex w-full items-center justify-between">
             <div className="text-xs">
-              <strong className="block font-medium">Eric Frusciante</strong>
+              {typeof window !== "undefined" && (
+                <>
+                  <strong className="block font-medium">
+                    {localStorage.getItem("name")}
+                  </strong>
 
-              <span> eric@frusciante.com </span>
+                  <span>{localStorage.getItem("email")}</span>
+                </>
+              )}
             </div>
 
-            <LogOut className="h-4 w-4" />
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <LogOut className="h-4 w-4" onClick={logoutHandler} />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Logout</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </a>
       </div>

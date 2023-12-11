@@ -22,6 +22,11 @@ export function useLogin() {
         description: "You have successfully logged in.",
       });
 
+      if (typeof window !== "undefined") {
+        localStorage.setItem("name", data.fullName);
+        localStorage.setItem("email", data.email);
+      }
+
       setCookie("token", data.token);
     },
     onError: (error) => {
