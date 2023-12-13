@@ -1,10 +1,23 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { deleteCookie } from "cookies-next";
+
+const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
 export const request = axios.create({
   baseURL: "http://api.citizentrustbd.org",
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
 });
 
-if (getCookie("token")) {
-  request.defaults.headers.common["Authorization"] = "Bearer " + getCookie("token");
-}
+request.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error?.response?.status === 401) {
+      localStorage.clear();
+      deleteCookie("token");
+    }
+
+    return Promise.reject(error);
+  }
+);

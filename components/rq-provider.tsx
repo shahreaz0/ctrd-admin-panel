@@ -8,16 +8,7 @@ type Props = {
   children: ReactNode;
 };
 export default function RQProvider({ children }: Props) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-          },
-        },
-      })
-  );
+  const [queryClient] = useState(() => new QueryClient({}));
 
   return (
     <QueryClientProvider client={queryClient}>

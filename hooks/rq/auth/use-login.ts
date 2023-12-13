@@ -25,6 +25,7 @@ export function useLogin() {
       if (typeof window !== "undefined") {
         localStorage.setItem("name", data.fullName);
         localStorage.setItem("email", data.email);
+        localStorage.setItem("token", data.token);
       }
 
       setCookie("token", data.token);

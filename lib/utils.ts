@@ -15,3 +15,14 @@ export function getKeyByValue<T extends Record<string, number>>(
 ) {
   return Object.keys(object).find((key) => object[key] === value);
 }
+
+export async function getBase64(file: File[]) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file[0]);
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+    reader.onerror = reject;
+  });
+}

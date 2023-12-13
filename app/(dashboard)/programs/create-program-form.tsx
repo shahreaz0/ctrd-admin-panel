@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
+import { getBase64 } from "@/lib/utils";
+import { useCreateProgram } from "@/hooks/rq/programs/use-create-program";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -29,7 +31,7 @@ import { MultiSelect } from "@/components/multi-select";
 
 const formSchema = z.object({
   name: z.string().min(1, "Required").max(100),
-  icon: z.any({ required_error: "Please select a image file" }).array(),
+  icon: z.any({ required_error: "Please select a image file" }),
   description: z.string().min(1, "Required"),
   region: z.string().min(1, "Required").max(500),
   // programManager: z.string(),
@@ -69,12 +71,26 @@ export default function CreateProgramForm(props: Props) {
     });
   }
 
+  const { mutate: createProgram } = useCreateProgram();
+
   async function nextButtonHandler() {
     // hit API to save user
 
-    const isValid = await form.trigger();
+    const b64 = await getBase64(form.getValues("icon"));
+    const payload = {
+      ...form.getValues(),
+      icon: b64,
+    };
 
-    if (isValid) setStep(2);
+    createProgram(payload, {
+      onSuccess: async () => {
+        toast.success("Program Added");
+
+        const isValid = await form.trigger();
+
+        if (isValid) setStep(2);
+      },
+    });
   }
 
   return (
@@ -106,12 +122,12 @@ export default function CreateProgramForm(props: Props) {
 
           <FormField
             control={form.control}
-            name="description"
+            name="region"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Permanent Address</FormLabel>
+                <FormLabel>Region</FormLabel>
                 <FormControl>
-                  <Textarea className="resize-none" {...field} />
+                  <Input {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -121,12 +137,12 @@ export default function CreateProgramForm(props: Props) {
 
           <FormField
             control={form.control}
-            name="region"
+            name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Region</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Textarea className="resize-none" {...field} />
                 </FormControl>
 
                 <FormMessage />

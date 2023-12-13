@@ -160,15 +160,13 @@ export default function Sidebar() {
 
           <div className="flex w-full items-center justify-between">
             <div className="text-xs">
-              {typeof window !== "undefined" && (
+              {/* {typeof window !== "undefined" && (
                 <>
-                  <strong className="block font-medium">
-                    {localStorage.getItem("name")}
-                  </strong>
+                  <p className="block font-medium">{localStorage.getItem("name")}</p>
 
-                  <span>{localStorage.getItem("email")}</span>
+                  <p>{localStorage.getItem("email")}</p>
                 </>
-              )}
+              )} */}
             </div>
 
             <TooltipProvider>
