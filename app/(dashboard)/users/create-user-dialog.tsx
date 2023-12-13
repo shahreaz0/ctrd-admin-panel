@@ -17,13 +17,7 @@ type Props = {
 
 export default function CreateUserDialog(props: Props) {
   return (
-    <Dialog
-      open={props.open}
-      onOpenChange={() => {
-        props.isOpen(false);
-        setTimeout(() => (document.body.style.pointerEvents = ""), 200);
-      }}
-    >
+    <Dialog open={props.open} onOpenChange={() => props.isOpen(false)}>
       <DialogContent className="top-[50%] max-h-[80vh] max-w-[700px] overflow-auto">
         <DialogHeader>
           <DialogTitle>Create User</DialogTitle>

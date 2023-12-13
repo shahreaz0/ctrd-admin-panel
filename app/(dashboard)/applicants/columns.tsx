@@ -70,7 +70,7 @@ export const columns: ColumnDef<Mustahik>[] = [
       return (
         <div className="flex w-[100px] items-center">
           {status.icon && <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
-          <span>{status.label}</span>
+          <p>{status.label}</p>
         </div>
       );
     },

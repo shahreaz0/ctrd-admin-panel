@@ -4,10 +4,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 
 import type { User } from "@/types/user";
+import { generateAvatar, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { statuses } from "./data/data";
 import { DataTableColumnHeader } from "./table-column-header";
 import { DataTableRowActions } from "./table-row-actions";
 
@@ -34,71 +34,36 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
+    accessorKey: "fullName",
     accessorFn: (row) => {
-      return `${row.firstName} ${row.lastName}`;
+      return row.fullName;
     },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Employee" />,
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage
+            src={generateAvatar(row.original.fullName)}
+            alt={row.original.fullName}
+          />
+          <AvatarFallback>{getInitials(row.original.fullName)}</AvatarFallback>
         </Avatar>
 
         <section>
-          <p className="m-0">
-            {row.original.firstName} {row.original.lastName}
-          </p>
-          <p className="m-0 text-xs text-gray-500">{row.original.department}</p>
+          <p className="m-0">{row.original.fullName}</p>
+          <p className="m-0 text-xs text-gray-500">{row.original.email}</p>
         </section>
       </div>
     ),
     enableSorting: false,
     enableHiding: false,
   },
-  // {
-  //   accessorKey: "title",
-  //   header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
-  //   cell: ({ row }) => {
-  //     const label = labels.find((label) => label.value === row.original.label);
-
-  //     return (
-  //       <div className="flex space-x-2">
-  //         {label && <Badge variant="outline">{label.label}</Badge>}
-  //         <span className="max-w-[500px] truncate font-medium">
-  //           {row.getValue("title")}
-  //         </span>
-  //       </div>
-  //     );
-  //   },
-  // },
   {
-    accessorKey: "status",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
-    cell: ({ row }) => {
-      const status = statuses.find((status) => status.value === row.getValue("status"));
-
-      if (!status) {
-        return null;
-      }
-
-      return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
-          <span>{status.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "phoneNumber",
+    accessorKey: "dateOfBirth",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone Number" />
+      <DataTableColumnHeader column={column} title="Date of Birth" />
     ),
+    cell: (info) => <>{format(new Date(info.getValue() as string), "PPP")}</>,
     enableSorting: false,
   },
   {
@@ -106,44 +71,23 @@ export const columns: ColumnDef<User>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title="Department" />,
     enableSorting: false,
   },
-  {
-    accessorKey: "NID",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="NID" />,
-    enableSorting: false,
-  },
+
   {
     accessorKey: "dateOfJoining",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Date of joining" />
     ),
-    cell: (info) => <>{format(new Date(info.getValue() as string), "PPP")}</>,
+    cell: (info) => <>{format(new Date(info.getValue() as string), "dd-MM-yyyy")}</>,
     enableSorting: false,
   },
-  // {
-  //   accessorKey: "priority",
-  //   header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
-  //   cell: ({ row }) => {
-  //     const priority = priorities.find(
-  //       (priority) => priority.value === row.getValue("priority")
-  //     );
 
-  //     if (!priority) {
-  //       return null;
-  //     }
-
-  //     return (
-  //       <div className="flex items-center">
-  //         {priority.icon && (
-  //           <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-  //         )}
-  //         <span>{priority.label}</span>
-  //       </div>
-  //     );
-  //   },
-  //   filterFn: (row, id, value) => {
-  //     return value.includes(row.getValue(id));
-  //   },
-  // },
+  {
+    accessorKey: "monthlySalary",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Monthly Salary (BDT)" />
+    ),
+    enableSorting: false,
+  },
   {
     id: "actions",
     cell: DataTableRowActions,

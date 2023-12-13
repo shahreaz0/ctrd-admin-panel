@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { CreateApplicantDialog } from "./create-applicant-dialog";
 
-export default function UserNav() {
+export function ApplicantNav() {
   const [open, isOpen] = useState(false);
 
   return (

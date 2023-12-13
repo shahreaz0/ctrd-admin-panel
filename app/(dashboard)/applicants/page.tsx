@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
+import { ApplicantNav } from "./applicant-nav";
 import { ApplicantTable } from "./applicant-table";
-import UserNav from "./user-nav";
 
 export const metadata: Metadata = {
   title: "Applicants",
@@ -14,7 +14,7 @@ export default async function TaskPage() {
       <div className="relative   flex-1 flex-col space-y-8 md:flex">
         <div className="flex justify-between">
           <p className="text-lg font-medium">Applicants</p>
-          <UserNav />
+          <ApplicantNav />
         </div>
 
         <ApplicantTable />

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RotateCw } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -32,7 +31,6 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
-  const router = useRouter();
   const { mutate: login, isPending } = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,11 +38,7 @@ export default function LoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    login(values, {
-      onSuccess: () => {
-        router.push("/dashboard");
-      },
-    });
+    login(values);
   }
 
   return (

@@ -17,8 +17,6 @@ export default function Programs() {
 
   const { data: programs } = useGetAllPrograms();
 
-  console.log(programs);
-
   return (
     <section className="relative my-4">
       <section className="mb-4 flex gap-4">

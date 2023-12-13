@@ -29,6 +29,8 @@ export function useLogin() {
       }
 
       setCookie("token", data.token);
+
+      window.location.href = "/dashboard";
     },
     onError: (error) => {
       if (error instanceof AxiosError) {

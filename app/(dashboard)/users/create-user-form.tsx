@@ -2,13 +2,14 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { format, formatISO } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 import { cn } from "@/lib/utils";
+import { useCreateUser } from "@/hooks/rq/users/use-create-user";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -26,12 +27,12 @@ import { Textarea } from "@/components/ui/textarea";
 const formSchema = z.object({
   fullName: z.string().min(1, "Required").max(100),
   email: z.string().email(),
-  dateOfBirth: z.date(),
+  dateOfBirth: z.date({ invalid_type_error: "Required" }),
   fathersName: z.string().min(1, "Required").max(100),
   mothersName: z.string().min(1, "Required").max(100),
   presentAddress: z.string().min(1, "Required").max(500),
   permanentAddress: z.string().min(1, "Required").max(500),
-  dateOfJoining: z.date(),
+  dateOfJoining: z.date({ invalid_type_error: "Required" }),
   monthlySalary: z.coerce
     .number({ invalid_type_error: "Required" })
     .nonnegative("Please enter positive number")
@@ -48,13 +49,23 @@ export default function CreateUserForm(props: Props) {
     resolver: zodResolver(formSchema),
   });
 
+  const { mutate: createUser } = useCreateUser();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // eslint-disable-next-line no-console
-    console.log(values);
+    const payload = {
+      ...values,
+      dateOfJoining: formatISO(values.dateOfJoining),
+      dateOfBirth: formatISO(values.dateOfBirth),
+    };
 
-    props.isOpen(false);
-
-    toast.success("User created", { description: "User has been created successfully." });
+    createUser(payload, {
+      onSuccess: () => {
+        props.isOpen(false);
+        toast.success("User created", {
+          description: "User has been created successfully.",
+        });
+      },
+    });
   }
 
   return (

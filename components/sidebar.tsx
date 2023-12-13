@@ -1,12 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import ctrdLogo from "@/public/the-citizen-trust.svg";
 import { deleteCookie } from "cookies-next";
 import { LogOut } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn, generateAvatar, getInitials } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Tooltip,
   TooltipContent,
@@ -25,6 +28,14 @@ export default function Sidebar() {
     router.push("/login");
   }
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    setName(localStorage.getItem("name") || "");
+    setEmail(localStorage.getItem("email") || "");
+  }, [name, email]);
+
   return (
     <div className="flex h-screen w-[300px] flex-col justify-between border-e bg-white">
       <div className="px-4 py-6">
@@ -32,13 +43,7 @@ export default function Sidebar() {
           {/* <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
             
           </span> */}
-          <Image
-            src="/the-citizen-trust.svg"
-            alt="CTRD"
-            width={40}
-            height={40}
-            className="ml-2"
-          />
+          <Image src={ctrdLogo} alt="CTRD" width={40} className="ml-2" />
         </Link>
 
         <ul className="mt-6 space-y-1">
@@ -149,24 +154,17 @@ export default function Sidebar() {
       </div>
 
       <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
-        <a href="#" className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
-          <Image
-            alt="Man"
-            width={40}
-            height={40}
-            src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            className="h-10 w-10 rounded-full object-cover"
-          />
+        <div className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
+          <Avatar>
+            <AvatarImage src={generateAvatar(name)} alt={name} />
+            <AvatarFallback>{getInitials(name)}</AvatarFallback>
+          </Avatar>
 
           <div className="flex w-full items-center justify-between">
             <div className="text-xs">
-              {/* {typeof window !== "undefined" && (
-                <>
-                  <p className="block font-medium">{localStorage.getItem("name")}</p>
+              <p className="block font-medium">{name}</p>
 
-                  <p>{localStorage.getItem("email")}</p>
-                </>
-              )} */}
+              <p>{email}</p>
             </div>
 
             <TooltipProvider>
@@ -180,7 +178,7 @@ export default function Sidebar() {
               </Tooltip>
             </TooltipProvider>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   );

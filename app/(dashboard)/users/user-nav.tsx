@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { generateAvatar, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,27 +21,30 @@ import CreateUserDialog from "./create-user-dialog";
 export default function UserNav() {
   const [open, isOpen] = useState(false);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    setName(localStorage.getItem("name") || "");
+    setEmail(localStorage.getItem("email") || "");
+  }, [name, email]);
+
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-9 w-9">
-              <AvatarImage
-                src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                alt="Eric Frusciante"
-              />
-              <AvatarFallback>EF</AvatarFallback>
+              <AvatarImage src={generateAvatar(name)} alt={name} />
+              <AvatarFallback>{getInitials(name)}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">Eric Frusciante</p>
-              <p className="text-xs leading-none text-muted-foreground">
-                eric@frusciante.com
-              </p>
+              <p className="text-sm font-medium leading-none">{name}</p>
+              <p className="text-xs leading-none text-muted-foreground">{email}</p>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -49,7 +53,12 @@ export default function UserNav() {
               Profile
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => isOpen(true)}>
+            <DropdownMenuItem
+              onClick={() => {
+                isOpen(true);
+                document.body.style.pointerEvents = "";
+              }}
+            >
               Create User
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>

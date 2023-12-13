@@ -22,9 +22,8 @@ interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
+// eslint-disable-next-line no-unused-vars
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
-  console.log(row);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
