@@ -107,7 +107,7 @@ export default function FamilyInfoFields() {
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select" />
+                            <SelectValue placeholder="বাছাই করুন" />
                           </SelectTrigger>
                         </FormControl>
 
@@ -139,7 +139,7 @@ export default function FamilyInfoFields() {
 
               <FormField
                 control={form.control}
-                name={`familyMembers.${index}.relationToHOF`}
+                name={`familyMembers.${index}.relationToHof`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>পরিবার প্রধানের সাথে সম্পর্ক</FormLabel>
@@ -173,20 +173,9 @@ export default function FamilyInfoFields() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>প্রতিবন্ধী</FormLabel>
-                    <section className="relative">
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select" />
-                          </SelectTrigger>
-                        </FormControl>
-
-                        <SelectContent position="popper">
-                          <SelectItem value="yes">হ্যা</SelectItem>
-                          <SelectItem value="no">না</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </section>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -198,20 +187,9 @@ export default function FamilyInfoFields() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>শিশু</FormLabel>
-                    <section className="relative">
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select" />
-                          </SelectTrigger>
-                        </FormControl>
-
-                        <SelectContent position="popper">
-                          <SelectItem value="yes">হ্যা</SelectItem>
-                          <SelectItem value="no">না</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </section>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -238,20 +216,9 @@ export default function FamilyInfoFields() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>বেকার</FormLabel>
-                    <section className="relative">
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select" />
-                          </SelectTrigger>
-                        </FormControl>
-
-                        <SelectContent position="popper">
-                          <SelectItem value="yes">হ্যা</SelectItem>
-                          <SelectItem value="no">না</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </section>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -272,7 +239,7 @@ export default function FamilyInfoFields() {
                 )}
               />
 
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name={`familyMembers.${index}.phoneNumber`}
                 render={({ field }) => (
@@ -285,7 +252,7 @@ export default function FamilyInfoFields() {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
             </section>
           </Fragment>
         );

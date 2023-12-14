@@ -34,15 +34,14 @@ const formSchema = z.object({
     .max(150, "Maximum 150 is allowed")
     .nonnegative("Please enter positive number")
     .safe(),
-  phoneNumber: z.string().min(1, "Required").max(100),
-  nid: z.string().min(1, "Required").max(100),
+  mobile: z.string().min(1, "Required").max(100),
+  nationalIdentificationNumber: z.string().min(1, "Required").max(100),
   gender: z
     .enum(["male", "female", "other"], {
       required_error: "Required",
     })
     .transform((value) => GENDER[value]),
   occupation: z.string().min(1, "Required").max(100),
-  identificationNumber: z.string().min(1, "Required").max(100),
   fatherOrHusbandName: z.string().min(1, "Required").max(100),
   village: z.string().min(1, "Required").max(100),
   union: z.string().min(1, "Required").max(100),
@@ -56,8 +55,8 @@ const formSchema = z.object({
     .transform((value) => CONDITION[value]),
 
   status: z
-    .enum(
-      [
+    .array(
+      z.enum([
         "fakir",
         "miskin",
         "amilin",
@@ -65,42 +64,29 @@ const formSchema = z.object({
         "rikkab",
         "garimin",
         "fiSabilillah",
-      ],
-      {
-        required_error: "Required",
-      }
+      ])
     )
-    .transform((value) => STATUS[value]),
-
-  hasGoodPlaceToStay: z
-    .enum(["yes", "no"], {
-      required_error: "Required",
+    .refine((value) => value.some((item) => item), {
+      message: "You have to select at least one item.",
     })
-    .transform((value) => value === "yes"),
+    .transform((values) => {
+      return values.map((e) => ({ id: STATUS[e], value: e }));
+    }),
 
-  hasSafeToilet: z
-    .enum(["yes", "no"], {
-      required_error: "Required",
-    })
-    .transform((value) => value === "yes"),
-
-  hasSafeWaterSource: z
-    .enum(["yes", "no"], {
-      required_error: "Required",
-    })
-    .transform((value) => value === "yes"),
-
+  hasGoodPlaceToStay: z.string().min(1, "Required").max(1000),
+  hasSafeToilet: z.string().min(1, "Required").max(1000),
+  hasSafeWaterSource: z.string().min(1, "Required").max(1000),
   bankAccounts: z.array(
     z.object({
-      accountHolderName: z.string().min(1, "Required").max(100),
-      bankName: z.string().min(1, "Required").max(100),
-      accountNumber: z.string().min(1, "Required").max(100),
-      branchName: z.string().min(1, "Required").max(100),
+      accountHolderName: z.string().min(1, "Required").max(1000),
+      bankName: z.string().min(1, "Required").max(1000),
+      accountNumber: z.string().min(1, "Required").max(1000),
+      branchName: z.string().min(1, "Required").max(1000),
     })
   ),
   familyMembers: z.array(
     z.object({
-      name: z.string().min(1, "Required").max(50),
+      name: z.string().min(1, "Required").max(1000),
       age: z.coerce
         .number({ invalid_type_error: "Required" })
         .max(150, "Maximum 150 is allowed")
@@ -110,34 +96,14 @@ const formSchema = z.object({
         .enum(["male", "female", "other"], {
           required_error: "Required",
         })
-        .transform((value) => {
-          const mapper = {
-            male: 0,
-            female: 1,
-            other: 2,
-          };
-
-          return mapper[value];
-        }),
+        .transform((value) => GENDER[value]),
       educationLevel: z.string().min(1, "Required").max(100),
-      relationToHOF: z.string().min(1, "Required").max(100),
+      relationToHof: z.string().min(1, "Required").max(100),
       occupation: z.string().min(1, "Required").max(100),
-      hasDisability: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
-      isChild: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
+      hasDisability: z.string().min(1, "Required").max(1000),
+      isChild: z.string().min(1, "Required").max(1000),
       isSick: z.string().min(1, "Required").max(1000),
-      isJobless: z
-        .enum(["yes", "no"], {
-          required_error: "Required",
-        })
-        .transform((value) => value === "yes"),
+      isJobless: z.string().min(1, "Required").max(1000),
       ongoingMedicineOrTreatment: z.string().min(1, "Required").max(100),
     })
   ),
@@ -162,7 +128,7 @@ const formSchema = z.object({
       .nonnegative("Please enter positive number")
       .safe(),
 
-    interestLoan: z.coerce
+    interestLoanAmmount: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
@@ -194,7 +160,7 @@ const formSchema = z.object({
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
         .safe(),
-      purpose: z.string().min(1, "Required").max(100),
+      purpose: z.string().min(1, "Required").max(1000),
     })
   ),
 
@@ -258,7 +224,6 @@ const formSchema = z.object({
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
-
     totalYearlySpending: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
@@ -266,38 +231,14 @@ const formSchema = z.object({
   }),
 
   healthRelatedInfo: z.object({
-    lastingSickness: z.string().min(1, "Required").max(100),
-    ongoingTreatmentOrMedicine: z.string().min(1, "Required").max(100),
-    hasPregnancy: z
-      .enum(["yes", "no"], {
-        required_error: "Required",
-      })
-      .transform((value) => value === "yes"),
-    hasChronicSickness: z
-      .enum(["yes", "no"], {
-        required_error: "Required",
-      })
-      .transform((value) => value === "yes"),
-    hasCataract: z
-      .enum(["yes", "no"], {
-        required_error: "Required",
-      })
-      .transform((value) => value === "yes"),
-    hasHearingProblem: z
-      .enum(["yes", "no"], {
-        required_error: "Required",
-      })
-      .transform((value) => value === "yes"),
-    hasDisability: z
-      .enum(["yes", "no"], {
-        required_error: "Required",
-      })
-      .transform((value) => value === "yes"),
-    hasHealthEducation: z
-      .enum(["yes", "no"], {
-        required_error: "Required",
-      })
-      .transform((value) => value === "yes"),
+    lastingSickness: z.string().min(1, "Required").max(1000),
+    ongoingTreatmentOrMedicine: z.string().min(1, "Required").max(1000),
+    hasPregnancy: z.string().min(1, "Required").max(1000),
+    hasChronicSickness: z.string().min(1, "Required").max(1000),
+    hasCataract: z.string().min(1, "Required").max(1000),
+    hasHearingProblem: z.string().min(1, "Required").max(1000),
+    hasDisability: z.string().min(1, "Required").max(1000),
+    hasHealthEducation: z.string().min(1, "Required").max(1000),
   }),
 
   criteriaToGrant: z.object({
@@ -329,7 +270,7 @@ const formSchema = z.object({
       misc: z.string().min(1, "Required").max(100),
     }),
   }),
-  programId: z.coerce.number({ invalid_type_error: "Required" }),
+  programId: z.string().transform((value) => +value),
 });
 
 export function CreateMustahikForm() {
@@ -344,6 +285,7 @@ export function CreateMustahikForm() {
           accountNumber: undefined,
         },
       ],
+      status: [],
       familyMembers: [
         {
           name: undefined,
@@ -352,7 +294,7 @@ export function CreateMustahikForm() {
           gender: undefined,
           ongoingMedicineOrTreatment: undefined,
           occupation: undefined,
-          relationToHOF: undefined,
+          relationToHof: undefined,
           hasDisability: undefined,
           isChild: undefined,
           isJobless: undefined,
@@ -376,6 +318,8 @@ export function CreateMustahikForm() {
     // eslint-disable-next-line no-console
     console.log(values);
   }
+
+  console.log(form.formState.errors);
 
   return (
     <section className="relative">

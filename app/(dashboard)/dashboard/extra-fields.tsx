@@ -10,20 +10,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 export default function ExtraFields() {
   const form = useFormContext();
-
-  //   "hasGoodPlaceToStay": true,
-  //   "hasSafeToilet": true,
-  //   "hasSafeWaterSource": true,
 
   return (
     <>
@@ -33,20 +22,9 @@ export default function ExtraFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>ভালো বাসস্থান</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -58,20 +36,9 @@ export default function ExtraFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>নিরাপদ টয়লেট</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}

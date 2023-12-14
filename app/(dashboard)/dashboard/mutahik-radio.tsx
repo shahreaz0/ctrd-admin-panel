@@ -2,6 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   FormControl,
   FormField,
@@ -9,7 +10,37 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
+const items = [
+  {
+    id: "fakir",
+    label: "ফকির",
+  },
+  {
+    id: "miskin",
+    label: "মিসকিন",
+  },
+  {
+    id: "amilin",
+    label: "আমিলিন",
+  },
+  {
+    id: "muallatulKutub",
+    label: "মুয়াল্লাতুল কুলুব",
+  },
+  {
+    id: "rikkab",
+    label: "রিক্কাব",
+  },
+  {
+    id: "garimin",
+    label: "গারিমীন",
+  },
+  {
+    id: "fiSabilillah",
+    label: "ফী সাবিলিল্লাহ",
+  },
+] as const;
 
 export default function MustahikRadio() {
   const form = useFormContext();
@@ -18,66 +49,37 @@ export default function MustahikRadio() {
     <FormField
       control={form.control}
       name="status"
-      render={({ field }) => (
-        <FormItem className="space-y-3">
-          <FormControl>
-            <section className="relative">
-              <RadioGroup
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                className="flex flex-wrap space-y-1"
-              >
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="fakir" />
-                  </FormControl>
-                  <FormLabel className="font-normal">ফকির</FormLabel>
-                </FormItem>
-
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="miskin" />
-                  </FormControl>
-                  <FormLabel className="font-normal">মিসকিন</FormLabel>
-                </FormItem>
-
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="amilin" />
-                  </FormControl>
-                  <FormLabel className="font-normal">আমিলিন</FormLabel>
-                </FormItem>
-
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="muallatulKutub" />
-                  </FormControl>
-                  <FormLabel className="font-normal">মুয়াল্লাতুল কুলুব</FormLabel>
-                </FormItem>
-
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="rikkab" />
-                  </FormControl>
-                  <FormLabel className="font-normal">রিক্কাব</FormLabel>
-                </FormItem>
-
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="garimin" />
-                  </FormControl>
-                  <FormLabel className="font-normal">গারিমীন</FormLabel>
-                </FormItem>
-
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="fiSabilillah" />
-                  </FormControl>
-                  <FormLabel className="font-normal ">ফী সাবিলিল্লাহ</FormLabel>
-                </FormItem>
-              </RadioGroup>
-            </section>
-          </FormControl>
+      render={() => (
+        <FormItem className="relative">
+          {items.map((item) => (
+            <FormField
+              key={item.id}
+              control={form.control}
+              name="status"
+              render={({ field }) => {
+                return (
+                  <FormItem
+                    key={item.id}
+                    className="flex flex-row items-start space-x-3 space-y-0"
+                  >
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value?.includes(item.id)}
+                        onCheckedChange={(checked) => {
+                          return checked
+                            ? field.onChange([...field.value, item.id])
+                            : field.onChange(
+                                field.value?.filter((value: string) => value !== item.id)
+                              );
+                        }}
+                      />
+                    </FormControl>
+                    <FormLabel className="font-normal">{item.label}</FormLabel>
+                  </FormItem>
+                );
+              }}
+            />
+          ))}
           <FormMessage />
         </FormItem>
       )}

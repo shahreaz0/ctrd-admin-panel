@@ -118,23 +118,10 @@ export default function CandidateFields() {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="identificationNumber"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>সনাক্তকরণ নম্বর</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
 
-            <FormMessage />
-          </FormItem>
-        )}
-      />
       <FormField
         control={form.control}
-        name="phoneNumber"
+        name="mobile"
         render={({ field }) => (
           <FormItem>
             <FormLabel>ফোন নম্বর</FormLabel>
@@ -149,7 +136,7 @@ export default function CandidateFields() {
 
       <FormField
         control={form.control}
-        name="nid"
+        name="nationalIdentificationNumber"
         render={({ field }) => (
           <FormItem>
             <FormLabel>পরিচয়পত্র নম্বর</FormLabel>

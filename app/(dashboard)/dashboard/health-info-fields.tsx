@@ -10,13 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 export default function HealthInfoFields() {
   const form = useFormContext();
@@ -69,20 +62,9 @@ export default function HealthInfoFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>গর্ভবতী / প্রসূতী নারী</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -94,20 +76,9 @@ export default function HealthInfoFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>জটিল রোগ / চিকিৎসা</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -119,20 +90,9 @@ export default function HealthInfoFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>চোখের ছানি</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -143,20 +103,9 @@ export default function HealthInfoFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>স্রবণ সমস্যা</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -167,20 +116,9 @@ export default function HealthInfoFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>প্রতিবন্ধী</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -192,20 +130,9 @@ export default function HealthInfoFields() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>স্বাস্থ্যশিক্ষা</FormLabel>
-            <section className="relative">
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                </FormControl>
-
-                <SelectContent position="popper">
-                  <SelectItem value="yes">হ্যা</SelectItem>
-                  <SelectItem value="no">না</SelectItem>
-                </SelectContent>
-              </Select>
-            </section>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
