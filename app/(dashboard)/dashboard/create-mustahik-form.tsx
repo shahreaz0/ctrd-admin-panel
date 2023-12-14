@@ -3,8 +3,10 @@
 import { CONDITION, GENDER, STATUS } from "@/configs/globals";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
+import { useCreateMustahik } from "@/hooks/rq/mutahiks/use-create-mustahik";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
@@ -314,12 +316,17 @@ export function CreateMustahikForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // eslint-disable-next-line no-console
-    console.log(values);
-  }
+  const { mutate: createMustahik } = useCreateMustahik();
 
-  console.log(form.formState.errors);
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    createMustahik(values, {
+      onSuccess: () => {
+        toast.success("Mustahik created", {
+          description: "Mustahik has been created successfully.",
+        });
+      },
+    });
+  }
 
   return (
     <section className="relative">
