@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import { PlusCircle } from "lucide-react";
 
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
@@ -30,7 +30,7 @@ export default function Programs() {
               className="flex h-[110px] flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
             >
               <div className="mb-2 h-12 w-12">
-                <Image src={program.icon} height={50} width={50} alt={program.name} />
+                {/* <Image src={program.icon} height={50} width={50} alt={program.name} /> */}
               </div>
 
               {program.name}

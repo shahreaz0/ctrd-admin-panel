@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,6 +10,7 @@ import { getBase64 } from "@/lib/utils";
 import { useAddManager } from "@/hooks/rq/programs/use-add-manager";
 import { useAddWorker } from "@/hooks/rq/programs/use-add-worker";
 import { useCreateProgram } from "@/hooks/rq/programs/use-create-program";
+import { useGetAllProgramDetails } from "@/hooks/rq/programs/use-get-program-details";
 import { useRemoveWorker } from "@/hooks/rq/programs/use-remove-worker";
 import useGetAllUsers from "@/hooks/rq/users/use-get-all-users";
 import { Button } from "@/components/ui/button";
@@ -42,16 +43,17 @@ const formSchema = z.object({
 
 type Props = {
   isOpen: Dispatch<SetStateAction<boolean>>;
+  programId: number;
 };
 
-export default function CreateProgramForm(props: Props) {
-  const [step, setStep] = useState(1);
-
+export function UpdateProgramForm(props: Props) {
   const { data: users } = useGetAllUsers();
   const { mutate: createProgram } = useCreateProgram();
   const { mutate: addManager } = useAddManager();
   const { mutate: addWorker } = useAddWorker();
   const { mutate: removeWorker } = useRemoveWorker();
+
+  const { data: programDetails } = useGetAllProgramDetails(props.programId);
 
   const usersOptions =
     users?.map((user) => ({
@@ -61,7 +63,11 @@ export default function CreateProgramForm(props: Props) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    mode: "all",
+    defaultValues: {
+      name: programDetails?.name,
+      region: programDetails?.region,
+      description: programDetails?.description,
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -72,20 +78,13 @@ export default function CreateProgramForm(props: Props) {
     };
 
     createProgram(payload, {
-      onSuccess: (data) => {
-        localStorage.setItem("recentProgram", JSON.stringify(data.data));
-        setStep(2);
-
-        toast.success("Program created", {
-          description: "Program has been created successfully.",
+      onSuccess: () => {
+        toast.success("Program Updated", {
+          description: "Program has been Updated successfully.",
         });
       },
     });
   }
-
-  // function onManagerChangeHandler(value: string) {
-  //   console.log(value);
-  // }
 
   return (
     <section>
@@ -144,61 +143,60 @@ export default function CreateProgramForm(props: Props) {
             )}
           />
 
-          {step === 1 && (
-            <Button type="submit" className="mt-4">
-              Next
-            </Button>
-          )}
+          <Button type="submit" className="mt-4">
+            Update
+          </Button>
 
-          {step === 2 && (
-            <div className="space-y-4">
-              <p className="my-4 text-lg font-medium">Step 2</p>
-              <div>
-                <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Select Manager
-                </p>
-                <Select
-                  onValueChange={(val) => {
-                    const payload = {
-                      userId: val,
-                      programId: JSON.parse(
-                        localStorage.getItem("recentProgram") as string
-                      ).id,
-                    };
+          <div className="space-y-4">
+            <div>
+              <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Select Manager
+              </p>
+              <Select
+                defaultValue={programDetails?.managers[0]?.id}
+                onValueChange={(val) => {
+                  const payload = {
+                    userId: val,
+                    programId: props.programId,
+                  };
 
-                    addManager(payload, {
-                      onSuccess: () => {
-                        toast.success("Manager Added");
-                      },
-                    });
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" className="text-red-500" />
-                  </SelectTrigger>
+                  addManager(payload, {
+                    onSuccess: () => {
+                      toast.success("Manager Added");
+                    },
+                  });
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select" className="text-red-500" />
+                </SelectTrigger>
 
-                  <SelectContent position="popper">
-                    {usersOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+                <SelectContent position="popper">
+                  {usersOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-              <div>
-                <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Select Field Workers
-                </p>
+            <div>
+              <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Select Field Workers
+              </p>
+
+              {programDetails && (
                 <MultiSelect
+                  defaultValue={programDetails.workers.map((worker) => ({
+                    label: worker.fullName,
+                    value: worker.id,
+                  }))}
                   data={usersOptions}
                   onUnselect={(data) => {
                     const payload = {
                       userId: data.value,
-                      programId: JSON.parse(
-                        localStorage.getItem("recentProgram") as string
-                      ).id,
+                      programId: props.programId,
                     };
 
                     removeWorker(payload, {
@@ -210,9 +208,7 @@ export default function CreateProgramForm(props: Props) {
                   onSelect={(data) => {
                     const payload = {
                       userId: data.value,
-                      programId: JSON.parse(
-                        localStorage.getItem("recentProgram") as string
-                      ).id,
+                      programId: props.programId,
                     };
 
                     addWorker(payload, {
@@ -222,9 +218,9 @@ export default function CreateProgramForm(props: Props) {
                     });
                   }}
                 />
-              </div>
+              )}
             </div>
-          )}
+          </div>
 
           <Button type="button" className="mt-4" onClick={() => props.isOpen(false)}>
             Done

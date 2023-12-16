@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import type { User } from "@/types/user";
 import { request } from "@/lib/axios";
 
-function fn(payload: User) {
+function fn(payload: any) {
   return request.post("/api/Auth/Register", payload);
 }
 

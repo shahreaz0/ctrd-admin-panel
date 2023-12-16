@@ -15,6 +15,10 @@ interface Props {
   defaultValue?: Framework[];
   // eslint-disable-next-line no-unused-vars
   onChange?: (values: { value: string; label: string }[]) => void;
+  // eslint-disable-next-line no-unused-vars
+  onUnselect?: (values: { value: string; label: string }) => void;
+  // eslint-disable-next-line no-unused-vars
+  onSelect?: (values: { value: string; label: string }) => void;
 }
 
 export function MultiSelect({
@@ -22,6 +26,8 @@ export function MultiSelect({
   onChange,
   placeholder = "Select",
   defaultValue,
+  onUnselect,
+  onSelect,
 }: Props) {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -31,6 +37,7 @@ export function MultiSelect({
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((framework: Framework) => {
+    onUnselect?.(framework);
     setSelected((prev) => prev.filter((s) => s.value !== framework.value));
   }, []);
 
@@ -117,7 +124,7 @@ export function MultiSelect({
           />
         </div>
       </div>
-      <div className="relative mt-2">
+      <div className="relative mt-2 ">
         {open && filtered.length > 0 ? (
           <div className="absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
             <CommandGroup className="h-full overflow-auto">
@@ -131,6 +138,8 @@ export function MultiSelect({
                     }}
                     onSelect={() => {
                       setInputValue("");
+                      onSelect?.(selected);
+
                       setSelected((prev) => [...prev, selected]);
                     }}
                     className={"cursor-pointer"}
