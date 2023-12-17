@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/core/data-table/data-table-column-header";
 
-import { conditions, genders, statuses } from "./data/data";
+import { conditions, genders } from "./data/data";
 import { TableRowActions } from "./table-row-actions";
 
 export const columns: ColumnDef<Mustahik>[] = [
@@ -79,26 +79,26 @@ export const columns: ColumnDef<Mustahik>[] = [
     },
   },
 
-  {
-    accessorKey: "status",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
-    cell: ({ row }) => {
-      const status = statuses.find((status) => status.value === row.getValue("status"));
+  // {
+  //   accessorKey: "status",
+  //   header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+  //   cell: ({ row }) => {
+  //     const status = statuses.find((status) => status.value === row.getValue("status"));
 
-      if (!status) {
-        return null;
-      }
+  //     if (!status) {
+  //       return null;
+  //     }
 
-      return (
-        <div className="flex w-[100px] items-center">
-          <span>{status.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
+  //     return (
+  //       <div className="flex w-[100px] items-center">
+  //         <span>{status.label}</span>
+  //       </div>
+  //     );
+  //   },
+  //   filterFn: (row, id, value) => {
+  //     return value.includes(row.getValue(id));
+  //   },
+  // },
   {
     accessorKey: "gender",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Gender" />,

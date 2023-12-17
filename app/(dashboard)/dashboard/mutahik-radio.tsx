@@ -55,7 +55,7 @@ export default function MustahikRadio() {
             <FormField
               key={item.id}
               control={form.control}
-              name="status"
+              name="statusList"
               render={({ field }) => {
                 return (
                   <FormItem

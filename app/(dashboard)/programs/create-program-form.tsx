@@ -223,12 +223,12 @@ export default function CreateProgramForm(props: Props) {
                   }}
                 />
               </div>
+
+              <Button type="button" className="mt-4" onClick={() => props.isOpen(false)}>
+                Done
+              </Button>
             </div>
           )}
-
-          <Button type="button" className="mt-4" onClick={() => props.isOpen(false)}>
-            Done
-          </Button>
         </form>
       </Form>
     </section>

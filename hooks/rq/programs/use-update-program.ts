@@ -3,23 +3,19 @@ import { toast } from "sonner";
 
 import { request } from "@/lib/axios";
 
-type Payload = {
-  id: number;
-  data: any;
-};
-
-function fn(payload: Payload) {
-  return request.put(`/api/MustahikProgram/${payload.id}`, payload.data);
+function fn(payload: any, programId: number) {
+  return request.put(`/api/MustahikProgram/${programId}`, payload);
 }
 
-export function useUpdateProgram() {
+export function useUpdateProgram(programId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: fn,
+    mutationKey: [programId],
+    mutationFn: (payload: any) => fn(payload, programId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["get-all-programs"],
+        queryKey: ["get-all-programs", programId],
       });
     },
     onError: () => {

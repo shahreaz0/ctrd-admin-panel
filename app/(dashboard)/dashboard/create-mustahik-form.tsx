@@ -56,7 +56,7 @@ const formSchema = z.object({
     })
     .transform((value) => CONDITION[value]),
 
-  status: z
+  statusList: z
     .array(
       z.enum([
         "fakir",
@@ -72,7 +72,7 @@ const formSchema = z.object({
       message: "You have to select at least one item.",
     })
     .transform((values) => {
-      return values.map((e) => ({ id: STATUS[e], value: e }));
+      return values.map((e) => STATUS[e]);
     }),
 
   hasGoodPlaceToStay: z.string().min(1, "Required").max(1000),
@@ -287,7 +287,7 @@ export function CreateMustahikForm() {
           accountNumber: undefined,
         },
       ],
-      status: [],
+      statusList: [],
       familyMembers: [
         {
           name: undefined,

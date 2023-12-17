@@ -2,13 +2,20 @@
 
 import { useState } from "react";
 // import Image from "next/image";
-import { PlusCircle } from "lucide-react";
+import { ArrowRight, PlusCircle } from "lucide-react";
 
+import { generateAvatar } from "@/lib/utils";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import CreateProgramDialog from "./create-program-dialog";
 import UpdateProgramDialog from "./update-program-dialog";
@@ -31,39 +38,85 @@ export default function Programs() {
         </Button>
       </section>
 
-      <RadioGroup defaultValue="p1" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
         {programs?.map((program) => (
-          <div
-            key={program.id}
-            onClick={(e) => {
-              e.preventDefault();
-              setProgramId(program.id);
-              setUpdateDialogOpen(true);
-            }}
-          >
-            <RadioGroupItem value="p1" id="p1" className="peer sr-only" />
+          <Card className="w-max-[300px]" key={program.id}>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>{program.name}</CardTitle>
+                  <CardDescription>{program.description}</CardDescription>
+                </div>
 
-            <Label
-              htmlFor="p1"
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-            >
-              <div className="mb-2 h-12 w-12">
-                {/* <Image src={program.icon} height={50} width={50} alt={program.name} /> */}
+                <Avatar>
+                  <AvatarImage src={generateAvatar(program.name)} alt={program.name} />
+                  <AvatarFallback>{program.name.slice(2)}</AvatarFallback>
+                </Avatar>
               </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <section className="grid grid-cols-2">
+                <section>
+                  <p className=" text-sm font-semibold">Manager</p>
+                  <p className="text-sm text-gray-500 ">
+                    {program.managers[0]?.fullName || "N/A"}
+                  </p>
+                </section>
 
-              {program.name}
-            </Label>
-            <p>Manager: {program.managers[0]?.fullName}</p>
+                <section>
+                  <p className="text-sm font-semibold">Workers</p>
+                  <p className="text-sm text-gray-500 ">
+                    {program.workers.map((manager) => manager.fullName).join(", ") ||
+                      "N/A"}
+                  </p>
+                </section>
+              </section>
 
-            <p>Workers</p>
-            <ul>
-              {program.workers.map((manager) => (
-                <li key={manager.id}>{manager.fullName}</li>
-              ))}
-            </ul>
-          </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setProgramId(program.id);
+                  setUpdateDialogOpen(true);
+                }}
+              >
+                Details
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </CardContent>
+          </Card>
+          // <div
+          //   key={program.id}
+          //   onClick={(e) => {
+          //     e.preventDefault();
+          //     setProgramId(program.id);
+          //     setUpdateDialogOpen(true);
+          //   }}
+          // >
+          //   <RadioGroupItem value="p1" id="p1" className="peer sr-only" />
+
+          //   <Label
+          //     htmlFor="p1"
+          //     className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+          //   >
+          //     <div className="mb-2 h-12 w-12">
+          //       {/* <Image src={program.icon} height={50} width={50} alt={program.name} /> */}
+          //     </div>
+
+          //     {program.name}
+          //   </Label>
+          //   <p>Manager: {program.managers[0]?.fullName}</p>
+
+          //   <p>Workers</p>
+          //   <ul>
+          //     {program.workers.map((manager) => (
+          //       <li key={manager.id}>{manager.fullName}</li>
+          //     ))}
+          //   </ul>
+          // </div>
         ))}
-      </RadioGroup>
+      </div>
 
       <CreateProgramDialog open={open} isOpen={isOpen} />
       <UpdateProgramDialog

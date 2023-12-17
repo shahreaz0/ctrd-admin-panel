@@ -3,6 +3,8 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
+import { Mustahik } from "@/types/mustahik";
+import { useDeleteMustahik } from "@/hooks/rq/mutahiks/use-delete-mustahik";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,11 +15,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-interface DataTableRowActionsProps<TData> {
-  row: Row<TData>;
+interface DataTableRowActionsProps {
+  row: Row<Mustahik>;
 }
 
-export function TableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
+export function TableRowActions({ row }: DataTableRowActionsProps) {
+  const { mutate: deleteMustahik } = useDeleteMustahik();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -34,7 +38,7 @@ export function TableRowActions<TData>({ row }: DataTableRowActionsProps<TData>)
 
         <DropdownMenuItem
           className="text-red-500"
-          onClick={() => console.log(row.original)}
+          onClick={() => deleteMustahik(row.original.id)}
         >
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

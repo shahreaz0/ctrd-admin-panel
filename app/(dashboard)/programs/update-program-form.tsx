@@ -9,9 +9,9 @@ import * as z from "zod";
 import { getBase64 } from "@/lib/utils";
 import { useAddManager } from "@/hooks/rq/programs/use-add-manager";
 import { useAddWorker } from "@/hooks/rq/programs/use-add-worker";
-import { useCreateProgram } from "@/hooks/rq/programs/use-create-program";
 import { useGetAllProgramDetails } from "@/hooks/rq/programs/use-get-program-details";
 import { useRemoveWorker } from "@/hooks/rq/programs/use-remove-worker";
+import { useUpdateProgram } from "@/hooks/rq/programs/use-update-program";
 import useGetAllUsers from "@/hooks/rq/users/use-get-all-users";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,10 +35,10 @@ import FileInput from "@/components/file-input";
 import { MultiSelect } from "@/components/multi-select";
 
 const formSchema = z.object({
-  name: z.string().min(1, "Required").max(100),
-  icon: z.any({ required_error: "Please select a image file" }),
-  description: z.string().min(1, "Required"),
-  region: z.string().min(1, "Required").max(500),
+  name: z.string().min(1, "Required").max(100).optional(),
+  icon: z.any({ required_error: "Please select a image file" }).optional(),
+  description: z.string().min(1, "Required").optional(),
+  region: z.string().min(1, "Required").max(500).optional(),
 });
 
 type Props = {
@@ -48,12 +48,14 @@ type Props = {
 
 export function UpdateProgramForm(props: Props) {
   const { data: users } = useGetAllUsers();
-  const { mutate: createProgram } = useCreateProgram();
+  const { mutate: updateProgram } = useUpdateProgram(props.programId);
   const { mutate: addManager } = useAddManager();
   const { mutate: addWorker } = useAddWorker();
   const { mutate: removeWorker } = useRemoveWorker();
 
   const { data: programDetails } = useGetAllProgramDetails(props.programId);
+
+  console.log(programDetails);
 
   const usersOptions =
     users?.map((user) => ({
@@ -63,10 +65,13 @@ export function UpdateProgramForm(props: Props) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    values: {
       name: programDetails?.name,
       region: programDetails?.region,
       description: programDetails?.description,
+    },
+    resetOptions: {
+      keepDirtyValues: true,
     },
   });
 
@@ -77,7 +82,7 @@ export function UpdateProgramForm(props: Props) {
       icon: b64,
     };
 
-    createProgram(payload, {
+    updateProgram(payload, {
       onSuccess: () => {
         toast.success("Program Updated", {
           description: "Program has been Updated successfully.",
@@ -88,105 +93,105 @@ export function UpdateProgramForm(props: Props) {
 
   return (
     <section>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+      {programDetails && (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FileInput
-            accept={{
-              "image/jpeg": [],
-              "image/png": [],
-            }}
-            name="icon"
-          />
+            <FileInput
+              accept={{
+                "image/jpeg": [],
+                "image/png": [],
+              }}
+              name="icon"
+            />
 
-          <FormField
-            control={form.control}
-            name="region"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Region</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+            <FormField
+              control={form.control}
+              name="region"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Region</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea className="resize-none" {...field} />
-                </FormControl>
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea className="resize-none" {...field} />
+                  </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <Button type="submit" className="mt-4">
-            Update
-          </Button>
+            <Button type="submit" className="mt-4">
+              Update
+            </Button>
 
-          <div className="space-y-4">
-            <div>
-              <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Select Manager
-              </p>
-              <Select
-                defaultValue={programDetails?.managers[0]?.id}
-                onValueChange={(val) => {
-                  const payload = {
-                    userId: val,
-                    programId: props.programId,
-                  };
+            <div className="space-y-4">
+              <div>
+                <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Select Manager
+                </p>
+                <Select
+                  defaultValue={programDetails?.managers[0]?.id}
+                  onValueChange={(val) => {
+                    const payload = {
+                      userId: val,
+                      programId: props.programId,
+                    };
 
-                  addManager(payload, {
-                    onSuccess: () => {
-                      toast.success("Manager Added");
-                    },
-                  });
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select" className="text-red-500" />
-                </SelectTrigger>
+                    addManager(payload, {
+                      onSuccess: () => {
+                        toast.success("Manager Added");
+                      },
+                    });
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" className="text-red-500" />
+                  </SelectTrigger>
 
-                <SelectContent position="popper">
-                  {usersOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                  <SelectContent position="popper">
+                    {usersOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <div>
-              <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Select Field Workers
-              </p>
+              <div>
+                <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Select Field Workers
+                </p>
 
-              {programDetails && (
                 <MultiSelect
                   defaultValue={programDetails.workers.map((worker) => ({
                     label: worker.fullName,
@@ -218,15 +223,15 @@ export function UpdateProgramForm(props: Props) {
                     });
                   }}
                 />
-              )}
+              </div>
             </div>
-          </div>
 
-          <Button type="button" className="mt-4" onClick={() => props.isOpen(false)}>
-            Done
-          </Button>
-        </form>
-      </Form>
+            <Button type="button" className="mt-4" onClick={() => props.isOpen(false)}>
+              Done
+            </Button>
+          </form>
+        </Form>
+      )}
     </section>
   );
 }

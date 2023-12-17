@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/core/data-table/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/core/data-table/data-table-view-options";
 
-import { conditions, genders, statuses } from "./data/data";
+import { conditions, genders } from "./data/data";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -22,9 +22,9 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter users..."
-          value={(table.getColumn("firstName")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("firstName")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
@@ -36,13 +36,13 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
           />
         )}
 
-        {table.getColumn("status") && (
+        {/* {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
             title="Status"
             options={statuses}
           />
-        )}
+        )} */}
 
         {table.getColumn("gender") && (
           <DataTableFacetedFilter
