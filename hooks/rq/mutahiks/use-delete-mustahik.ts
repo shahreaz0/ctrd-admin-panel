@@ -4,8 +4,6 @@ import { toast } from "sonner";
 import { request } from "@/lib/axios";
 
 function fn(mustahikId: number) {
-  console.log(mustahikId);
-
   return request.delete(`/api/Mustahik/${mustahikId}`);
 }
 
