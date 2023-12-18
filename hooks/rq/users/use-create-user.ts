@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { toast } from "sonner";
 
 import { request } from "@/lib/axios";
@@ -17,7 +18,15 @@ export function useCreateUser() {
         queryKey: ["get-all-users"],
       });
     },
-    onError: () => {
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data["DuplicateUserName"]) {
+          return toast.error("Duplicate Username", {
+            description: error.response?.data?.DuplicateUserName[0],
+          });
+        }
+      }
+
       toast.error("Please Try Again", {
         description: "Something Went Wrong",
       });

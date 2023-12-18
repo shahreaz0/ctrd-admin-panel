@@ -79,26 +79,20 @@ export const columns: ColumnDef<Mustahik>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "status",
-  //   header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
-  //   cell: ({ row }) => {
-  //     const status = statuses.find((status) => status.value === row.getValue("status"));
-
-  //     if (!status) {
-  //       return null;
-  //     }
-
-  //     return (
-  //       <div className="flex w-[100px] items-center">
-  //         <span>{status.label}</span>
-  //       </div>
-  //     );
-  //   },
-  //   filterFn: (row, id, value) => {
-  //     return value.includes(row.getValue(id));
-  //   },
-  // },
+  {
+    accessorKey: "status",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Statuses" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex w-[100px] items-center">
+          <span>{row.original.status?.map((e) => e.status).join(", ")}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
   {
     accessorKey: "gender",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Gender" />,

@@ -16,7 +16,10 @@ export type Mustahik = {
   hasGoodPlaceToStay: string;
   hasSafeToilet: string;
   hasSafeWaterSource: string;
-  status: string;
+  status: {
+    id: number;
+    status: string;
+  }[];
   bankAccounts: BankAccount[];
   familyMembers: FamilyMember[];
   landAndDebtDesc: LandAndDebtDesc;

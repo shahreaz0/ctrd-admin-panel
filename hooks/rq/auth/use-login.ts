@@ -43,12 +43,6 @@ export function useLogin() {
             description: "Server is down!, Network Error",
           });
         }
-
-        if (error.request) {
-          toast.error("No Internet", {
-            description: "Check your internet connection",
-          });
-        }
       }
     },
   });
