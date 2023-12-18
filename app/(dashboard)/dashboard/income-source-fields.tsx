@@ -125,7 +125,7 @@ export default function YearlyIncomeSourceFields() {
       />
       <FormField
         control={form.control}
-        name="sourceOfIncome.dayIncome"
+        name="sourceOfIncome.dailyWages"
         render={({ field }) => (
           <FormItem>
             <FormLabel>দিন/কৃষি মজুরি</FormLabel>

@@ -133,7 +133,7 @@ export default function FamilyPropertyFields() {
 
       <FormField
         control={form.control}
-        name="landAndDebtDesc.interestLoanAmmount"
+        name="landAndDebtDesc.interestLoanAmount"
         render={({ field }) => (
           <FormItem>
             <FormLabel>সুদী দেনার পরিমান</FormLabel>

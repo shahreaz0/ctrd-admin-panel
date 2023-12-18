@@ -6,7 +6,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
+import { getKeyByValue } from "@/lib/utils";
 import { useCreateMustahik } from "@/hooks/rq/mutahiks/use-create-mustahik";
+import { useUpdateMustahik } from "@/hooks/rq/mutahiks/use-update-mustahik";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useDialogStates } from "@/components/dialogs-provider";
@@ -39,11 +41,9 @@ const formSchema = z.object({
     .safe(),
   mobile: z.string().min(1, "Required").max(100),
   nationalIdentificationNumber: z.string().min(1, "Required").max(100),
-  gender: z
-    .enum(["male", "female", "other"], {
-      required_error: "Required",
-    })
-    .transform((value) => GENDER[value]),
+  gender: z.enum(["male", "female", "other"], {
+    required_error: "Required",
+  }),
   occupation: z.string().min(1, "Required").max(100),
   fatherOrHusbandName: z.string().min(1, "Required").max(100),
   village: z.string().min(1, "Required").max(100),
@@ -131,7 +131,7 @@ const formSchema = z.object({
       .nonnegative("Please enter positive number")
       .safe(),
 
-    interestLoanAmmount: z.coerce
+    interestLoanAmount: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
@@ -196,7 +196,7 @@ const formSchema = z.object({
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
-    dayIncome: z.coerce
+    dailyWages: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
       .safe(),
@@ -278,13 +278,34 @@ const formSchema = z.object({
 
 export function CreateMustahikForm() {
   const { mustahik } = useDialogStates();
+  const { mutate: createMustahik } = useCreateMustahik();
+  const { mutate: updateMustahik } = useUpdateMustahik();
 
   console.log(mustahik);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bankAccounts: [
+      name: mustahik?.name,
+      religion: mustahik?.religion,
+      gender: getKeyByValue(GENDER, +mustahik?.gender) as any,
+      age: mustahik?.age,
+      occupation: mustahik.occupation,
+      fatherOrHusbandName: mustahik?.fatherOrHusbandName,
+      mobile: mustahik?.mobile,
+      nationalIdentificationNumber: mustahik?.nationalIdentificationNumber,
+      condition: (getKeyByValue(CONDITION, +mustahik.condition) as any) || undefined,
+
+      village: mustahik?.village,
+      postOffice: mustahik?.postOffice,
+      thana: mustahik?.thana,
+      district: mustahik?.district,
+      union: mustahik?.union,
+      hasSafeToilet: mustahik?.hasSafeToilet,
+      hasGoodPlaceToStay: mustahik?.hasGoodPlaceToStay,
+      hasSafeWaterSource: mustahik?.hasSafeWaterSource,
+
+      bankAccounts: mustahik?.bankAccounts || [
         {
           accountHolderName: undefined,
           bankName: undefined,
@@ -292,8 +313,9 @@ export function CreateMustahikForm() {
           accountNumber: undefined,
         },
       ],
-      statusList: [],
-      familyMembers: [
+      statusList:
+        (mustahik?.status?.map((e) => e.status.toLocaleLowerCase()) as any) || [],
+      familyMembers: mustahik?.familyMembers || [
         {
           name: undefined,
           age: undefined,
@@ -308,7 +330,8 @@ export function CreateMustahikForm() {
           isSick: undefined,
         },
       ],
-      debtDescriptions: [
+      landAndDebtDesc: mustahik?.landAndDebtDesc,
+      debtDescriptions: mustahik?.debtDescriptions || [
         {
           bank: undefined,
           dadon: undefined,
@@ -318,12 +341,40 @@ export function CreateMustahikForm() {
           shomobay: undefined,
         },
       ],
+      sourceOfIncome: mustahik?.sourceOfIncome,
+      fieldsOfSpending: mustahik?.fieldsOfSpending,
+      healthRelatedInfo: mustahik?.healthRelatedInfo,
+      criteriaToGrant: {
+        insaniat: mustahik?.criteriaToGrant?.insaniat,
+      },
+      programId: mustahik?.programId?.toString() as any,
     },
   });
 
-  const { mutate: createMustahik } = useCreateMustahik();
-
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if (mustahik.id) {
+      const payload = {
+        id: mustahik.id,
+        data: values,
+      };
+
+      updateMustahik(payload, {
+        onSuccess: () => {
+          toast.success("Mustahik updated", {
+            description: "Mustahik has been updated successfully.",
+          });
+        },
+      });
+    } else {
+      createMustahik(values, {
+        onSuccess: () => {
+          toast.success("Mustahik created", {
+            description: "Mustahik has been created successfully.",
+          });
+        },
+      });
+    }
+
     createMustahik(values, {
       onSuccess: () => {
         toast.success("Mustahik created", {

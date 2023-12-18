@@ -3,9 +3,10 @@ export type Mustahik = {
   name: string;
   religion: string;
   age: number;
+  mobile: string;
   gender: string;
   occupation: string;
-  identificationNumber: string;
+  nationalIdentificationNumber: string;
   fatherOrHusbandName: string;
   condition: string;
   village: string;
@@ -16,10 +17,7 @@ export type Mustahik = {
   hasGoodPlaceToStay: string;
   hasSafeToilet: string;
   hasSafeWaterSource: string;
-  status: {
-    id: number;
-    status: string;
-  }[];
+  status: Status[];
   bankAccounts: BankAccount[];
   familyMembers: FamilyMember[];
   landAndDebtDesc: LandAndDebtDesc;
@@ -29,6 +27,7 @@ export type Mustahik = {
   healthRelatedInfo: HealthRelatedInfo;
   criteriaToGrant: CriteriaToGrant;
   acceptanceStatus: number;
+  generalComment: string;
   programId: number;
   acceptedStatusUpdatedByUserId: string;
   addedByUserId: string;
@@ -113,6 +112,7 @@ export type FieldsOfSpending = {
   education: number;
   medicineOrTreatment: number;
   debtInstallments: number;
+  totalYearlySpending: number;
   misc: number;
 };
 
@@ -132,7 +132,9 @@ export type LandAndDebtDesc = {
   id: number;
   house: string;
   land: string;
-  numberOfCowsAndGoats: number;
+  numberOfCows: number;
+  numberOfGoats: number;
+  interestLoanAmount: number;
   cultivationInstruments: string;
   numberOfChickenAndDucks: number;
   existingAssetInCurrency: number;
@@ -147,5 +149,12 @@ export type SourceOfIncome = {
   kutirBusiness: number;
   governmentGrants: number;
   jobSalary: number;
+  dailyWages: number;
+  totalYearlyIncome: number;
   misc: number;
+};
+
+export type Status = {
+  id: number;
+  status: string;
 };
