@@ -9,6 +9,7 @@ import * as z from "zod";
 import { useCreateMustahik } from "@/hooks/rq/mutahiks/use-create-mustahik";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useDialogStates } from "@/components/dialogs-provider";
 
 import AddressFields from "./address-fields";
 import BankAccountFields from "./bank-accounts-fields";
@@ -276,6 +277,10 @@ const formSchema = z.object({
 });
 
 export function CreateMustahikForm() {
+  const { mustahik } = useDialogStates();
+
+  console.log(mustahik);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

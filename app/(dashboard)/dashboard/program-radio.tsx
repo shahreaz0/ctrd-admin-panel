@@ -33,7 +33,7 @@ export default function ProgramRadioField() {
               className="grid grid-cols-3 gap-4"
             >
               {programs?.map((program) => (
-                <FormItem>
+                <FormItem key={program.id}>
                   <FormControl>
                     <div>
                       <RadioGroupItem

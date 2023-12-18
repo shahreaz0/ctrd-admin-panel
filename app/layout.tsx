@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { DialogsProvider } from "@/components/dialogs-provider";
 import RQProvider from "@/components/rq-provider";
 import TailwindIndicator from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -31,13 +32,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className={cn("bg-background font-sans antialiased", fontSans.variable)}>
-        <RQProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <Toaster richColors />
-            <TailwindIndicator />
-          </ThemeProvider>
-        </RQProvider>
+        <DialogsProvider>
+          <RQProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              {children}
+              <Toaster richColors />
+              <TailwindIndicator />
+            </ThemeProvider>
+          </RQProvider>
+        </DialogsProvider>
       </body>
     </html>
   );

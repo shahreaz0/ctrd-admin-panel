@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/create-mustahik-form";
+import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/upsert-mustahik-form";
 
 import Programs from "./programs";
 import Stats from "./stats";

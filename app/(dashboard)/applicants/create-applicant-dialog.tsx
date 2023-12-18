@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 import {
   Dialog,
   DialogContent,
@@ -7,20 +5,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useDialogStates } from "@/components/dialogs-provider";
 
-import { CreateMustahikForm } from "../dashboard/create-mustahik-form";
+import { CreateMustahikForm } from "../dashboard/upsert-mustahik-form";
 
-type Props = {
-  open: boolean;
-  isOpen: Dispatch<SetStateAction<boolean>>;
-};
+export function CreateApplicantDialog() {
+  const { setDialogsStates, dialogsStates } = useDialogStates();
 
-export function CreateApplicantDialog(props: Props) {
   return (
     <Dialog
-      open={props.open}
+      open={dialogsStates.upsertApplicantDialog}
       onOpenChange={() => {
-        props.isOpen(false);
+        setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: false }));
         setTimeout(() => (document.body.style.pointerEvents = ""), 200);
       }}
     >
