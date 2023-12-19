@@ -10,6 +10,7 @@ import { getBase64 } from "@/lib/utils";
 import { useAddManager } from "@/hooks/rq/programs/use-add-manager";
 import { useAddWorker } from "@/hooks/rq/programs/use-add-worker";
 import { useGetAllProgramDetails } from "@/hooks/rq/programs/use-get-program-details";
+import { useRemoveManager } from "@/hooks/rq/programs/use-remove-manager";
 import { useRemoveWorker } from "@/hooks/rq/programs/use-remove-worker";
 import { useUpdateProgram } from "@/hooks/rq/programs/use-update-program";
 import useGetAllUsers from "@/hooks/rq/users/use-get-all-users";
@@ -50,6 +51,7 @@ export function UpdateProgramForm(props: Props) {
   const { data: users } = useGetAllUsers();
   const { mutate: updateProgram } = useUpdateProgram(props.programId);
   const { mutate: addManager } = useAddManager();
+  const { mutate: removeManager } = useRemoveManager();
   const { mutate: addWorker } = useAddWorker();
   const { mutate: removeWorker } = useRemoveWorker();
 
@@ -165,6 +167,11 @@ export function UpdateProgramForm(props: Props) {
                       userId: val,
                       programId: props.programId,
                     };
+
+                    removeManager({
+                      userId: programDetails?.managers[0]?.id,
+                      programId: props.programId,
+                    });
 
                     addManager(payload, {
                       onSuccess: () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { CONDITION, GENDER, STATUS } from "@/configs/globals";
+import { CONDITION, GENDER } from "@/configs/globals";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -41,9 +41,11 @@ const formSchema = z.object({
     .safe(),
   mobile: z.string().min(1, "Required").max(100),
   nationalIdentificationNumber: z.string().min(1, "Required").max(100),
-  gender: z.enum(["male", "female", "other"], {
-    required_error: "Required",
-  }),
+  gender: z
+    .enum(["male", "female", "other"], {
+      required_error: "Required",
+    })
+    .transform((e) => GENDER[e]),
   occupation: z.string().min(1, "Required").max(100),
   fatherOrHusbandName: z.string().min(1, "Required").max(100),
   village: z.string().min(1, "Required").max(100),
@@ -58,22 +60,12 @@ const formSchema = z.object({
     .transform((value) => CONDITION[value]),
 
   statusList: z
-    .array(
-      z.enum([
-        "fakir",
-        "miskin",
-        "amilin",
-        "muallatulKutub",
-        "rikkab",
-        "garimin",
-        "fiSabilillah",
-      ])
-    )
+    .array(z.enum(["0", "2", "3", "4", "5", "6", "7"]))
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     })
     .transform((values) => {
-      return values.map((e) => STATUS[e]);
+      return values.map((e) => +e);
     }),
 
   hasGoodPlaceToStay: z.string().min(1, "Required").max(1000),
@@ -282,7 +274,7 @@ export function CreateMustahikForm() {
   const { mutate: createMustahik } = useCreateMustahik();
   const { mutate: updateMustahik } = useUpdateMustahik();
 
-  console.log(mustahik);
+  console.log(mustahik?.status?.map((e) => String(e)) as any);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -314,8 +306,8 @@ export function CreateMustahikForm() {
           accountNumber: undefined,
         },
       ],
-      statusList:
-        (mustahik?.status?.map((e) => e.status.toLocaleLowerCase()) as any) || [],
+      statusList: (mustahik?.status?.map((e) => String(e.id)) as any) || [],
+
       familyMembers: mustahik?.familyMembers || [
         {
           name: undefined,

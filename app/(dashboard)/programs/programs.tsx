@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 // import Image from "next/image";
-import { ArrowRight, PlusCircle } from "lucide-react";
+import { ArrowRight, PlusCircle, Trash2 } from "lucide-react";
 
 import { generateAvatar } from "@/lib/utils";
+import { useDeleteProgram } from "@/hooks/rq/programs/use-delete-program";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,8 @@ export default function Programs() {
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
 
   const { data: programs } = useGetAllPrograms();
+
+  const { mutate: deleteProgram } = useDeleteProgram();
 
   const [programId, setProgramId] = useState(-1);
 
@@ -72,18 +75,30 @@ export default function Programs() {
                 </section>
               </section>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setProgramId(program.id);
-                  setUpdateDialogOpen(true);
-                }}
-              >
-                Details
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <section className="flex justify-between">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setProgramId(program.id);
+                    setUpdateDialogOpen(true);
+                  }}
+                >
+                  Details
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    deleteProgram(program.id);
+                  }}
+                >
+                  <Trash2 className="h-4 w-4 text-red-500" />
+                </Button>
+              </section>
             </CardContent>
           </Card>
           // <div

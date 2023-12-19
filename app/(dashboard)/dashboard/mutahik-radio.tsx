@@ -13,31 +13,31 @@ import {
 
 const items = [
   {
-    id: "fakir",
+    id: "0",
     label: "ফকির",
   },
   {
-    id: "miskin",
+    id: "1",
     label: "মিসকিন",
   },
   {
-    id: "amilin",
+    id: "2",
     label: "আমিলিন",
   },
   {
-    id: "muallatulKutub",
+    id: "3",
     label: "মুয়াল্লাতুল কুলুব",
   },
   {
-    id: "rikkab",
+    id: "4",
     label: "রিক্কাব",
   },
   {
-    id: "garimin",
+    id: "5",
     label: "গারিমীন",
   },
   {
-    id: "fiSabilillah",
+    id: "6",
     label: "ফী সাবিলিল্লাহ",
   },
 ] as const;

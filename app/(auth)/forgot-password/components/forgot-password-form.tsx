@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RotateCw } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import * as z from "zod";
 
+import { useForgotPassword } from "@/hooks/rq/auth/use-forgot-passoword";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -30,24 +28,10 @@ export default function ForgotPasswordForm() {
     resolver: zodResolver(formSchema),
   });
 
-  const [isLoading, setLoading] = useState(false);
-
-  const router = useRouter();
+  const { mutate: forgotPassword, isPending } = useForgotPassword();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // eslint-disable-next-line no-console
-    console.log(values);
-
-    setLoading(true);
-
-    toast.success("Welcome Back!", {
-      description: "You have successfully logged in.",
-    });
-
-    setTimeout(() => {
-      router.push("/dashboard");
-      setLoading(false);
-    }, 2000);
+    forgotPassword(values);
   }
 
   return (
@@ -69,8 +53,8 @@ export default function ForgotPasswordForm() {
             )}
           />
 
-          <Button type="submit" className="mt-4 w-full" disabled={isLoading}>
-            {isLoading && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Next
+          <Button type="submit" className="mt-4 w-full" disabled={isPending}>
+            {isPending && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Next
           </Button>
         </form>
       </Form>
