@@ -4,21 +4,21 @@ import logo from "@/public/the-citizen-trust.svg";
 
 import { Card } from "@/components/ui/card";
 
-import ResetPasswordForm from "./reset-passoword-form";
+import SetupPasswordForm from "./setup-passoword-form";
 
 export const metadata: Metadata = {
-  title: "Reset Password",
-  description: "Reset your passoword",
+  title: "Setup Password",
+  description: "Setup your passoword",
 };
 
-export default function ResetPasswordPage() {
+export default function SetupPasswordPage() {
   return (
     <section className="flex h-screen  items-center justify-center">
       <Card className="w-full p-8 sm:w-[400px]">
         <Image src={logo} alt="The Citizen Trust" width={100} className="m-auto" />
 
-        <p className="mb-2 mt-8 text-lg font-medium text-primary">Reset Your Password</p>
-        <ResetPasswordForm />
+        <p className="mb-2 mt-8 text-lg font-medium text-primary">Setup Your Password</p>
+        <SetupPasswordForm />
       </Card>
     </section>
   );

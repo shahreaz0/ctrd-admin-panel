@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RotateCw } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import * as z from "zod";
 
+import { useResetPassword } from "@/hooks/rq/auth/use-reset-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,35 +19,37 @@ import {
 } from "@/components/ui/form";
 import PasswordInput from "@/components/passoword-input";
 
-const formSchema = z.object({
-  password: z.string({ required_error: "Email is required." }),
-  confirmPassword: z.string({ required_error: "Password is required." }),
-});
+const formSchema = z
+  .object({
+    password: z.string({ required_error: "Password is required." }),
+    newPassword: z.string({ required_error: "Password is required." }),
+  })
+  .refine((data) => data.password === data.newPassword, {
+    message: "Passwords don't match",
+    path: ["newPassword"],
+  });
 
 export default function ResetPassowrdForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  const [isLoading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
 
-  const router = useRouter();
+  const { mutate: resetPassword } = useResetPassword();
+
+  const [isLoading] = useState(false);
+
+  const status = searchParams.has("token") && searchParams.has("email");
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // eslint-disable-next-line no-console
-    console.log(values);
+    const payload = {
+      email: searchParams.get("email") as string,
+      token: searchParams.get("token") as string,
+      newPassword: values.newPassword,
+    };
 
-    setLoading(true);
-
-    toast.success("Password Reset Successful!", {
-      description:
-        "Your password has been reset. You can now log in with your new credentials.",
-    });
-
-    setTimeout(() => {
-      router.push("/dashboard");
-      setLoading(false);
-    }, 2000);
+    resetPassword(payload);
   }
 
   return (
@@ -71,7 +73,7 @@ export default function ResetPassowrdForm() {
 
           <FormField
             control={form.control}
-            name="confirmPassword"
+            name="newPassword"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
@@ -83,9 +85,9 @@ export default function ResetPassowrdForm() {
             )}
           />
 
-          <Button type="submit" className="mt-4 w-full" disabled={isLoading}>
+          <Button type="submit" className="mt-4 w-full" disabled={isLoading || !status}>
             {isLoading && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Reset
-            Passoword
+            Password
           </Button>
         </form>
       </Form>

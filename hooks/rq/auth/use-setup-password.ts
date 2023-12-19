@@ -9,16 +9,16 @@ type Payload = {
   newPassword: string;
 };
 function fn(payload: Payload) {
-  return request.post("/api/Auth/ResetPassword", payload);
+  return request.post("/api/Auth/SetupPassword", payload);
 }
 
-export function useResetPassword() {
+export function useSetupPassword() {
   return useMutation({
-    mutationKey: ["reset-passoword"],
+    mutationKey: ["setup-passoword"],
     mutationFn: fn,
     onSuccess: () => {
       toast.success("Success", {
-        description: "Successfully reset password",
+        description: "Successfully setup password",
       });
 
       window.location.href = "/login";

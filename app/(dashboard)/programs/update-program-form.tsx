@@ -78,10 +78,12 @@ export function UpdateProgramForm(props: Props) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const b64 = await getBase64(form.getValues("icon"));
+    if (values.icon) {
+      values.icon = (await getBase64(form.getValues("icon"))) as string;
+    }
+
     const payload = {
       ...values,
-      icon: b64,
     };
 
     updateProgram(payload, {
