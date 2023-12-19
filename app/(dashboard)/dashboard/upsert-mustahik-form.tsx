@@ -274,6 +274,7 @@ const formSchema = z.object({
     }),
   }),
   programId: z.string().transform((value) => +value),
+  generalComment: z.string(),
 });
 
 export function CreateMustahikForm() {
@@ -344,6 +345,7 @@ export function CreateMustahikForm() {
       sourceOfIncome: mustahik?.sourceOfIncome,
       fieldsOfSpending: mustahik?.fieldsOfSpending,
       healthRelatedInfo: mustahik?.healthRelatedInfo,
+      generalComment: "sss",
       criteriaToGrant: {
         insaniat: mustahik?.criteriaToGrant?.insaniat,
       },
@@ -366,6 +368,8 @@ export function CreateMustahikForm() {
         },
       });
     } else {
+      console.log(values);
+
       createMustahik(values, {
         onSuccess: () => {
           toast.success("Mustahik created", {
@@ -374,14 +378,6 @@ export function CreateMustahikForm() {
         },
       });
     }
-
-    createMustahik(values, {
-      onSuccess: () => {
-        toast.success("Mustahik created", {
-          description: "Mustahik has been created successfully.",
-        });
-      },
-    });
   }
 
   return (
