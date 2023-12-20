@@ -16,6 +16,7 @@ export function useGetAllMustahiks() {
         ...e,
         condition: String(e.condition),
         gender: String(e.condition),
+        acceptanceStatus: String(e.acceptanceStatus),
       }));
     },
   });

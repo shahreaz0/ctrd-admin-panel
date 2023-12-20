@@ -58,21 +58,18 @@ export default function Programs() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              <section className="grid grid-cols-2">
-                <section>
-                  <p className=" text-sm font-semibold">Manager</p>
-                  <p className="text-sm text-gray-500 ">
-                    {program.managers[0]?.fullName || "N/A"}
-                  </p>
-                </section>
+              <section>
+                <p className=" text-sm font-semibold">Manager</p>
+                <p className="text-sm text-gray-500 ">
+                  {program.managers[0]?.fullName || "N/A"}
+                </p>
+              </section>
 
-                <section>
-                  <p className="text-sm font-semibold">Workers</p>
-                  <p className="text-sm text-gray-500 ">
-                    {program.workers.map((manager) => manager.fullName).join(", ") ||
-                      "N/A"}
-                  </p>
-                </section>
+              <section>
+                <p className="text-sm font-semibold">Workers</p>
+                <p className="text-sm text-gray-500 ">
+                  {program.workers.map((manager) => manager.fullName).join(", ") || "N/A"}
+                </p>
               </section>
 
               <section className="flex justify-between">

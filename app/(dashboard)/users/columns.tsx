@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { DataTableColumnHeader } from "./table-column-header";
-import { DataTableRowActions } from "./table-row-actions";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -88,8 +87,8 @@ export const columns: ColumnDef<User>[] = [
     ),
     enableSorting: false,
   },
-  {
-    id: "actions",
-    cell: DataTableRowActions,
-  },
+  // {
+  //   id: "actions",
+  //   cell: DataTableRowActions,
+  // },
 ];

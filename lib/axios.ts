@@ -4,7 +4,7 @@ import { deleteCookie } from "cookies-next";
 const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
 export const request = axios.create({
-  baseURL: "http://api.citizentrustbd.org",
+  baseURL: "https://api.citizentrustbd.org",
   headers: {
     Authorization: `Bearer ${token}`,
   },

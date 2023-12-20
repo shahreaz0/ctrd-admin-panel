@@ -18,6 +18,24 @@ export const conditions = [
   },
 ];
 
+export const acceptanceStatuses = [
+  {
+    value: "0",
+    label: "Pending",
+    icon: CrossCircledIcon,
+  },
+  {
+    value: "1",
+    label: "Accepted",
+    icon: CheckCircledIcon,
+  },
+  {
+    value: "2",
+    label: "Rejected",
+    icon: CircleIcon,
+  },
+];
+
 export const genders = [
   {
     label: "Male",

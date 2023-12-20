@@ -238,33 +238,34 @@ const formSchema = z.object({
 
   criteriaToGrant: z.object({
     insaniat: z.object({
-      house: z.string().min(1, "Required").max(100),
-      food: z.string().min(1, "Required").max(100),
-      orphan: z.string().min(1, "Required").max(100),
-      clothes: z.string().min(1, "Required").max(100),
+      house: z.string().min(1, "Required").max(100).optional(),
+      food: z.string().min(1, "Required").max(100).optional(),
+      orphan: z.string().min(1, "Required").max(100).optional(),
+      clothes: z.string().min(1, "Required").max(100).optional(),
     }),
     employment: z.object({
-      biniyog: z.string().min(1, "Required").max(100),
-      land: z.string().min(1, "Required").max(100),
-      kutir: z.string().min(1, "Required").max(100),
-      cultivatingInstruments: z.string().min(1, "Required").max(100),
-      cowsOrGoats: z.string().min(1, "Required").max(100),
-      hensOrDucks: z.string().min(1, "Required").max(100),
-      business: z.string().min(1, "Required").max(100),
-      farmingEquipments: z.string().min(1, "Required").max(100),
-      misc: z.string().min(1, "Required").max(100),
+      biniyog: z.string().min(1, "Required").max(100).optional(),
+      land: z.string().min(1, "Required").max(100).optional(),
+      kutir: z.string().min(1, "Required").max(100).optional(),
+      cultivatingInstruments: z.string().min(1, "Required").max(100).optional(),
+      cowsOrGoats: z.string().min(1, "Required").max(100).optional(),
+      hensOrDucks: z.string().min(1, "Required").max(100).optional(),
+      business: z.string().min(1, "Required").max(100).optional(),
+      farmingEquipments: z.string().min(1, "Required").max(100).optional(),
+      misc: z.string().min(1, "Required").max(100).optional(),
     }),
     education: z.object({
-      childrenEducation: z.string().min(1, "Required").max(100),
-      educationHelp: z.string().min(1, "Required").max(100),
-      books: z.string().min(1, "Required").max(100),
-      instruments: z.string().min(1, "Required").max(100),
-      childrenClothing: z.string().min(1, "Required").max(100),
-      food: z.string().min(1, "Required").max(100),
-      quranEducation: z.string().min(1, "Required").max(100),
-      misc: z.string().min(1, "Required").max(100),
+      childrenEducation: z.string().min(1, "Required").max(100).optional(),
+      educationHelp: z.string().min(1, "Required").max(100).optional(),
+      books: z.string().min(1, "Required").max(100).optional(),
+      instruments: z.string().min(1, "Required").max(100).optional(),
+      childrenClothing: z.string().min(1, "Required").max(100).optional(),
+      food: z.string().min(1, "Required").max(100).optional(),
+      quranEducation: z.string().min(1, "Required").max(100).optional(),
+      misc: z.string().min(1, "Required").max(100).optional(),
     }),
   }),
+
   programId: z.string().transform((value) => +value),
   generalComment: z.string(),
 });
@@ -449,7 +450,7 @@ export function CreateMustahikForm() {
               </section>
 
               <section>
-                <h1 className="mb-2 text-base text-gray-400">কর্মসংস্থান</h1>
+                <h1 className="mb-2 text-base text-gray-400">শিক্ষা</h1>
                 <CriteriaEducationFields />
               </section>
             </section>

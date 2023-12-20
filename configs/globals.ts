@@ -19,3 +19,9 @@ export const CONDITION = {
   green: 1,
   yellow: 2,
 };
+
+export const ACCEPTANCE_STATUS = {
+  Pending: 0,
+  Accepted: 1,
+  Rejected: 2,
+};

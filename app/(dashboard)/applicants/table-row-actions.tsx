@@ -2,9 +2,11 @@
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
+import { toast } from "sonner";
 
 import { Mustahik } from "@/types/mustahik";
 import { useDeleteMustahik } from "@/hooks/rq/mutahiks/use-delete-mustahik";
+import { useMustahikApprove } from "@/hooks/rq/mutahiks/use-mustahik-approve";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,6 +24,7 @@ interface DataTableRowActionsProps {
 
 export function TableRowActions({ row }: DataTableRowActionsProps) {
   const { mutate: deleteMustahik } = useDeleteMustahik();
+  const { mutate: mustahikApprove } = useMustahikApprove();
 
   const { setMustahik, setDialogsStates } = useDialogStates();
 
@@ -40,9 +43,42 @@ export function TableRowActions({ row }: DataTableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Details</DropdownMenuItem>
+        {/* <DropdownMenuItem>Details</DropdownMenuItem> */}
         <DropdownMenuItem onClick={editMustahikHandler}>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Approve</DropdownMenuItem>
+
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            mustahikApprove(
+              { mustahikId: row.original.id, isApproved: true },
+              {
+                onSuccess: () => {
+                  toast.success("Approved", {
+                    description: "Mushtahik successfully approved.",
+                  });
+                },
+              }
+            );
+          }}
+        >
+          Approve
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            mustahikApprove(
+              { mustahikId: row.original.id, isApproved: false },
+              {
+                onSuccess: () => {
+                  toast.success("Rejected", {
+                    description: "Mushtahik successfully rejected.",
+                  });
+                },
+              }
+            );
+          }}
+        >
+          Reject
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
 
         <DropdownMenuItem

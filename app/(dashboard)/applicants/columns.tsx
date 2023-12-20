@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/core/data-table/data-table-column-header";
 
-import { conditions, genders } from "./data/data";
+import { acceptanceStatuses, conditions, genders } from "./data/data";
 import { TableRowActions } from "./table-row-actions";
 
 export const columns: ColumnDef<Mustahik>[] = [
@@ -61,6 +61,29 @@ export const columns: ColumnDef<Mustahik>[] = [
     cell: ({ row }) => {
       const status = conditions.find(
         (condition) => condition.value === row.getValue("condition")
+      );
+
+      if (!status) {
+        return null;
+      }
+
+      return (
+        <div className="flex w-[100px] items-center">
+          {status.icon && <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
+          <p>{status.label}</p>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "acceptanceStatus",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Acceptance" />,
+    cell: ({ row }) => {
+      const status = acceptanceStatuses.find(
+        (condition) => condition.value === row.getValue("acceptanceStatus")
       );
 
       if (!status) {

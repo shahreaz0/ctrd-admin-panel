@@ -26,7 +26,7 @@ export type Mustahik = {
   fieldsOfSpending: FieldsOfSpending;
   healthRelatedInfo: HealthRelatedInfo;
   criteriaToGrant: CriteriaToGrant;
-  acceptanceStatus: number;
+  acceptanceStatus: string;
   generalComment: string;
   programId: number;
   acceptedStatusUpdatedByUserId: string;

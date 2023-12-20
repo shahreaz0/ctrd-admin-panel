@@ -12,6 +12,7 @@ export function ApplicantNav() {
   return (
     <>
       <Button
+        size="sm"
         onClick={() => {
           setMustahik({} as Mustahik);
           setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: true }));

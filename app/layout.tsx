@@ -32,15 +32,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className={cn("bg-background font-sans antialiased", fontSans.variable)}>
-        <DialogsProvider>
-          <RQProvider>
+        <RQProvider>
+          <DialogsProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               {children}
               <Toaster richColors />
               <TailwindIndicator />
             </ThemeProvider>
-          </RQProvider>
-        </DialogsProvider>
+          </DialogsProvider>
+        </RQProvider>
       </body>
     </html>
   );
