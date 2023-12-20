@@ -22,7 +22,7 @@ export const acceptanceStatuses = [
   {
     value: "0",
     label: "Pending",
-    icon: CrossCircledIcon,
+    icon: CircleIcon,
   },
   {
     value: "1",
@@ -32,7 +32,7 @@ export const acceptanceStatuses = [
   {
     value: "2",
     label: "Rejected",
-    icon: CircleIcon,
+    icon: CrossCircledIcon,
   },
 ];
 
