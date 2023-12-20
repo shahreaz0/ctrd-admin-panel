@@ -33,7 +33,7 @@ import SpendingFields from "./spending-fields";
 
 const formSchema = z.object({
   name: z.string().min(1, "Required").max(100),
-  religion: z.string().min(1, "Required").max(100),
+  religion: z.string().max(100).optional(),
   age: z.coerce
     .number({ invalid_type_error: "Required" })
     .max(150, "Maximum 150 is allowed")
@@ -46,10 +46,10 @@ const formSchema = z.object({
       required_error: "Required",
     })
     .transform((e) => GENDER[e]),
-  occupation: z.string().min(1, "Required").max(100),
-  fatherOrHusbandName: z.string().min(1, "Required").max(100),
-  village: z.string().min(1, "Required").max(100),
-  union: z.string().min(1, "Required").max(100),
+  occupation: z.string().max(100).optional(),
+  fatherOrHusbandName: z.string().max(100).optional(),
+  village: z.string().min(1, "Required").max(1000),
+  union: z.string().min(1, "Required").max(1000),
   postOffice: z.string().min(1, "Required").max(100),
   thana: z.string().min(1, "Required").max(100),
   district: z.string().min(1, "Required").max(100),
@@ -60,7 +60,7 @@ const formSchema = z.object({
     .transform((value) => CONDITION[value]),
 
   statusList: z
-    .array(z.enum(["0", "2", "3", "4", "5", "6", "7"]))
+    .array(z.enum(["1", "2", "3", "4", "5", "6", "7"]))
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     })
@@ -68,9 +68,9 @@ const formSchema = z.object({
       return values.map((e) => +e);
     }),
 
-  hasGoodPlaceToStay: z.string().min(1, "Required").max(1000),
-  hasSafeToilet: z.string().min(1, "Required").max(1000),
-  hasSafeWaterSource: z.string().min(1, "Required").max(1000),
+  hasGoodPlaceToStay: z.string().max(1000).optional(),
+  hasSafeToilet: z.string().max(1000).optional(),
+  hasSafeWaterSource: z.string().max(1000).optional(),
   bankAccounts: z.array(
     z.object({
       accountHolderName: z.string().min(1, "Required").max(1000),
@@ -92,45 +92,51 @@ const formSchema = z.object({
           required_error: "Required",
         })
         .transform((value) => GENDER[value]),
-      educationLevel: z.string().min(1, "Required").max(100),
-      relationToHof: z.string().min(1, "Required").max(100),
-      occupation: z.string().min(1, "Required").max(100),
-      hasDisability: z.string().min(1, "Required").max(1000),
-      isChild: z.string().min(1, "Required").max(1000),
-      isSick: z.string().min(1, "Required").max(1000),
-      isJobless: z.string().min(1, "Required").max(1000),
-      ongoingMedicineOrTreatment: z.string().min(1, "Required").max(100),
+      educationLevel: z.string().max(100).optional(),
+      relationToHof: z.string().min(1, "Required").max(1000),
+      occupation: z.string().max(100).optional(),
+      hasDisability: z.string().max(1000).optional(),
+      isChild: z.string().max(1000).optional(),
+      isSick: z.string().max(1000).optional(),
+      isJobless: z.string().max(1000).optional(),
+      ongoingMedicineOrTreatment: z.string().max(100).optional(),
     })
   ),
   landAndDebtDesc: z.object({
-    house: z.string().min(1, "Required").max(100),
-    land: z.string().min(1, "Required").max(100),
+    house: z.string().max(100).optional(),
+    land: z.string().max(100).optional(),
     numberOfCows: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     numberOfGoats: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
-    cultivationInstruments: z.string().min(1, "Required").max(100),
+      .safe()
+      .optional(),
+    cultivationInstruments: z.string().max(100).optional(),
     numberOfChickenAndDucks: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     existingAssetInCurrency: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
 
     interestLoanAmount: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     totalDebt: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
   }),
 
   debtDescriptions: z.array(
@@ -138,23 +144,28 @@ const formSchema = z.object({
       ngo: z.coerce
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
-        .safe(),
+        .safe()
+        .optional(),
       bank: z.coerce
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
-        .safe(),
+        .safe()
+        .optional(),
       shomobay: z.coerce
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
-        .safe(),
+        .safe()
+        .optional(),
       dadon: z.coerce
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
-        .safe(),
+        .safe()
+        .optional(),
       misc: z.coerce
         .number({ invalid_type_error: "Required" })
         .nonnegative("Please enter positive number")
-        .safe(),
+        .safe()
+        .optional(),
       purpose: z.string().min(1, "Required").max(1000),
     })
   ),
@@ -163,77 +174,92 @@ const formSchema = z.object({
     farming: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     business: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     animals: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     kutirBusiness: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     governmentGrants: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     jobSalary: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     misc: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     dailyWages: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     totalYearlyIncome: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
   }),
 
   fieldsOfSpending: z.object({
     food: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     education: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     medicineOrTreatment: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     debtInstallments: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     misc: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
     totalYearlySpending: z.coerce
       .number({ invalid_type_error: "Required" })
       .nonnegative("Please enter positive number")
-      .safe(),
+      .safe()
+      .optional(),
   }),
 
   healthRelatedInfo: z.object({
-    lastingSickness: z.string().min(1, "Required").max(1000),
-    ongoingTreatmentOrMedicine: z.string().min(1, "Required").max(1000),
-    hasPregnancy: z.string().min(1, "Required").max(1000),
-    hasChronicSickness: z.string().min(1, "Required").max(1000),
-    hasCataract: z.string().min(1, "Required").max(1000),
-    hasHearingProblem: z.string().min(1, "Required").max(1000),
-    hasDisability: z.string().min(1, "Required").max(1000),
-    hasHealthEducation: z.string().min(1, "Required").max(1000),
+    lastingSickness: z.string().max(1000).optional(),
+    ongoingTreatmentOrMedicine: z.string().max(1000).optional(),
+    hasPregnancy: z.string().max(1000).optional(),
+    hasChronicSickness: z.string().max(1000).optional(),
+    hasCataract: z.string().max(1000).optional(),
+    hasHearingProblem: z.string().max(1000).optional(),
+    hasDisability: z.string().max(1000).optional(),
+    hasHealthEducation: z.string().max(1000).optional(),
   }),
 
   criteriaToGrant: z.object({
@@ -267,15 +293,13 @@ const formSchema = z.object({
   }),
 
   programId: z.string().transform((value) => +value),
-  generalComment: z.string(),
+  generalComment: z.string().optional(),
 });
 
 export function CreateMustahikForm() {
   const { mustahik } = useDialogStates();
   const { mutate: createMustahik } = useCreateMustahik();
   const { mutate: updateMustahik } = useUpdateMustahik();
-
-  console.log(mustahik?.status?.map((e) => String(e)) as any);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -309,7 +333,10 @@ export function CreateMustahikForm() {
       ],
       statusList: (mustahik?.status?.map((e) => String(e.id)) as any) || [],
 
-      familyMembers: mustahik?.familyMembers || [
+      familyMembers: mustahik?.familyMembers?.map((e) => ({
+        ...e,
+        gender: getKeyByValue(GENDER, +mustahik?.gender) as any,
+      })) || [
         {
           name: undefined,
           age: undefined,
@@ -361,8 +388,6 @@ export function CreateMustahikForm() {
         },
       });
     } else {
-      console.log(values);
-
       createMustahik(values, {
         onSuccess: () => {
           toast.success("Mustahik created", {

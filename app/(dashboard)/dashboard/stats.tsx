@@ -28,8 +28,6 @@ export default function Stats() {
 
   const stats = countBy(statuses);
 
-  console.log(stats);
-
   return (
     <section className="grid grid-cols-3 gap-8">
       <div className="border-r text-center">
