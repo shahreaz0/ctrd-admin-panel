@@ -45,9 +45,9 @@ export default function Programs() {
 
   return (
     <section className="relative my-4">
-      <section className="mb-4 flex gap-4">
-        <Input placeholder="Search..." className="max-w-[400px]" />
-        <Button onClick={() => isOpen(true)} className="min-w-[150px]">
+      <section className="mb-4 flex justify-between gap-4">
+        <Input placeholder="Search..." className="h-8 max-w-[400px]" />
+        <Button onClick={() => isOpen(true)} className="min-w-[150px]" size="sm">
           <PlusCircle className="mr-2 h-4 w-4" /> Add Program
         </Button>
       </section>

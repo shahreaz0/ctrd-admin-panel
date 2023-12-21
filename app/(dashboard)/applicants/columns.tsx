@@ -139,7 +139,7 @@ export const columns: ColumnDef<Mustahik>[] = [
   {
     accessorKey: "age",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Age" />,
-    enableSorting: false,
+    // enableSorting: false,
   },
   {
     accessorKey: "id",
