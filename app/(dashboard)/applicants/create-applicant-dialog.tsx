@@ -24,7 +24,7 @@ export function CreateApplicantDialog() {
         <DialogHeader>
           <DialogTitle>Create Applicant</DialogTitle>
           <DialogDescription>
-            Please give necessary information to create a user
+            Please give necessary information to create a applicant
           </DialogDescription>
         </DialogHeader>
 

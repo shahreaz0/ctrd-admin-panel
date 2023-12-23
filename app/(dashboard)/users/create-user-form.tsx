@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, formatISO } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -49,7 +49,7 @@ export default function CreateUserForm(props: Props) {
     resolver: zodResolver(formSchema),
   });
 
-  const { mutate: createUser } = useCreateUser();
+  const { mutate: createUser, isPending } = useCreateUser();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const payload = {
@@ -274,8 +274,8 @@ export default function CreateUserForm(props: Props) {
               )}
             />
           </section>
-          <Button type="submit" className="mt-4">
-            Submit
+          <Button type="submit" className="mt-4" disabled={isPending} size="sm">
+            {isPending && <Loader2 className="mr-1 h-4 w-4 animate-spin" />} Submit
           </Button>
         </form>
       </Form>

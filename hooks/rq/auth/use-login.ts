@@ -18,13 +18,26 @@ export function useLogin() {
     mutationKey: ["login"],
     mutationFn: fn,
     onSuccess: (data) => {
-      toast.success("Welcome Back!", {
-        description: "You have successfully logged in.",
-      });
+      if (data.passwordSetupRequired) {
+        toast.success("Check Your Email", {
+          description: "Please setup your password.",
+        });
+
+        return;
+      }
 
       localStorage.setItem("name", data.fullName);
       localStorage.setItem("email", data.email);
       localStorage.setItem("token", data.token);
+
+      // eslint-disable-next-line no-unused-vars
+      const { token, ...rest } = data;
+
+      localStorage.setItem("info", JSON.stringify(rest));
+
+      toast.success("Welcome Back!", {
+        description: "You have successfully logged in.",
+      });
 
       setCookie("token", data.token);
 
