@@ -1,10 +1,10 @@
 "use client";
 
-// import Image from "next/image";
 import { Label } from "@radix-ui/react-label";
 import { useFormContext } from "react-hook-form";
 
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   FormControl,
   FormField,
@@ -30,7 +30,7 @@ export default function ProgramRadioField() {
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="grid grid-cols-3 gap-4"
+              className="grid grid-cols-2 gap-4 lg:grid-cols-6"
             >
               {programs?.map((program) => (
                 <FormItem key={program.id}>
@@ -53,6 +53,11 @@ export default function ProgramRadioField() {
                             width={50}
                             alt={program.name}
                           /> */}
+
+                          <Avatar>
+                            <AvatarImage src={program.icon} alt={program.name} />
+                            <AvatarFallback>{program.name.slice(2)}</AvatarFallback>
+                          </Avatar>
                         </div>
 
                         {program.name}
