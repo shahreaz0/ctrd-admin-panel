@@ -4,7 +4,7 @@ import { useState } from "react";
 // import Image from "next/image";
 import { ArrowRight, PlusCircle, Trash2 } from "lucide-react";
 
-import { cn, generateAvatar } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/custom/use-auth";
 import { useDeleteProgram } from "@/hooks/rq/programs/use-delete-program";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
@@ -70,7 +70,7 @@ export default function Programs() {
                 </div>
 
                 <Avatar>
-                  <AvatarImage src={generateAvatar(program.name)} alt={program.name} />
+                  <AvatarImage src={program.icon} alt={program.name} />
                   <AvatarFallback>{program.name.slice(2)}</AvatarFallback>
                 </Avatar>
               </div>

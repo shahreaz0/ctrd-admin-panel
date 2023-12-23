@@ -82,15 +82,17 @@ export default function FileInput(props: IFileInputProps) {
           </p>
         )}
 
-        <section className="mt-2">
-          {files?.length && (
-            <ul>
-              {files.map((file) => {
-                return <li key={file.name}>{file.name}</li>;
-              })}
-            </ul>
-          )}
-        </section>
+        {files && (
+          <section className="mt-2">
+            {files?.length && (
+              <ul>
+                {files?.map((file) => {
+                  return <li key={file.name}>{file.name}</li>;
+                })}
+              </ul>
+            )}
+          </section>
+        )}
       </div>
     </section>
   );

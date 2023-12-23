@@ -15,7 +15,7 @@ export function useUpdateProgram(programId: number) {
     mutationFn: (payload: any) => fn(payload, programId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["get-all-programs", programId],
+        queryKey: ["get-all-programs"],
       });
     },
     onError: () => {

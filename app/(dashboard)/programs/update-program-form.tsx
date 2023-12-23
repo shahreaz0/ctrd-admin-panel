@@ -2,6 +2,7 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -49,15 +50,13 @@ type Props = {
 
 export function UpdateProgramForm(props: Props) {
   const { data: users } = useGetAllUsers();
-  const { mutate: updateProgram } = useUpdateProgram(props.programId);
+  const { mutate: updateProgram, isPending } = useUpdateProgram(props.programId);
   const { mutate: addManager } = useAddManager();
   const { mutate: removeManager } = useRemoveManager();
   const { mutate: addWorker } = useAddWorker();
   const { mutate: removeWorker } = useRemoveWorker();
 
   const { data: programDetails } = useGetAllProgramDetails(props.programId);
-
-  console.log(programDetails);
 
   const usersOptions =
     users?.map((user) => ({
@@ -84,6 +83,8 @@ export function UpdateProgramForm(props: Props) {
 
     const payload = {
       ...values,
+      id: programDetails?.id,
+      icon: values.icon || programDetails?.icon,
     };
 
     updateProgram(payload, {
@@ -153,12 +154,12 @@ export function UpdateProgramForm(props: Props) {
               )}
             />
 
-            <Button type="submit" className="mt-4">
-              Update
+            <Button type="submit" className="mt-4" disabled={isPending} size="sm">
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Update
             </Button>
 
             <div className="space-y-4">
-              <div>
+              <div className="mt-8">
                 <p className="mb-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   Select Manager
                 </p>
@@ -235,7 +236,12 @@ export function UpdateProgramForm(props: Props) {
               </div>
             </div>
 
-            <Button type="button" className="mt-4" onClick={() => props.isOpen(false)}>
+            <Button
+              type="button"
+              className="mt-4"
+              onClick={() => props.isOpen(false)}
+              size="sm"
+            >
               Done
             </Button>
           </form>
