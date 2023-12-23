@@ -170,7 +170,7 @@ export default function Sidebar() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <LogOut className="h-4 w-4" onClick={logoutHandler} />
+                  <LogOut className="h-4 w-4 cursor-pointer" onClick={logoutHandler} />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Logout</p>

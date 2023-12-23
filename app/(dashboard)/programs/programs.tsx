@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowRight, PlusCircle, Trash2 } from "lucide-react";
 
 import { cn, generateAvatar } from "@/lib/utils";
+import { useAuth } from "@/hooks/custom/use-auth";
 import { useDeleteProgram } from "@/hooks/rq/programs/use-delete-program";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import {
@@ -43,13 +44,19 @@ export default function Programs() {
 
   const [programId, setProgramId] = useState(-1);
 
+  const { user } = useAuth();
+
   return (
     <section className="relative my-4">
       <section className="mb-4 flex justify-between gap-4">
-        <Input placeholder="Search..." className="h-8 max-w-[400px]" />
-        <Button onClick={() => isOpen(true)} className="min-w-[150px]" size="sm">
-          <PlusCircle className="mr-2 h-4 w-4" /> Add Program
-        </Button>
+        {user?.roles?.includes("ADMINISTRATOR") && (
+          <>
+            <Input placeholder="Search..." className="h-8 max-w-[400px]" />
+            <Button onClick={() => isOpen(true)} className="min-w-[150px]" size="sm">
+              <PlusCircle className="mr-2 h-4 w-4" /> Create Program
+            </Button>
+          </>
+        )}
       </section>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
@@ -127,35 +134,6 @@ export default function Programs() {
               </section>
             </CardContent>
           </Card>
-          // <div
-          //   key={program.id}
-          //   onClick={(e) => {
-          //     e.preventDefault();
-          //     setProgramId(program.id);
-          //     setUpdateDialogOpen(true);
-          //   }}
-          // >
-          //   <RadioGroupItem value="p1" id="p1" className="peer sr-only" />
-
-          //   <Label
-          //     htmlFor="p1"
-          //     className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-          //   >
-          //     <div className="mb-2 h-12 w-12">
-          //       {/* <Image src={program.icon} height={50} width={50} alt={program.name} /> */}
-          //     </div>
-
-          //     {program.name}
-          //   </Label>
-          //   <p>Manager: {program.managers[0]?.fullName}</p>
-
-          //   <p>Workers</p>
-          //   <ul>
-          //     {program.workers.map((manager) => (
-          //       <li key={manager.id}>{manager.fullName}</li>
-          //     ))}
-          //   </ul>
-          // </div>
         ))}
       </div>
 
