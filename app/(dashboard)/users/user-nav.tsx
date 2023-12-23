@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { PlusCircle } from "lucide-react";
 
 import { useAuth } from "@/hooks/custom/use-auth";
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,7 @@ export default function UserNav() {
     <>
       {user?.roles?.includes("ADMINISTRATOR") && (
         <Button onClick={() => isOpen(true)} size="sm">
-          Create User
+          <PlusCircle className="mr-2 h-4 w-4" /> Create User
         </Button>
       )}
 

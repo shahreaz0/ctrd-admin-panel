@@ -1,5 +1,7 @@
 "use client";
 
+import { PlusCircle } from "lucide-react";
+
 import { Mustahik } from "@/types/mustahik";
 import { useAuth } from "@/hooks/custom/use-auth";
 import { Button } from "@/components/ui/button";
@@ -22,7 +24,7 @@ export function ApplicantNav() {
             setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: true }));
           }}
         >
-          Create Applicant
+          <PlusCircle className="mr-2 h-4 w-4" /> Create Applicant
         </Button>
       )}
 

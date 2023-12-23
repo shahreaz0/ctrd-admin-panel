@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
+import { CheckCircle2, MinusCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { Mustahik } from "@/types/mustahik";
@@ -95,6 +96,9 @@ export function TableRowActions({ row }: DataTableRowActionsProps) {
               }}
             >
               Approve
+              <DropdownMenuShortcut>
+                <CheckCircle2 className="h-3 w-3 text-green-700" />
+              </DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
@@ -111,6 +115,9 @@ export function TableRowActions({ row }: DataTableRowActionsProps) {
               }}
             >
               Reject
+              <DropdownMenuShortcut>
+                <MinusCircle className="h-3 w-3 text-red-700" />
+              </DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
 
