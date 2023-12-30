@@ -17,7 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export default function Sidebar() {
+export function Sidebar() {
   const pathname = usePathname();
 
   const router = useRouter();
