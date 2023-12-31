@@ -15,14 +15,10 @@ export function useForgotPassword() {
   return useMutation({
     mutationKey: ["forgot-passoword"],
     mutationFn: fn,
-    onSuccess: (data) => {
-      console.log(data);
-
+    onSuccess: () => {
       toast.success("Check email", {
         description: "A email has been sent",
       });
-
-      window.location.href = "/reset-password";
     },
     onError: (error) => {
       if (error instanceof AxiosError) {

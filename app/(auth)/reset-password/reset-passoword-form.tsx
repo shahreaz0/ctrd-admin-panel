@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RotateCw } from "lucide-react";
@@ -21,8 +20,20 @@ import PasswordInput from "@/components/passoword-input";
 
 const formSchema = z
   .object({
-    password: z.string({ required_error: "Password is required." }),
-    newPassword: z.string({ required_error: "Password is required." }),
+    password: z
+      .string({ required_error: "Password is required." })
+      .refine(
+        (value) =>
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(value),
+        "Password must be hold at least 8 characters, 1 uppercase, 1 lowercase , 1 spacial character and 1 number"
+      ),
+    newPassword: z
+      .string({ required_error: "Password is required." })
+      .refine(
+        (value) =>
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(value),
+        "Password must be hold at least 8 characters, 1 uppercase, 1 lowercase , 1 spacial character and 1 number"
+      ),
   })
   .refine((data) => data.password === data.newPassword, {
     message: "Passwords don't match",
@@ -36,9 +47,7 @@ export default function ResetPassowrdForm() {
 
   const searchParams = useSearchParams();
 
-  const { mutate: resetPassword } = useResetPassword();
-
-  const [isLoading] = useState(false);
+  const { mutate: resetPassword, isPending } = useResetPassword();
 
   const status = searchParams.has("token") && searchParams.has("email");
 
@@ -61,7 +70,7 @@ export default function ResetPassowrdForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Passowrd</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <PasswordInput {...field} />
                 </FormControl>
@@ -85,8 +94,8 @@ export default function ResetPassowrdForm() {
             )}
           />
 
-          <Button type="submit" className="mt-4 w-full" disabled={isLoading || !status}>
-            {isLoading && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Reset
+          <Button type="submit" className="mt-4 w-full" disabled={isPending || !status}>
+            {isPending && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Reset
             Password
           </Button>
         </form>
