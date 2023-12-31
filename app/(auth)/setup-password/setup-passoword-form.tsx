@@ -70,7 +70,7 @@ export default function SetupPassowrdForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Passowrd</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <PasswordInput {...field} />
                 </FormControl>
