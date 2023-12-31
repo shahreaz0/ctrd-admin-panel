@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
-import { getBase64 } from "@/lib/utils";
+import { generateAvatar, getBase64 } from "@/lib/utils";
 import { useAddManager } from "@/hooks/rq/programs/use-add-manager";
 import { useAddWorker } from "@/hooks/rq/programs/use-add-worker";
 import { useCreateProgram } from "@/hooks/rq/programs/use-create-program";
@@ -35,7 +35,7 @@ import { MultiSelect } from "@/components/multi-select";
 
 const formSchema = z.object({
   name: z.string().min(1, "Required").max(100),
-  icon: z.any({ required_error: "Please select a image file" }),
+  icon: z.any({ required_error: "Please select a image file" }).optional(),
   description: z.string().min(1, "Required"),
   region: z.string().min(1, "Required").max(500),
 });
@@ -65,10 +65,14 @@ export default function CreateProgramForm(props: Props) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const b64 = await getBase64(form.getValues("icon"));
+    let icon = "";
+    if (values.icon) {
+      icon = (await getBase64(form.getValues("icon"))) as string;
+    }
+
     const payload = {
       ...values,
-      icon: b64,
+      icon: icon || generateAvatar(values.name),
     };
 
     createProgram(payload, {
