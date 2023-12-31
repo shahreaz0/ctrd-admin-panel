@@ -73,15 +73,15 @@ const formSchema = z.object({
   hasSafeWaterSource: z.string().max(1000).optional(),
   bankAccounts: z.array(
     z.object({
-      accountHolderName: z.string().min(1, "Required").max(1000),
-      bankName: z.string().min(1, "Required").max(1000),
-      accountNumber: z.string().min(1, "Required").max(1000),
-      branchName: z.string().min(1, "Required").max(1000),
+      accountHolderName: z.string().max(1000),
+      bankName: z.string().max(1000),
+      accountNumber: z.string().max(1000),
+      branchName: z.string().max(1000),
     })
   ),
   familyMembers: z.array(
     z.object({
-      name: z.string().min(1, "Required").max(1000),
+      name: z.string().max(1000),
       age: z.coerce
         .number({ invalid_type_error: "Required" })
         .max(150, "Maximum 150 is allowed")
@@ -93,7 +93,7 @@ const formSchema = z.object({
         })
         .transform((value) => GENDER[value]),
       educationLevel: z.string().max(100).optional(),
-      relationToHof: z.string().min(1, "Required").max(1000),
+      relationToHof: z.string().max(1000),
       occupation: z.string().max(100).optional(),
       hasDisability: z.string().max(1000).optional(),
       isChild: z.string().max(1000).optional(),
@@ -166,7 +166,7 @@ const formSchema = z.object({
         .nonnegative("Please enter positive number")
         .safe()
         .optional(),
-      purpose: z.string().min(1, "Required").max(1000),
+      purpose: z.string().max(1000),
     })
   ),
 
@@ -325,10 +325,10 @@ export function CreateMustahikForm() {
 
       bankAccounts: mustahik?.bankAccounts || [
         {
-          accountHolderName: undefined,
-          bankName: undefined,
-          branchName: undefined,
-          accountNumber: undefined,
+          accountHolderName: "",
+          bankName: "",
+          branchName: "",
+          accountNumber: "",
         },
       ],
       statusList: (mustahik?.status?.map((e) => String(e.id)) as any) || [],
@@ -338,13 +338,13 @@ export function CreateMustahikForm() {
         gender: getKeyByValue(GENDER, +mustahik?.gender) as any,
       })) || [
         {
-          name: undefined,
-          age: undefined,
+          name: "",
+          age: 0,
           educationLevel: undefined,
-          gender: undefined,
+          gender: "male",
           ongoingMedicineOrTreatment: undefined,
           occupation: undefined,
-          relationToHof: undefined,
+          relationToHof: "",
           hasDisability: undefined,
           isChild: undefined,
           isJobless: undefined,
@@ -356,7 +356,7 @@ export function CreateMustahikForm() {
         {
           bank: undefined,
           dadon: undefined,
-          purpose: undefined,
+          purpose: "",
           ngo: undefined,
           misc: undefined,
           shomobay: undefined,
