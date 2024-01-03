@@ -64,9 +64,9 @@ const formSchema = z.object({
 
   statusList: z
     .array(z.enum(["1", "2", "3", "4", "5", "6", "7"]))
-    .refine((value) => value.some((item) => item), {
-      message: "You have to select at least one item.",
-    })
+    // .refine((value) => value.some((item) => item), {
+    //   message: "You have to select at least one item.",
+    // })
     .transform((values) => {
       return values.map((e) => +e);
     })
@@ -268,42 +268,48 @@ const formSchema = z.object({
     hasHealthEducation: z.string().max(1000).optional(),
   }),
 
-  criteriaToGrant: z.object({
-    insaniat: z.object({
-      house: z.string().min(1, "Required").max(100).optional(),
-      food: z.string().min(1, "Required").max(100).optional(),
-      orphan: z.string().min(1, "Required").max(100).optional(),
-      clothes: z.string().min(1, "Required").max(100).optional(),
-    }),
-    employment: z.object({
-      biniyog: z.string().min(1, "Required").max(100).optional(),
-      land: z.string().min(1, "Required").max(100).optional(),
-      kutir: z.string().min(1, "Required").max(100).optional(),
-      cultivatingInstruments: z.string().min(1, "Required").max(100).optional(),
-      cowsOrGoats: z.string().min(1, "Required").max(100).optional(),
-      hensOrDucks: z.string().min(1, "Required").max(100).optional(),
-      business: z.string().min(1, "Required").max(100).optional(),
-      farmingEquipments: z.string().min(1, "Required").max(100).optional(),
-      misc: z.string().min(1, "Required").max(100).optional(),
-    }),
-    education: z.object({
-      childrenEducation: z.string().min(1, "Required").max(100).optional(),
-      educationHelp: z.string().min(1, "Required").max(100).optional(),
-      books: z.string().min(1, "Required").max(100).optional(),
-      instruments: z.string().min(1, "Required").max(100).optional(),
-      childrenClothing: z.string().min(1, "Required").max(100).optional(),
-      food: z.string().min(1, "Required").max(100).optional(),
-      quranEducation: z.string().min(1, "Required").max(100).optional(),
-      misc: z.string().min(1, "Required").max(100).optional(),
-    }),
-  }),
+  criteriaToGrant: z
+    .object({
+      insaniat: z
+        .object({
+          house: z.string().min(1, "Required").max(100).optional(),
+          food: z.string().min(1, "Required").max(100).optional(),
+          orphan: z.string().min(1, "Required").max(100).optional(),
+          clothes: z.string().min(1, "Required").max(100).optional(),
+        })
+        .optional(),
+      employment: z
+        .object({
+          biniyog: z.string().min(1, "Required").max(100).optional(),
+          land: z.string().min(1, "Required").max(100).optional(),
+          kutir: z.string().min(1, "Required").max(100).optional(),
+          cultivatingInstruments: z.string().min(1, "Required").max(100).optional(),
+          cowsOrGoats: z.string().min(1, "Required").max(100).optional(),
+          hensOrDucks: z.string().min(1, "Required").max(100).optional(),
+          business: z.string().min(1, "Required").max(100).optional(),
+          farmingEquipments: z.string().min(1, "Required").max(100).optional(),
+          misc: z.string().min(1, "Required").max(100).optional(),
+        })
+        .optional(),
+      education: z.object({
+        childrenEducation: z.string().min(1, "Required").max(100).optional(),
+        educationHelp: z.string().min(1, "Required").max(100).optional(),
+        books: z.string().min(1, "Required").max(100).optional(),
+        instruments: z.string().min(1, "Required").max(100).optional(),
+        childrenClothing: z.string().min(1, "Required").max(100).optional(),
+        food: z.string().min(1, "Required").max(100).optional(),
+        quranEducation: z.string().min(1, "Required").max(100).optional(),
+        misc: z.string().min(1, "Required").max(100).optional(),
+      }),
+    })
+    .optional(),
 
   programId: z.string().transform((value) => +value),
   generalComment: z.string().optional(),
 });
 
 export function CreateMustahikForm() {
-  const { mustahik } = useDialogStates();
+  const { mustahik, setDialogsStates } = useDialogStates();
   const { mutate: createMustahik } = useCreateMustahik();
   const { mutate: updateMustahik } = useUpdateMustahik();
 
@@ -316,18 +322,18 @@ export function CreateMustahikForm() {
       age: mustahik?.age,
       occupation: mustahik.occupation,
       fatherOrHusbandName: mustahik?.fatherOrHusbandName,
-      mobile: mustahik?.mobile,
-      nationalIdentificationNumber: mustahik?.nationalIdentificationNumber,
+      mobile: mustahik?.mobile || "",
+      nationalIdentificationNumber: mustahik?.nationalIdentificationNumber || "",
       condition: (getKeyByValue(CONDITION, +mustahik.condition) as any) || undefined,
 
-      village: mustahik?.village,
-      postOffice: mustahik?.postOffice,
-      thana: mustahik?.thana,
-      district: mustahik?.district,
-      union: mustahik?.union,
-      hasSafeToilet: mustahik?.hasSafeToilet,
-      hasGoodPlaceToStay: mustahik?.hasGoodPlaceToStay,
-      hasSafeWaterSource: mustahik?.hasSafeWaterSource,
+      village: mustahik?.village || "",
+      postOffice: mustahik?.postOffice || "",
+      thana: mustahik?.thana || "",
+      district: mustahik?.district || "",
+      union: mustahik?.union || "",
+      hasSafeToilet: mustahik?.hasSafeToilet || "",
+      hasGoodPlaceToStay: mustahik?.hasGoodPlaceToStay || "",
+      hasSafeWaterSource: mustahik?.hasSafeWaterSource || "",
 
       bankAccounts: mustahik?.bankAccounts || [
         {
@@ -344,28 +350,28 @@ export function CreateMustahikForm() {
         gender: getKeyByValue(GENDER, +mustahik?.gender) as any,
       })) || [
         {
-          name: undefined,
+          name: "",
           age: undefined,
-          educationLevel: undefined,
+          educationLevel: "",
           gender: undefined,
-          ongoingMedicineOrTreatment: undefined,
-          occupation: undefined,
-          relationToHof: undefined,
-          hasDisability: undefined,
-          isChild: undefined,
-          isJobless: undefined,
-          isSick: undefined,
+          ongoingMedicineOrTreatment: "",
+          occupation: "",
+          relationToHof: "",
+          hasDisability: "",
+          isChild: "",
+          isJobless: "",
+          isSick: "",
         },
       ],
       landAndDebtDesc: mustahik?.landAndDebtDesc,
       debtDescriptions: mustahik?.debtDescriptions || [
         {
-          bank: undefined,
-          dadon: undefined,
-          purpose: undefined,
-          ngo: undefined,
-          misc: undefined,
-          shomobay: undefined,
+          bank: "",
+          dadon: "",
+          purpose: "",
+          ngo: "",
+          misc: "",
+          shomobay: "",
         },
       ],
       sourceOfIncome: mustahik?.sourceOfIncome,
@@ -378,6 +384,8 @@ export function CreateMustahikForm() {
       programId: mustahik?.programId?.toString() as any,
     },
   });
+
+  console.log(form.formState.errors);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (mustahik.id) {
@@ -396,6 +404,8 @@ export function CreateMustahikForm() {
     } else {
       createMustahik(values, {
         onSuccess: () => {
+          setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: false }));
+
           toast.success("Mustahik created", {
             description: "Mustahik has been created successfully.",
           });

@@ -44,33 +44,33 @@ export function ApplicantDetailsDialog(props: Props) {
 
               <div className="space-y-1">
                 <Label>ধর্ম</Label>
-                <p className="text-sm">{mustahik.religion || "N/A"}</p>
+                <p className="text-sm">{mustahik.religion || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>লিঙ্গ</Label>
                 <p className="text-sm capitalize">
-                  {getKeyByValue(GENDER, +mustahik.gender)}
+                  {getKeyByValue(GENDER, +mustahik.gender) || "--"}
                 </p>
               </div>
               <div className="space-y-1">
                 <Label>বয়স</Label>
-                <p className="text-sm">{mustahik.age}</p>
+                <p className="text-sm">{mustahik.age || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>পেশা</Label>
-                <p className="text-sm">{mustahik.occupation}</p>
+                <p className="text-sm">{mustahik.occupation || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>পিতা/ স্বামীর নাম</Label>
-                <p className="text-sm">{mustahik.fatherOrHusbandName}</p>
+                <p className="text-sm">{mustahik.fatherOrHusbandName || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>ফোন নম্বর</Label>
-                <p className="text-sm">{mustahik.mobile}</p>
+                <p className="text-sm">{mustahik.mobile || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>পরিচয়পত্র নম্বর</Label>
-                <p className="text-sm">{mustahik.nationalIdentificationNumber}</p>
+                <p className="text-sm">{mustahik.nationalIdentificationNumber || "--"}</p>
               </div>
             </section>
           </section>
@@ -81,7 +81,7 @@ export function ApplicantDetailsDialog(props: Props) {
               <div className="space-y-1">
                 <Label>বর্তমান অবস্থা</Label>
                 <p className="text-sm capitalize">
-                  {getKeyByValue(CONDITION, +mustahik.condition)}
+                  {getKeyByValue(CONDITION, +mustahik.condition) || "--"}
                 </p>
               </div>
             </section>
@@ -92,24 +92,24 @@ export function ApplicantDetailsDialog(props: Props) {
             <section className="grid grid-cols-3 gap-4">
               <div className="space-y-1">
                 <Label>গ্রামঃ</Label>
-                <p className="text-sm">{mustahik.village}</p>
+                <p className="text-sm">{mustahik.village || "--"}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>ইউনিয়ন</Label>
-                <p className="text-sm">{mustahik.union}</p>
+                <p className="text-sm">{mustahik.union || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>পোস্টঅফিস</Label>
-                <p className="text-sm capitalize">{mustahik.postOffice}</p>
+                <p className="text-sm capitalize">{mustahik.postOffice || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>থানা</Label>
-                <p className="text-sm">{mustahik.thana}</p>
+                <p className="text-sm">{mustahik.thana || "--"}</p>
               </div>
               <div className="space-y-1">
                 <Label>জেলা</Label>
-                <p className="text-sm">{mustahik.district}</p>
+                <p className="text-sm">{mustahik.district || "--"}</p>
               </div>
             </section>
           </section>
@@ -122,20 +122,20 @@ export function ApplicantDetailsDialog(props: Props) {
                 <section className="grid grid-cols-3 gap-4">
                   <div className="space-y-1">
                     <Label>নাম</Label>
-                    <p className="text-sm">{info.accountHolderName}</p>
+                    <p className="text-sm">{info.accountHolderName || "--"}</p>
                   </div>
 
                   <div className="space-y-1">
                     <Label>ব্যাংক</Label>
-                    <p className="text-sm">{info.bankName}</p>
+                    <p className="text-sm">{info.bankName || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>একাউন্ট নং</Label>
-                    <p className="text-sm capitalize">{info.accountNumber}</p>
+                    <p className="text-sm capitalize">{info.accountNumber || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>ব্রাঞ্চ</Label>
-                    <p className="text-sm">{info.branchName}</p>
+                    <p className="text-sm">{info.branchName || "--"}</p>
                   </div>
                 </section>
               </>
@@ -150,12 +150,12 @@ export function ApplicantDetailsDialog(props: Props) {
                 <section className="grid grid-cols-3 gap-4">
                   <div className="space-y-1">
                     <Label>নাম</Label>
-                    <p className="text-sm">{info.name}</p>
+                    <p className="text-sm">{info.name || "--"}</p>
                   </div>
 
                   <div className="space-y-1">
                     <Label>বয়স</Label>
-                    <p className="text-sm">{info.age}</p>
+                    <p className="text-sm">{info.age || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>লিঙ্গ</Label>
@@ -165,36 +165,36 @@ export function ApplicantDetailsDialog(props: Props) {
                   </div>
                   <div className="space-y-1">
                     <Label>শিক্ষা</Label>
-                    <p className="text-sm">{info.educationLevel}</p>
+                    <p className="text-sm">{info.educationLevel || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>পরিবার প্রধানের সাথে সম্পর্ক</Label>
-                    <p className="text-sm">{info.relationToHof}</p>
+                    <p className="text-sm">{info.relationToHof || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>পেশা ( ছাত্র / ছাত্রী হলে শ্রেণী )</Label>
-                    <p className="text-sm">{info.occupation}</p>
+                    <p className="text-sm">{info.occupation || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>প্রতিবন্ধী</Label>
-                    <p className="text-sm">{info.hasDisability}</p>
+                    <p className="text-sm">{info.hasDisability || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>শিশু</Label>
-                    <p className="text-sm">{info.isChild}</p>
+                    <p className="text-sm">{info.isChild || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>রোগাক্রান্ত</Label>
-                    <p className="text-sm">{info.isSick}</p>
+                    <p className="text-sm">{info.isSick || "--"}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>বেকার</Label>
-                    <p className="text-sm">{info.isJobless}</p>
+                    <p className="text-sm">{info.isJobless || "--"}</p>
                   </div>
 
                   <div className="space-y-1">
                     <Label>নিয়মিত ঔষধ / চিকিৎসা</Label>
-                    <p className="text-sm">{info.ongoingMedicineOrTreatment}</p>
+                    <p className="text-sm">{info.ongoingMedicineOrTreatment || "--"}</p>
                   </div>
                 </section>
               </>
@@ -206,12 +206,12 @@ export function ApplicantDetailsDialog(props: Props) {
             <section className="grid grid-cols-3 gap-4">
               <div className="space-y-1">
                 <Label>ঘর (শতাংশ)</Label>
-                <p className="text-sm">{mustahik.landAndDebtDesc.house}</p>
+                <p className="text-sm">{mustahik.landAndDebtDesc.house || "--"}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>কৃষিজমি (শতাংশ)</Label>
-                <p className="text-sm">{mustahik.landAndDebtDesc.land}</p>
+                <p className="text-sm">{mustahik.landAndDebtDesc.land || "--"}</p>
               </div>
 
               <div className="space-y-1">
@@ -222,7 +222,9 @@ export function ApplicantDetailsDialog(props: Props) {
               </div>
               <div className="space-y-1">
                 <Label>ছাগলের সংখ্যা</Label>
-                <p className="text-sm">{mustahik.landAndDebtDesc.numberOfGoats}</p>
+                <p className="text-sm">
+                  {mustahik.landAndDebtDesc.numberOfGoats || "--"}
+                </p>
               </div>
               <div className="space-y-1">
                 <Label>উৎপাদনশীল যন্ত্রপাতি</Label>
@@ -245,12 +247,14 @@ export function ApplicantDetailsDialog(props: Props) {
               </div>
               <div className="space-y-1">
                 <Label>সুদী দেনার পরিমান</Label>
-                <p className="text-sm">{mustahik.landAndDebtDesc.interestLoanAmount}</p>
+                <p className="text-sm">
+                  {mustahik.landAndDebtDesc.interestLoanAmount || "--"}
+                </p>
               </div>
 
               <div className="space-y-1">
                 <Label>সর্বমোট দেনার পরিমাণ</Label>
-                <p className="text-sm">{mustahik.landAndDebtDesc.totalDebt}</p>
+                <p className="text-sm">{mustahik.landAndDebtDesc.totalDebt || "--"}</p>
               </div>
             </section>
           </section>
@@ -547,17 +551,17 @@ export function ApplicantDetailsDialog(props: Props) {
             <section className="grid grid-cols-3 gap-4">
               <div className="space-y-1">
                 <Label>ভালো বাসস্থান</Label>
-                <p className="text-sm">{mustahik.hasGoodPlaceToStay}</p>
+                <p className="text-sm">{mustahik.hasGoodPlaceToStay || "--"}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>নিরাপদ টয়লেট</Label>
-                <p className="text-sm">{mustahik.hasSafeToilet}</p>
+                <p className="text-sm">{mustahik.hasSafeToilet || "--"}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>পানির উৎস</Label>
-                <p className="text-sm">{mustahik.hasSafeWaterSource}</p>
+                <p className="text-sm">{mustahik.hasSafeWaterSource || "--"}</p>
               </div>
             </section>
           </section>
@@ -567,7 +571,7 @@ export function ApplicantDetailsDialog(props: Props) {
             <section className="grid grid-cols-3 gap-4">
               <div className="space-y-1">
                 <p className="text-sm">
-                  {formatter.format(mustahik.status.map((s) => s.status))}
+                  {formatter.format(mustahik.status.map((s) => s.status)) || "--"}
                 </p>
               </div>
             </section>
