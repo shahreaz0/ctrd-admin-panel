@@ -30,8 +30,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-// import { useDialogStates } from "@/components/dialogs-provider";
+import { useDialogStates } from "@/components/dialogs-provider";
 
 import { ApplicantDetailsDialog } from "./applicant-details-dialog";
 
@@ -43,13 +42,13 @@ export function TableRowActions({ row }: DataTableRowActionsProps) {
   const { mutate: deleteMustahik } = useDeleteMustahik();
   const { mutate: mustahikApprove } = useMustahikApprove();
 
-  // const { setMustahik, setDialogsStates } = useDialogStates();
+  const { setMustahik, setDialogsStates } = useDialogStates();
 
-  // function editMustahikHandler() {
-  //   setMustahik(row.original);
-  //   setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: true }));
-  //   document.body.style.pointerEvents = "";
-  // }
+  function editMustahikHandler() {
+    setMustahik(row.original);
+    setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: true }));
+    document.body.style.pointerEvents = "";
+  }
 
   const [open, setOpen] = useState(false);
 
@@ -79,7 +78,7 @@ export function TableRowActions({ row }: DataTableRowActionsProps) {
             >
               Details
             </DropdownMenuItem>
-            {/* <DropdownMenuItem onClick={editMustahikHandler}>Edit</DropdownMenuItem> */}
+            <DropdownMenuItem onClick={editMustahikHandler}>Edit</DropdownMenuItem>
 
             <DropdownMenuSeparator />
             <DropdownMenuItem
