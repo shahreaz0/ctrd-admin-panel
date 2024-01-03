@@ -7,6 +7,7 @@ import { Row } from "@tanstack/react-table";
 import type { User } from "@/types/user";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/custom/use-auth";
+import { useDeleteUser } from "@/hooks/rq/users/use-delete-user";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,6 +35,8 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [open, setOpen] = useState(false);
+
+  const { mutate: deleteUser } = useDeleteUser();
 
   const { user } = useAuth();
 
@@ -71,7 +74,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               className={cn(buttonVariants({ variant: "destructive" }))}
-              onClick={() => console.log(row.id)}
+              onClick={() => deleteUser(row.original.id)}
             >
               Continue
             </AlertDialogAction>

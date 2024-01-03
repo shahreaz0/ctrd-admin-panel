@@ -3,22 +3,21 @@ import { toast } from "sonner";
 
 import { request } from "@/lib/axios";
 
-function fn(mustahikId: number) {
-  return request.delete(`/api/Mustahik/${mustahikId}`);
+function fn(userId: string) {
+  return request.delete(`/api/Auth/Delete/${userId}`);
 }
 
-export function useDeleteMustahik() {
+export function useDeleteUser() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: fn,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["get-all-mustahiks"],
+        queryKey: ["get-all-users"],
       });
-
       toast.success("Deleted", {
-        description: "Applicant successfully deleted.",
+        description: "User successfully deleted.",
       });
     },
     onError: () => {
