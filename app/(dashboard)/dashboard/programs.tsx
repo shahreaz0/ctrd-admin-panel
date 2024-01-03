@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { PlusCircle } from "lucide-react";
 
+import { generateAvatar, getInitials } from "@/lib/utils";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
@@ -31,8 +32,11 @@ export default function Programs() {
             >
               <div className="mb-2 h-12 w-12">
                 <Avatar>
-                  <AvatarImage src={program.icon} alt={program.name} />
-                  <AvatarFallback>{program.name.slice(2)}</AvatarFallback>
+                  <AvatarImage
+                    src={program.icon || generateAvatar(getInitials(program.name))}
+                    alt={program.name}
+                  />
+                  <AvatarFallback>{getInitials(program.name)}</AvatarFallback>
                 </Avatar>
               </div>
 

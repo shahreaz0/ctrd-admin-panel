@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,6 +8,7 @@ import { deleteCookie } from "cookies-next";
 import { CreditCard, Home, LogOut, PieChart, User } from "lucide-react";
 
 import { cn, generateAvatar, getInitials } from "@/lib/utils";
+import { useGetUserInfo } from "@/hooks/rq/auth/use-get-user-info";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Tooltip,
@@ -28,13 +28,7 @@ export function Sidebar() {
     router.push("/login");
   }
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    setName(localStorage.getItem("name") || "");
-    setEmail(localStorage.getItem("email") || "");
-  }, [name, email]);
+  const { data: user } = useGetUserInfo();
 
   return (
     <div className="flex h-screen w-[250px] flex-col justify-between border-e bg-[#F1F1F1]">
@@ -157,15 +151,18 @@ export function Sidebar() {
       <div className="sticky inset-x-0 bottom-0 border-t border-gray-100 ">
         <div className="flex items-center gap-2 bg-[#f1f1f1] p-4 hover:bg-gray-50">
           <Avatar>
-            <AvatarImage src={generateAvatar(name)} alt={name} />
-            <AvatarFallback>{getInitials(name)}</AvatarFallback>
+            <AvatarImage
+              src={generateAvatar(user?.fullName || "")}
+              alt={user?.fullName}
+            />
+            <AvatarFallback>{getInitials(user?.fullName || "")}</AvatarFallback>
           </Avatar>
 
           <div className="flex w-full items-center justify-between">
             <div className="text-xs">
-              <p className="block font-medium">{name}</p>
+              <p className="block font-medium">{user?.fullName}</p>
 
-              <p>{email}</p>
+              <p>{user?.email}</p>
             </div>
 
             <TooltipProvider>

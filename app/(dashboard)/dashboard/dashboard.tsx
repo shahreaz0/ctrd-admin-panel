@@ -1,19 +1,19 @@
 "use client";
 
-import { useAuth } from "@/hooks/custom/use-auth";
+import { useGetUserInfo } from "@/hooks/rq/auth/use-get-user-info";
 import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/upsert-mustahik-form";
 
 import Programs from "./programs";
 import Stats from "./stats";
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { data: user } = useGetUserInfo();
 
   return (
     <section className="space-y-16">
       {user?.roles?.includes("ADMINISTRATOR") && (
         <section className="relative">
-          <p className="mb-4 text-base font-semibold text-primary">Avaiable Programs</p>
+          <p className="mb-4 text-base font-semibold text-primary">Available Programs</p>
           <Programs />
         </section>
       )}

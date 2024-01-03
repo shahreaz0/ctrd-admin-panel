@@ -6,7 +6,6 @@ import { Row } from "@tanstack/react-table";
 
 import type { User } from "@/types/user";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/custom/use-auth";
 import { useDeleteUser } from "@/hooks/rq/users/use-delete-user";
 import {
   AlertDialog,
@@ -38,29 +37,22 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
 
   const { mutate: deleteUser } = useDeleteUser();
 
-  const { user } = useAuth();
-
   return (
     <>
-      {user?.roles?.includes("ADMINISTRATOR") && (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-            >
-              <DotsHorizontalIcon className="h-4 w-4" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-[160px]">
-            <DropdownMenuItem className="text-red-500" onClick={() => setOpen(true)}>
-              Delete
-              <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="flex h-8 w-8 p-0 data-[state=open]:bg-muted">
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[160px]">
+          <DropdownMenuItem className="text-red-500" onClick={() => setOpen(true)}>
+            Delete
+            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>

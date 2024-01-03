@@ -3,6 +3,7 @@
 import { Label } from "@radix-ui/react-label";
 import { useFormContext } from "react-hook-form";
 
+import { generateAvatar, getInitials } from "@/lib/utils";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -55,8 +56,13 @@ export default function ProgramRadioField() {
                           /> */}
 
                           <Avatar>
-                            <AvatarImage src={program.icon} alt={program.name} />
-                            <AvatarFallback>{program.name.slice(2)}</AvatarFallback>
+                            <AvatarImage
+                              src={
+                                program.icon || generateAvatar(getInitials(program.name))
+                              }
+                              alt={program.name}
+                            />
+                            <AvatarFallback>{getInitials(program.name)}</AvatarFallback>
                           </Avatar>
                         </div>
 

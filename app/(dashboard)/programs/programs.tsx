@@ -4,8 +4,8 @@ import { useState } from "react";
 // import Image from "next/image";
 import { ArrowRight, PlusCircle, Trash2 } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/custom/use-auth";
+import { cn, generateAvatar, getInitials } from "@/lib/utils";
+import { useGetUserInfo } from "@/hooks/rq/auth/use-get-user-info";
 import { useDeleteProgram } from "@/hooks/rq/programs/use-delete-program";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import {
@@ -44,7 +44,7 @@ export default function Programs() {
 
   const [programId, setProgramId] = useState(-1);
 
-  const { user } = useAuth();
+  const { data: user } = useGetUserInfo();
 
   return (
     <section className="relative my-4">
@@ -70,8 +70,11 @@ export default function Programs() {
                 </div>
 
                 <Avatar>
-                  <AvatarImage src={program.icon} alt={program.name} />
-                  <AvatarFallback>{program.name.slice(2)}</AvatarFallback>
+                  <AvatarImage
+                    src={program.icon || generateAvatar(getInitials(program.name))}
+                    alt={program.name}
+                  />
+                  <AvatarFallback>{getInitials(program.name)}</AvatarFallback>
                 </Avatar>
               </div>
             </CardHeader>

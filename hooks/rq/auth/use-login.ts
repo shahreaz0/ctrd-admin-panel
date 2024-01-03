@@ -26,8 +26,6 @@ export function useLogin() {
         return;
       }
 
-      localStorage.setItem("name", data.fullName);
-      localStorage.setItem("email", data.email);
       localStorage.setItem("token", data.token);
 
       // eslint-disable-next-line no-unused-vars

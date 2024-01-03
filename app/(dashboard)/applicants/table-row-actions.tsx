@@ -8,7 +8,6 @@ import { toast } from "sonner";
 
 import { Mustahik } from "@/types/mustahik";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/custom/use-auth";
 import { useDeleteMustahik } from "@/hooks/rq/mutahiks/use-delete-mustahik";
 import { useMustahikApprove } from "@/hooks/rq/mutahiks/use-mustahik-approve";
 import {
@@ -54,80 +53,73 @@ export function TableRowActions({ row }: DataTableRowActionsProps) {
 
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
 
-  const { user } = useAuth();
-
   return (
     <>
-      {user?.roles?.includes("ADMINISTRATOR") && (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-            >
-              <DotsHorizontalIcon className="h-4 w-4" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-[160px]">
-            <DropdownMenuItem
-              onClick={() => {
-                setDetailsDialogOpen(true);
-                document.body.style.pointerEvents = "";
-              }}
-            >
-              Details
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={editMustahikHandler}>Edit</DropdownMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="flex h-8 w-8 p-0 data-[state=open]:bg-muted">
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[160px]">
+          <DropdownMenuItem
+            onClick={() => {
+              setDetailsDialogOpen(true);
+              document.body.style.pointerEvents = "";
+            }}
+          >
+            Details
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={editMustahikHandler}>Edit</DropdownMenuItem>
 
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                mustahikApprove(
-                  { mustahikId: row.original.id, isApproved: true },
-                  {
-                    onSuccess: () => {
-                      toast.success("Approved", {
-                        description: "Mushtahik successfully approved.",
-                      });
-                    },
-                  }
-                );
-              }}
-            >
-              Approve
-              <DropdownMenuShortcut>
-                <CheckCircle2 className="h-3 w-3 text-green-700" />
-              </DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                mustahikApprove(
-                  { mustahikId: row.original.id, isApproved: false },
-                  {
-                    onSuccess: () => {
-                      toast.success("Rejected", {
-                        description: "Mushtahik successfully rejected.",
-                      });
-                    },
-                  }
-                );
-              }}
-            >
-              Reject
-              <DropdownMenuShortcut>
-                <MinusCircle className="h-3 w-3 text-red-700" />
-              </DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => {
+              mustahikApprove(
+                { mustahikId: row.original.id, isApproved: true },
+                {
+                  onSuccess: () => {
+                    toast.success("Approved", {
+                      description: "Mushtahik successfully approved.",
+                    });
+                  },
+                }
+              );
+            }}
+          >
+            Approve
+            <DropdownMenuShortcut>
+              <CheckCircle2 className="h-3 w-3 text-green-700" />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              mustahikApprove(
+                { mustahikId: row.original.id, isApproved: false },
+                {
+                  onSuccess: () => {
+                    toast.success("Rejected", {
+                      description: "Mushtahik successfully rejected.",
+                    });
+                  },
+                }
+              );
+            }}
+          >
+            Reject
+            <DropdownMenuShortcut>
+              <MinusCircle className="h-3 w-3 text-red-700" />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
 
-            <DropdownMenuItem className="text-red-500" onClick={() => setOpen(true)}>
-              Delete
-              <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
+          <DropdownMenuItem className="text-red-500" onClick={() => setOpen(true)}>
+            Delete
+            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
