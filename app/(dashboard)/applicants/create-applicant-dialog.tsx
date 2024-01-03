@@ -22,9 +22,12 @@ export function CreateApplicantDialog() {
     >
       <DialogContent className="top-[50%] max-h-[80vh] max-w-[80vw] overflow-auto">
         <DialogHeader>
-          <DialogTitle>Create Applicant</DialogTitle>
+          <DialogTitle>
+            {dialogsStates.formType === "create" ? "Create" : "Update"} Applicant
+          </DialogTitle>
           <DialogDescription>
-            Please give necessary information to create a applicant
+            Please give necessary information to{" "}
+            {dialogsStates.formType === "create" ? "create" : "update"} a applicant
           </DialogDescription>
         </DialogHeader>
 

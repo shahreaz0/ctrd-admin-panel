@@ -385,8 +385,6 @@ export function CreateMustahikForm() {
     },
   });
 
-  console.log(form.formState.errors);
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (mustahik.id) {
       const payload = {
@@ -399,16 +397,18 @@ export function CreateMustahikForm() {
           toast.success("Mustahik updated", {
             description: "Mustahik has been updated successfully.",
           });
+
+          setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: false }));
         },
       });
     } else {
       createMustahik(values, {
         onSuccess: () => {
-          setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: false }));
-
           toast.success("Mustahik created", {
             description: "Mustahik has been created successfully.",
           });
+
+          setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: false }));
         },
       });
     }

@@ -45,7 +45,11 @@ export function TableRowActions({ row }: DataTableRowActionsProps) {
 
   function editMustahikHandler() {
     setMustahik(row.original);
-    setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: true }));
+    setDialogsStates((prev) => ({
+      ...prev,
+      upsertApplicantDialog: true,
+      formType: "update",
+    }));
     document.body.style.pointerEvents = "";
   }
 

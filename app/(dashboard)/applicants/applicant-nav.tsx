@@ -21,7 +21,11 @@ export function ApplicantNav() {
           size="sm"
           onClick={() => {
             setMustahik({} as Mustahik);
-            setDialogsStates((prev) => ({ ...prev, upsertApplicantDialog: true }));
+            setDialogsStates((prev) => ({
+              ...prev,
+              upsertApplicantDialog: true,
+              formType: "create",
+            }));
           }}
         >
           <PlusCircle className="mr-2 h-4 w-4" /> Create Applicant

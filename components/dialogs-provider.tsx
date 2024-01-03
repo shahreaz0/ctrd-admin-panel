@@ -13,6 +13,7 @@ import { Mustahik } from "@/types/mustahik";
 
 type State = {
   upsertApplicantDialog: boolean;
+  formType: "update" | "create";
 };
 
 type Context = {
@@ -40,6 +41,7 @@ export function useDialogStates() {
 export function DialogsProvider(props: Props) {
   const [state, setState] = useState<State>({
     upsertApplicantDialog: false,
+    formType: "create",
   });
 
   const [mustahikState, setMustahikState] = useState({} as Mustahik);
