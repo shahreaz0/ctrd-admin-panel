@@ -32,32 +32,35 @@ import ProgramRadioField from "./program-radio";
 import SpendingFields from "./spending-fields";
 
 const formSchema = z.object({
-  name: z.string().min(1, "Required").max(100),
+  name: z.string().min(1, "Required").max(1000),
   religion: z.string().max(100).optional(),
   age: z.coerce
     .number({ invalid_type_error: "Required" })
     .max(150, "Maximum 150 is allowed")
     .nonnegative("Please enter positive number")
-    .safe(),
-  mobile: z.string().min(1, "Required").max(100),
-  nationalIdentificationNumber: z.string().min(1, "Required").max(100),
+    .safe()
+    .optional(),
+  mobile: z.string().max(1000).optional(),
+  nationalIdentificationNumber: z.string().max(1000).optional(),
   gender: z
     .enum(["male", "female", "other"], {
       required_error: "Required",
     })
-    .transform((e) => GENDER[e]),
+    .transform((e) => GENDER[e])
+    .optional(),
   occupation: z.string().max(100).optional(),
   fatherOrHusbandName: z.string().max(100).optional(),
-  village: z.string().min(1, "Required").max(1000),
-  union: z.string().min(1, "Required").max(1000),
-  postOffice: z.string().min(1, "Required").max(100),
-  thana: z.string().min(1, "Required").max(100),
-  district: z.string().min(1, "Required").max(100),
+  village: z.string().max(1000).optional(),
+  union: z.string().max(1000).optional(),
+  postOffice: z.string().max(100).optional(),
+  thana: z.string().max(100).optional(),
+  district: z.string().max(100).optional(),
   condition: z
     .enum(["green", "yellow", "red"], {
       required_error: "Required",
     })
-    .transform((value) => CONDITION[value]),
+    .transform((value) => CONDITION[value])
+    .optional(),
 
   statusList: z
     .array(z.enum(["1", "2", "3", "4", "5", "6", "7"]))
@@ -66,7 +69,8 @@ const formSchema = z.object({
     })
     .transform((values) => {
       return values.map((e) => +e);
-    }),
+    })
+    .optional(),
 
   hasGoodPlaceToStay: z.string().max(1000).optional(),
   hasSafeToilet: z.string().max(1000).optional(),
@@ -81,19 +85,21 @@ const formSchema = z.object({
   ),
   familyMembers: z.array(
     z.object({
-      name: z.string().max(1000),
+      name: z.string().max(1000).optional(),
       age: z.coerce
         .number({ invalid_type_error: "Required" })
         .max(150, "Maximum 150 is allowed")
         .nonnegative("Please enter positive number")
-        .safe(),
+        .safe()
+        .optional(),
       gender: z
         .enum(["male", "female", "other"], {
           required_error: "Required",
         })
-        .transform((value) => GENDER[value]),
+        .transform((value) => GENDER[value])
+        .optional(),
       educationLevel: z.string().max(100).optional(),
-      relationToHof: z.string().max(1000),
+      relationToHof: z.string().max(1000).optional(),
       occupation: z.string().max(100).optional(),
       hasDisability: z.string().max(1000).optional(),
       isChild: z.string().max(1000).optional(),
@@ -166,7 +172,7 @@ const formSchema = z.object({
         .nonnegative("Please enter positive number")
         .safe()
         .optional(),
-      purpose: z.string().max(1000),
+      purpose: z.string().max(1000).optional(),
     })
   ),
 
@@ -338,13 +344,13 @@ export function CreateMustahikForm() {
         gender: getKeyByValue(GENDER, +mustahik?.gender) as any,
       })) || [
         {
-          name: "",
-          age: 0,
+          name: undefined,
+          age: undefined,
           educationLevel: undefined,
-          gender: "male",
+          gender: undefined,
           ongoingMedicineOrTreatment: undefined,
           occupation: undefined,
-          relationToHof: "",
+          relationToHof: undefined,
           hasDisability: undefined,
           isChild: undefined,
           isJobless: undefined,
@@ -356,7 +362,7 @@ export function CreateMustahikForm() {
         {
           bank: undefined,
           dadon: undefined,
-          purpose: "",
+          purpose: undefined,
           ngo: undefined,
           misc: undefined,
           shomobay: undefined,
