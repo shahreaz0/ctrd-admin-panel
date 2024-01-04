@@ -2,6 +2,7 @@
 
 import { CONDITION, GENDER } from "@/configs/globals";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -310,8 +311,8 @@ const formSchema = z.object({
 
 export function CreateMustahikForm() {
   const { mustahik, setDialogsStates } = useDialogStates();
-  const { mutate: createMustahik } = useCreateMustahik();
-  const { mutate: updateMustahik } = useUpdateMustahik();
+  const { mutate: createMustahik, isPending: isCreatePending } = useCreateMustahik();
+  const { mutate: updateMustahik, isPending: isUpdatePending } = useUpdateMustahik();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -519,7 +520,12 @@ export function CreateMustahikForm() {
             </section>
           </section>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isCreatePending || isUpdatePending} size="sm">
+            {(isCreatePending || isUpdatePending) && (
+              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+            )}{" "}
+            Submit
+          </Button>
         </form>
       </Form>
     </section>

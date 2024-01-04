@@ -2,6 +2,7 @@
 
 import { Dispatch, SetStateAction, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -48,7 +49,7 @@ export default function CreateProgramForm(props: Props) {
   const [step, setStep] = useState(1);
 
   const { data: users } = useGetAllUsers();
-  const { mutate: createProgram } = useCreateProgram();
+  const { mutate: createProgram, isPending: isCreateProgramPending } = useCreateProgram();
   const { mutate: addManager } = useAddManager();
   const { mutate: addWorker } = useAddWorker();
   const { mutate: removeWorker } = useRemoveWorker();
@@ -149,7 +150,15 @@ export default function CreateProgramForm(props: Props) {
           />
 
           {step === 1 && (
-            <Button type="submit" className="mt-4">
+            <Button
+              type="submit"
+              className="mt-4"
+              disabled={isCreateProgramPending}
+              size="sm"
+            >
+              {isCreateProgramPending && (
+                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+              )}{" "}
               Next
             </Button>
           )}
@@ -228,7 +237,12 @@ export default function CreateProgramForm(props: Props) {
                 />
               </div>
 
-              <Button type="button" className="mt-4" onClick={() => props.isOpen(false)}>
+              <Button
+                type="button"
+                className="mt-4"
+                onClick={() => props.isOpen(false)}
+                size="sm"
+              >
                 Done
               </Button>
             </div>
