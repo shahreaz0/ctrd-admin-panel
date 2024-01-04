@@ -143,7 +143,7 @@ export default function CreateUserForm(props: Props) {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-full pl-3 text-left font-normal",
+                            "w-full bg-[#F7F8F9] pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -185,7 +185,7 @@ export default function CreateUserForm(props: Props) {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-full pl-3 text-left font-normal",
+                            "w-full bg-[#F7F8F9] pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
                           )}
                         >
