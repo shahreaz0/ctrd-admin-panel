@@ -2,14 +2,22 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import logo from "@/public/the-citizen-trust.svg";
 
 export default function Home() {
   const router = useRouter();
+  const currentPath = usePathname();
+
+  // eslint-disable-next-line no-console
+  console.log(currentPath);
 
   useEffect(() => {
-    setTimeout(() => router.push("/login"), 2000);
+    if(currentPath !== "/") {
+      setTimeout(() => router.push(currentPath), 100);
+    } else {
+      setTimeout(() => router.push("/login"), 2000);
+    }
   }, []);
 
   return (
