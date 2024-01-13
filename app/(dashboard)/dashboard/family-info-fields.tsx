@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
+import { Button } from "@/components/ui/button";
 import {
   FormControl,
   FormField,
@@ -19,8 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { Button } from "../../../components/ui/button";
 
 export default function FamilyInfoFields() {
   const form = useFormContext();

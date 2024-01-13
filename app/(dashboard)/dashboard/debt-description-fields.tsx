@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { Trash2 } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
+import { Button } from "@/components/ui/button";
 import {
   FormControl,
   FormField,
@@ -12,8 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { Button } from "../../../components/ui/button";
 
 export default function DebtorsFields() {
   const form = useFormContext();
