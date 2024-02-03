@@ -6,9 +6,9 @@ import { PlusCircle } from "lucide-react";
 import { useGetUserInfo } from "@/hooks/rq/auth/use-get-user-info";
 import { Button } from "@/components/ui/button";
 
-import CreateUserDialog from "./create-user-dialog";
+import { CreateUserDialog } from "./create-user-dialog";
 
-export default function UserNav() {
+export function UserNav() {
   const [open, isOpen] = useState(false);
 
   const { data: user } = useGetUserInfo();

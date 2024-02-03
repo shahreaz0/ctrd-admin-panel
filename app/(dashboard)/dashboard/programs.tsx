@@ -8,9 +8,9 @@ import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import CreateProgramDialog from "@/app/(dashboard)/programs/create-program-dialog";
+import { CreateProgramDialog } from "@/app/(dashboard)/programs/create-program-dialog";
 
-export default function Programs() {
+export function Programs() {
   const [open, isOpen] = useState(false);
 
   const { data: programs } = useGetAllPrograms();

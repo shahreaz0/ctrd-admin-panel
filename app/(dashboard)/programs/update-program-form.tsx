@@ -14,7 +14,7 @@ import { useGetAllProgramDetails } from "@/hooks/rq/programs/use-get-program-det
 import { useRemoveManager } from "@/hooks/rq/programs/use-remove-manager";
 import { useRemoveWorker } from "@/hooks/rq/programs/use-remove-worker";
 import { useUpdateProgram } from "@/hooks/rq/programs/use-update-program";
-import useGetAllUsers from "@/hooks/rq/users/use-get-all-users";
+import { useGetAllUsers } from "@/hooks/rq/users/use-get-all-users";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import FileInput from "@/components/file-input";
+import { FileInput } from "@/components/file-input";
 import { MultiSelect } from "@/components/multi-select";
 
 const formSchema = z.object({

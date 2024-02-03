@@ -11,16 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function SpendingFields() {
+export function SpendingFields() {
   const form = useFormContext();
-
-  //   fieldsOfSpending: {
-  //     food: 12000,
-  //     education: 8000,
-  //     medicineOrTreatment: 4000,
-  //     debtInstallments: 5000,
-  //     misc: 2000,
-  //   },
 
   return (
     <>

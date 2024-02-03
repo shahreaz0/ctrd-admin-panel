@@ -4,7 +4,7 @@ import logo from "@/public/the-citizen-trust.svg";
 
 import { Card } from "@/components/ui/card";
 
-import SetupPasswordForm from "./setup-passoword-form";
+import { SetupPasswordForm } from "./setup-password-form";
 
 export const metadata: Metadata = {
   title: "Setup Password",

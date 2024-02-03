@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function CandidateFields() {
+export function CandidateFields() {
   const form = useFormContext();
 
   return (

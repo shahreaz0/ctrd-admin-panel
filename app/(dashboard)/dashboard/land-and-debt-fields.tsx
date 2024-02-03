@@ -11,18 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function FamilyPropertyFields() {
+export function LandAndDebtFields() {
   const form = useFormContext();
-
-  // landAndDebtDesc: {
-  //   house: "Test",
-  //   land: "Test",
-  //   numberOfCowsAndGoats: 0,
-  //   cultivationInstruments: "Test",
-  //   numberOfChickenAndDucks: 0,
-  //   existingAssetInCurrency: 0,
-  //   totalDebt: 0,
-  // },
 
   return (
     <>

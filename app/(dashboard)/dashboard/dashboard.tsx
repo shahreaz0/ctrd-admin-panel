@@ -3,10 +3,10 @@
 import { useGetUserInfo } from "@/hooks/rq/auth/use-get-user-info";
 import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/upsert-mustahik-form";
 
-import Programs from "./programs";
-import Stats from "./stats";
+import { Programs } from "./programs";
+import { Stats } from "./stats";
 
-export default function Dashboard() {
+export function Dashboard() {
   const { data: user } = useGetUserInfo();
 
   return (

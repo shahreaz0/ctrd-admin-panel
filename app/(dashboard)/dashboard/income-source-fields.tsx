@@ -11,18 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function YearlyIncomeSourceFields() {
+export function IncomeSourceFields() {
   const form = useFormContext();
-
-  // sourceOfIncome: {
-  //   farming: 0,
-  //   business: 0,
-  //   animals: 0,
-  //   kutirBusiness: 0,
-  //   governmentGrants: 0,
-  //   jobSalary: 0,
-  //   misc: 0,
-  // },
 
   return (
     <>

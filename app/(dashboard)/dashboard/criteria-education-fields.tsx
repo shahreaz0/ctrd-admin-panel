@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function CriteriaEducationFields() {
+export function CriteriaEducationFields() {
   const form = useFormContext();
 
   //   education: {

@@ -5,8 +5,8 @@ import { Toaster } from "sonner";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { DialogsProvider } from "@/components/dialogs-provider";
-import RQProvider from "@/components/rq-provider";
-import TailwindIndicator from "@/components/tailwind-indicator";
+import { RQProvider } from "@/components/rq-provider";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import "@/styles/globals.css";

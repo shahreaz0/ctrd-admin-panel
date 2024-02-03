@@ -6,7 +6,7 @@ import { RotateCw } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { useSetupPassword } from "@/hooks/rq/auth/use-setup-password";
+import { useResetPassword } from "@/hooks/rq/auth/use-reset-password";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,7 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import PasswordInput from "@/components/passoword-input";
+import { PasswordInput } from "@/components/passoword-input";
 
 const formSchema = z
   .object({
@@ -40,14 +40,14 @@ const formSchema = z
     path: ["newPassword"],
   });
 
-export default function SetupPassowrdForm() {
+export function ResetPasswordForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   const searchParams = useSearchParams();
 
-  const { mutate: setupPassword, isPending } = useSetupPassword();
+  const { mutate: resetPassword, isPending } = useResetPassword();
 
   const status = searchParams.has("token") && searchParams.has("email");
 
@@ -58,7 +58,7 @@ export default function SetupPassowrdForm() {
       newPassword: values.newPassword,
     };
 
-    setupPassword(payload);
+    resetPassword(payload);
   }
 
   return (
@@ -95,7 +95,7 @@ export default function SetupPassowrdForm() {
           />
 
           <Button type="submit" className="mt-4 w-full" disabled={isPending || !status}>
-            {isPending && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Setup
+            {isPending && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Reset
             Password
           </Button>
         </form>

@@ -1,4 +1,4 @@
-import Programs from "./programs";
+import { Programs } from "./programs";
 
 export default function ProgramsPage() {
   return (

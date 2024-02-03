@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function BankAccountFields() {
+export function BankAccountFields() {
   const form = useFormContext();
 
   // bankAccounts

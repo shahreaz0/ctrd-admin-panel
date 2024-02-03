@@ -42,7 +42,7 @@ const items = [
   },
 ] as const;
 
-export default function MustahikRadio() {
+export function MustahikRadio() {
   const form = useFormContext();
 
   return (

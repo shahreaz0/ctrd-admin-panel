@@ -4,7 +4,7 @@ import logo from "@/public/the-citizen-trust.svg";
 
 import { Card } from "@/components/ui/card";
 
-import ResetPasswordForm from "./reset-passoword-form";
+import { ResetPasswordForm } from "./reset-password-form";
 
 export const metadata: Metadata = {
   title: "Reset Password",

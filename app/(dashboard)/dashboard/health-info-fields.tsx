@@ -11,19 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function HealthInfoFields() {
+export function HealthInfoFields() {
   const form = useFormContext();
-
-  // healthRelatedInfo: {
-  //   lastingSickness: "Test",
-  //   ongoingTreatmentOrMedicine: "Test",
-  //   hasPregnancy: true,
-  //   hasChronicSickness: true,
-  //   hasCataract: true,
-  //   hasHearingProblem: true,
-  //   hasDisability: true,
-  //   hasHealthEducation: true,
-  // },
 
   return (
     <>

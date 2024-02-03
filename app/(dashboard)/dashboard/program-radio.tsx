@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-export default function ProgramRadioField() {
+export function ProgramRadioField() {
   const form = useFormContext();
 
   const { data: programs } = useGetAllPrograms();

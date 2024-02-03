@@ -8,14 +8,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import CreateProgramForm from "./create-program-form";
+import { CreateProgramForm } from "./create-program-form";
 
 type Props = {
   open: boolean;
   isOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function CreateProgramDialog(props: Props) {
+export function CreateProgramDialog(props: Props) {
   return (
     <Dialog open={props.open} onOpenChange={props.isOpen}>
       <DialogContent className="top-[50%] max-h-[80vh] max-w-[700px] overflow-auto">

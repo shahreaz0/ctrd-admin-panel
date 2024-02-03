@@ -1,6 +1,6 @@
 "use client";
 
-import useGetAllUsers from "@/hooks/rq/users/use-get-all-users";
+import { useGetAllUsers } from "@/hooks/rq/users/use-get-all-users";
 import { useDataTable } from "@/components/core/data-table/use-data-table";
 
 import { columns } from "./columns";

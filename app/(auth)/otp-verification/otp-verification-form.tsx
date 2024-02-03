@@ -6,7 +6,7 @@ import OtpInput from "react-otp-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export default function ForgotPasswordForm() {
+export function OtpVerficationForm() {
   // const [isLoading, setLoading] = useState(false);
 
   const [otp, setOtp] = useState("");

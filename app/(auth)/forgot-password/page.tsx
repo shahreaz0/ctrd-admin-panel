@@ -4,7 +4,7 @@ import logo from "@/public/the-citizen-trust.svg";
 
 import { Card } from "@/components/ui/card";
 
-import ForgotPassowordForm from "./components/forgot-password-form";
+import { ForgotPasswordForm } from "./forgot-password-form";
 
 export const metadata: Metadata = {
   title: "Forgot Password",
@@ -20,7 +20,7 @@ export default function ForgotPasswordPage() {
         <p className="mb-2 mt-8 text-lg font-medium text-primary">
           Forgot Your Password?
         </p>
-        <ForgotPassowordForm />
+        <ForgotPasswordForm />
       </Card>
     </section>
   );

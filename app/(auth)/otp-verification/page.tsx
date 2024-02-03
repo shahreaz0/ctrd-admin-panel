@@ -4,7 +4,7 @@ import logo from "@/public/the-citizen-trust.svg";
 
 import { Card } from "@/components/ui/card";
 
-import OtpVerificationForm from "./components/otp-verification-form";
+import { OtpVerficationForm } from "./otp-verification-form";
 
 export const metadata: Metadata = {
   title: "Forgot Password",
@@ -18,7 +18,7 @@ export default function ForgotPasswordPage() {
         <Image src={logo} alt="The Citizen Trust" width={100} className="m-auto" />
 
         <p className="mb-2 mt-8 text-lg font-medium text-primary">OTP Verification</p>
-        <OtpVerificationForm />
+        <OtpVerficationForm />
       </Card>
     </section>
   );

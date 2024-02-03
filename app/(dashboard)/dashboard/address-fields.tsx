@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function AddressFields() {
+export function AddressFields() {
   const form = useFormContext();
 
   return (

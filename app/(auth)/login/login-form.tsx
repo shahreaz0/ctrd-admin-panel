@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import PasswordInput from "@/components/passoword-input";
+import { PasswordInput } from "@/components/passoword-input";
 
 const formSchema = z.object({
   email: z
@@ -30,7 +30,7 @@ const formSchema = z.object({
     .nonempty({ message: "Password field cannot be empty" }),
 });
 
-export default function LoginForm() {
+export function LoginForm() {
   const { mutate: login, isPending } = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({

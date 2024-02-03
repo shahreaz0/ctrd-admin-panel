@@ -7,7 +7,7 @@ function fn() {
   return request.get<User[]>("/api/Auth/GetAllUser").then((res) => res.data);
 }
 
-export default function useGetAllUsers() {
+export function useGetAllUsers() {
   return useQuery({
     queryKey: ["get-all-users"],
     queryFn: fn,

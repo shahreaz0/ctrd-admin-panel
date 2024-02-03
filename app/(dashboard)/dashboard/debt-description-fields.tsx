@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function DebtorsFields() {
+export function DebtDescriptionFields() {
   const form = useFormContext();
 
   const { fields, append, remove } = useFieldArray({

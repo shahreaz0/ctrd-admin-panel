@@ -12,7 +12,7 @@ import { useAddManager } from "@/hooks/rq/programs/use-add-manager";
 import { useAddWorker } from "@/hooks/rq/programs/use-add-worker";
 import { useCreateProgram } from "@/hooks/rq/programs/use-create-program";
 import { useRemoveWorker } from "@/hooks/rq/programs/use-remove-worker";
-import useGetAllUsers from "@/hooks/rq/users/use-get-all-users";
+import { useGetAllUsers } from "@/hooks/rq/users/use-get-all-users";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -31,7 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import FileInput from "@/components/file-input";
+import { FileInput } from "@/components/file-input";
 import { MultiSelect } from "@/components/multi-select";
 
 const formSchema = z.object({
@@ -45,7 +45,7 @@ type Props = {
   isOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function CreateProgramForm(props: Props) {
+export function CreateProgramForm(props: Props) {
   const [step, setStep] = useState(1);
 
   const { data: users } = useGetAllUsers();

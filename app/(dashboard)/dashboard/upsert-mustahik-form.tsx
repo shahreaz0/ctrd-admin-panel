@@ -14,23 +14,23 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useDialogStates } from "@/components/dialogs-provider";
 
-import AddressFields from "./address-fields";
-import BankAccountFields from "./bank-accounts-fields";
-import CandidateFields from "./candidate-fields";
-import ConditionRadio from "./condition-radio";
-import CriteriaEducationFields from "./criteria-education-fields";
-import CriteriaEmployementFields from "./criteria-employment-fields";
-import CriteriaInsaniatFields from "./criteria-insaniat-fields";
-import DebtDescriptionFields from "./debt-description-fields";
-import ExtraFields from "./extra-fields";
-import FamilyInfoFields from "./family-info-fields";
-import HealthInfoFields from "./health-info-fields";
-import IncomeSourceFields from "./income-source-fields";
-import LandAndDebtFields from "./land-and-debt-fields";
-import MustahikRadio from "./mutahik-radio";
-import ProgramRadioField from "./program-radio";
+import { AddressFields } from "./address-fields";
+import { BankAccountFields } from "./bank-accounts-fields";
+import { CandidateFields } from "./candidate-fields";
+import { ConditionRadio } from "./condition-radio";
+import { CriteriaEducationFields } from "./criteria-education-fields";
+import { CriteriaEmployementFields } from "./criteria-employment-fields";
+import { CriteriaInsaniatFields } from "./criteria-insaniat-fields";
+import { DebtDescriptionFields } from "./debt-description-fields";
+import { ExtraFields } from "./extra-fields";
+import { FamilyInfoFields } from "./family-info-fields";
+import { HealthInfoFields } from "./health-info-fields";
+import { IncomeSourceFields } from "./income-source-fields";
+import { LandAndDebtFields } from "./land-and-debt-fields";
+import { MustahikRadio } from "./mutahik-radio";
+import { ProgramRadioField } from "./program-radio";
 // import OpinionMultiCheckbox from "./opinion-multi-checkbox";
-import SpendingFields from "./spending-fields";
+import { SpendingFields } from "./spending-fields";
 
 const formSchema = z.object({
   name: z.string().min(1, "Required").max(1000),

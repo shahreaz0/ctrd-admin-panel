@@ -8,14 +8,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import CreateUserForm from "./create-user-form";
+import { CreateUserForm } from "./create-user-form";
 
 type Props = {
   open: boolean;
   isOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function CreateUserDialog(props: Props) {
+export function CreateUserDialog(props: Props) {
   return (
     <Dialog open={props.open} onOpenChange={() => props.isOpen(false)}>
       <DialogContent className="top-[50%] max-h-[80vh] max-w-[700px] overflow-auto">

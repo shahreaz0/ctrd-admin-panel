@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 //   SelectValue,
 // } from "@/components/ui/select";
 
-export default function CriteriaInsaniatFields() {
+export function CriteriaInsaniatFields() {
   const form = useFormContext();
 
   // insaniat: {

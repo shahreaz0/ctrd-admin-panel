@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function FamilyInfoFields() {
+export function FamilyInfoFields() {
   const form = useFormContext();
 
   // familyMembers: [

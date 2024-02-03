@@ -23,7 +23,7 @@ const formSchema = z.object({
     .email("Please enter a valid email."),
 });
 
-export default function ForgotPasswordForm() {
+export function ForgotPasswordForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });

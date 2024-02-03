@@ -16,7 +16,7 @@ type Props = {
   programId: number;
 };
 
-export default function UpdateProgramDialog(props: Props) {
+export function UpdateProgramDialog(props: Props) {
   return (
     <Dialog open={props.open} onOpenChange={props.isOpen}>
       <DialogContent className="top-[50%] max-h-[80vh] max-w-[700px] overflow-auto">

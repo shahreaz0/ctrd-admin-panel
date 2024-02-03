@@ -13,7 +13,7 @@ export function countBy(arr: string[] | undefined) {
   return occurrences;
 }
 
-export default function Stats() {
+export function Stats() {
   const { data: mustahiks } = useGetAllMustahiks();
 
   const ACCEPTANCE_STATUS = {

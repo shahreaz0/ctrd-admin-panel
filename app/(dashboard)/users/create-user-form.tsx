@@ -44,7 +44,7 @@ type Props = {
   isOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function CreateUserForm(props: Props) {
+export function CreateUserForm(props: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });

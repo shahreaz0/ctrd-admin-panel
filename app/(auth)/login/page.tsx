@@ -4,7 +4,7 @@ import logo from "@/public/the-citizen-trust.svg";
 
 import { Card } from "@/components/ui/card";
 
-import LoginForm from "./components/login-form";
+import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = {
   title: "Login",

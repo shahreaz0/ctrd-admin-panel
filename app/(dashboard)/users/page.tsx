@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import UserNav from "./user-nav";
+import { UserNav } from "./user-nav";
 import { UserTable } from "./user-table";
 
 export const metadata: Metadata = {

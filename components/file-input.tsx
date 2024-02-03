@@ -15,7 +15,7 @@ interface IFileInputProps
   setFiles?: React.Dispatch<React.SetStateAction<FileWithPath[]>>;
 }
 
-export default function FileInput(props: IFileInputProps) {
+export function FileInput(props: IFileInputProps) {
   const { accept, className, ...rest } = props;
 
   const { register, unregister, setValue, watch, formState } = useFormContext();

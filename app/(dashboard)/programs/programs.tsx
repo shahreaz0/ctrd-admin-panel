@@ -30,10 +30,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-import CreateProgramDialog from "./create-program-dialog";
-import UpdateProgramDialog from "./update-program-dialog";
+import { CreateProgramDialog } from "./create-program-dialog";
+import { UpdateProgramDialog } from "./update-program-dialog";
 
-export default function Programs() {
+export function Programs() {
   const [open, isOpen] = useState(false);
 
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false);

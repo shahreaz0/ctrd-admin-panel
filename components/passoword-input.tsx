@@ -7,7 +7,7 @@ import { Input } from "./ui/input";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-export default function PasswordInput(props: InputProps) {
+export function PasswordInput(props: InputProps) {
   const [passwordShow, setPasswordShow] = useState(false);
 
   return (

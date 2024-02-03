@@ -26,7 +26,7 @@ const items = [
   },
 ] as const;
 
-export default function OpinionMultiCheckbox() {
+export function OpinionMultiCheckbox() {
   const form = useFormContext();
 
   return (
