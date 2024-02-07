@@ -28,12 +28,9 @@ export function TableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter users by name..."
+          placeholder="Search..."
           value={query}
-          onChange={(event) =>
-            // table.getColumn("name")?.setFilterValue(event.target.value)
-            setQuery(event.target.value)
-          }
+          onChange={(event) => setQuery(event.target.value)}
           className="h-8 w-[150px] lg:w-[250px]"
         />
         {table.getColumn("condition") && (

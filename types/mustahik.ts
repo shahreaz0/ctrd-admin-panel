@@ -33,6 +33,10 @@ export type Mustahik = {
   addedByUserId: string;
 };
 
+export type MustahikWithProgramName = Mustahik & {
+  programName: string;
+};
+
 export type BankAccount = {
   id: number;
   accountHolderName: string;
