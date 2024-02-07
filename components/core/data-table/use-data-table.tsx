@@ -1,9 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { rankItem, rankings } from "@tanstack/match-sorter-utils";
 import {
   ColumnDef,
   ColumnFiltersState,
+  FilterFn,
   SortingState,
   VisibilityState,
   flexRender,
@@ -32,15 +34,30 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[] | undefined;
   loading?: boolean;
+  query?: string;
 }
 
 const emptyArray: [] = [];
+
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  const itemRank = rankItem(row.getValue(columnId), value, {
+    threshold: rankings.CONTAINS,
+  });
+
+  addMeta({
+    itemRank,
+  });
+
+  return itemRank.passed;
+};
 
 export function useDataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
+
+  const [globalFilter, setGlobalFilter] = React.useState("");
 
   const table = useReactTable({
     data: props.data || emptyArray,
@@ -50,6 +67,7 @@ export function useDataTable<TData, TValue>(props: DataTableProps<TData, TValue>
       columnVisibility,
       rowSelection,
       columnFilters,
+      globalFilter,
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
@@ -62,9 +80,24 @@ export function useDataTable<TData, TValue>(props: DataTableProps<TData, TValue>
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: fuzzyFilter,
   });
 
   const [loader, setLoader] = React.useState(true);
+
+  React.useEffect(() => {
+    if (props.query) {
+      table.resetPageIndex();
+
+      setGlobalFilter(String(props.query));
+    } else {
+      setGlobalFilter("");
+    }
+  }, [props.query]);
 
   React.useEffect(() => {
     setTimeout(() => {

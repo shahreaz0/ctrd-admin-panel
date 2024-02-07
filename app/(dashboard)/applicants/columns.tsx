@@ -57,10 +57,14 @@ export const columns: ColumnDef<Mustahik>[] = [
   },
   {
     accessorKey: "condition",
+    accessorFn: (row) => {
+      const status = conditions.find((condition) => condition.value === row.condition);
+      return status?.label;
+    },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Condition" />,
     cell: ({ row }) => {
       const status = conditions.find(
-        (condition) => condition.value === row.getValue("condition")
+        (condition) => condition.label === row.getValue("condition")
       );
 
       if (!status) {
@@ -75,15 +79,25 @@ export const columns: ColumnDef<Mustahik>[] = [
       );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      const condition = conditions.find(
+        (condition) => condition.label === row.getValue(id)
+      );
+
+      return value.includes(String(condition?.value));
     },
   },
   {
     accessorKey: "acceptanceStatus",
+    accessorFn: (row) => {
+      const status = acceptanceStatuses.find(
+        (status) => status.value === row.acceptanceStatus
+      );
+      return status?.label;
+    },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Acceptance" />,
     cell: ({ row }) => {
       const status = acceptanceStatuses.find(
-        (condition) => condition.value === row.getValue("acceptanceStatus")
+        (status) => status.label === row.getValue("acceptanceStatus")
       );
 
       if (!status) {
@@ -98,17 +112,24 @@ export const columns: ColumnDef<Mustahik>[] = [
       );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      const acceptanceStatus = acceptanceStatuses.find(
+        (status) => status.label === row.getValue(id)
+      );
+
+      return value.includes(String(acceptanceStatus?.value));
     },
   },
 
   {
     accessorKey: "status",
+    accessorFn: (row) => {
+      return row.status?.map((e) => e.status).join(", ");
+    },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Statuses" />,
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] items-center">
-          <span>{row.original.status?.map((e) => e.status).join(", ")}</span>
+          <span>{row.getValue("status")}</span>
         </div>
       );
     },
@@ -118,9 +139,13 @@ export const columns: ColumnDef<Mustahik>[] = [
   },
   {
     accessorKey: "gender",
+    accessorFn: (row) => {
+      const status = genders.find((gender) => gender.value === row.gender);
+      return status?.label;
+    },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Gender" />,
     cell: ({ row }) => {
-      const status = genders.find((g) => g.value === row.getValue("gender"));
+      const status = genders.find((gender) => gender.label === row.getValue("gender"));
 
       if (!status) {
         return null;
@@ -133,28 +158,35 @@ export const columns: ColumnDef<Mustahik>[] = [
       );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      const gender = genders.find((gender) => gender.label === row.getValue(id));
+
+      return value.includes(String(gender?.value));
     },
   },
   {
     accessorKey: "age",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Age" />,
-    // enableSorting: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: "address",
     accessorFn: (row) => {
-      return `${row.name}`;
+      return `${row.name}__${row.village}__${row.thana}__${row.district}`;
     },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Address" />,
-    cell: ({ row }) => (
-      <section>
-        <p className="m-0">{row.original.village}</p>
-        <p className="m-0 text-xs text-gray-500">
-          {row.original.thana}, {row.original.district}
-        </p>
-      </section>
-    ),
+    cell: ({ row }) => {
+      const address = row.getValue("address") as string;
+
+      const [village, thana, district] = address.split("__");
+
+      return (
+        <section>
+          <p className="m-0">{village}</p>
+          <p className="m-0 text-xs text-gray-500">
+            {thana}, {district}
+          </p>
+        </section>
+      );
+    },
     enableSorting: false,
     enableHiding: false,
   },

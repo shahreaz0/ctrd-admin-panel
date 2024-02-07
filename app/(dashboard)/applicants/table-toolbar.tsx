@@ -1,5 +1,6 @@
 "use client";
 
+import { type Dispatch, type SetStateAction } from "react";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
@@ -12,9 +13,15 @@ import { acceptanceStatuses, conditions, genders } from "./data/data";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  setQuery: Dispatch<SetStateAction<string>>;
+  query: string;
 }
 
-export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
+export function TableToolbar<TData>({
+  table,
+  query,
+  setQuery,
+}: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
@@ -22,9 +29,10 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter users by name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          value={query}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            // table.getColumn("name")?.setFilterValue(event.target.value)
+            setQuery(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
