@@ -1,6 +1,9 @@
 "use client";
 
 import { CONDITION, GENDER } from "@/configs/globals";
+import districts from "@/data/districts.json";
+import unions from "@/data/unions.json";
+import upazilas from "@/data/upazilas.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -52,10 +55,28 @@ const formSchema = z.object({
   occupation: z.string().max(100).optional(),
   fatherOrHusbandName: z.string().max(100).optional(),
   village: z.string().max(1000).optional(),
-  union: z.string().max(1000).optional(),
+  union: z
+    .string()
+    .max(1000)
+    .transform((e) => {
+      return unions.find((union) => union.id === e)?.name;
+    })
+    .optional(),
   postOffice: z.string().max(100).optional(),
-  thana: z.string().max(100).optional(),
-  district: z.string().max(100).optional(),
+  thana: z
+    .string()
+    .max(100)
+    .transform((e) => {
+      return upazilas.find((upazila) => upazila.id === e)?.name;
+    })
+    .optional(),
+  district: z
+    .string()
+    .max(100)
+    .transform((e) => {
+      return districts.find((district) => district.id === e)?.name;
+    })
+    .optional(),
   condition: z
     .enum(["green", "yellow", "red"], {
       required_error: "Required",

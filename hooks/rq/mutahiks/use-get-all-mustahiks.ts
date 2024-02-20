@@ -25,11 +25,6 @@ export function useGetAllMustahiks() {
               ...mustahik,
               programName: program.name,
             });
-          } else {
-            response.push({
-              ...mustahik,
-              programName: "",
-            });
           }
         }
       }
