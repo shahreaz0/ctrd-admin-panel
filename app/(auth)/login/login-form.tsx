@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RotateCw } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -94,7 +94,7 @@ export function LoginForm() {
           </section>
 
           <Button type="submit" className="mt-4 w-full" disabled={isPending}>
-            {isPending && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Login
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Login
           </Button>
         </form>
       </Form>

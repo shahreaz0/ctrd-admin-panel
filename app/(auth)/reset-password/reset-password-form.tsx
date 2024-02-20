@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RotateCw } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -95,7 +95,7 @@ export function ResetPasswordForm() {
           />
 
           <Button type="submit" className="mt-4 w-full" disabled={isPending || !status}>
-            {isPending && <RotateCw className="mr-2 h-4 w-4 animate-spin" />} Reset
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Reset
             Password
           </Button>
         </form>
