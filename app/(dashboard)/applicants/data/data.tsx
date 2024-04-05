@@ -1,5 +1,7 @@
 import { CheckCircledIcon, CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 
+import { type Program } from "@/types/program";
+
 export const conditions = [
   {
     value: "0",
@@ -81,3 +83,11 @@ export const statuses = [
     value: "6",
   },
 ];
+
+export const programs: { label: string; value: string }[] =
+  typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("programs") as string)?.map((program: Program) => ({
+        value: program.id.toString(),
+        label: program.name,
+      }))
+    : [];

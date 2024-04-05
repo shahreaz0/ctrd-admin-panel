@@ -11,5 +11,9 @@ export function useGetAllPrograms() {
   return useQuery({
     queryKey: ["get-all-programs"],
     queryFn: fn,
+    select: (data) => {
+      localStorage.setItem("programs", JSON.stringify(data));
+      return data;
+    },
   });
 }

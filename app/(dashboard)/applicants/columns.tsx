@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/core/data-table/data-table-column-header";
 
-import { acceptanceStatuses, conditions, genders } from "./data/data";
+import { acceptanceStatuses, conditions, genders, programs } from "./data/data";
 import { TableRowActions } from "./table-row-actions";
 
 export const columns: ColumnDef<MustahikWithProgramName>[] = [
@@ -193,6 +193,11 @@ export const columns: ColumnDef<MustahikWithProgramName>[] = [
   {
     accessorKey: "programName",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Program" />,
+    filterFn: (row, id, value) => {
+      const program = programs.find((program) => program.label === row.getValue(id));
+
+      return value.includes(String(program?.value));
+    },
   },
   {
     id: "actions",

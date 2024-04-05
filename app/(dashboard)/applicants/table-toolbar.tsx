@@ -4,6 +4,7 @@ import { type Dispatch, type SetStateAction } from "react";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
+import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/core/data-table/data-table-faceted-filter";
@@ -23,6 +24,13 @@ export function TableToolbar<TData>({
   setQuery,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+
+  const { data: programs } = useGetAllPrograms();
+
+  const programsOptions = programs?.map((program) => ({
+    value: program.id.toString(),
+    label: program.name,
+  }));
 
   return (
     <div className="flex items-center justify-between">
@@ -55,6 +63,17 @@ export function TableToolbar<TData>({
             title="Gender"
             options={genders}
           />
+        )}
+
+        {programsOptions && table.getColumn("programName") && (
+          <>
+            <DataTableFacetedFilter
+              className="w-[350px]"
+              column={table.getColumn("programName")}
+              title="Program"
+              options={programsOptions}
+            />
+          </>
         )}
 
         {isFiltered && (

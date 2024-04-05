@@ -117,7 +117,7 @@ export function ApplicantDetailsDialog(props: Props) {
           <section>
             <h1 className="mb-2 text-lg">ব্যাংক একাউন্ট</h1>
             {mustahik.bankAccounts.map((info, i) => (
-              <>
+              <div key={i}>
                 <p className="underline">তথ্য {i + 1}</p>
                 <section className="grid grid-cols-3 gap-4">
                   <div className="space-y-1">
@@ -138,14 +138,14 @@ export function ApplicantDetailsDialog(props: Props) {
                     <p className="text-sm">{info.branchName || "--"}</p>
                   </div>
                 </section>
-              </>
+              </div>
             ))}
           </section>
 
           <section>
             <h1 className="mb-2 text-lg">পারিবারিক তথ্য</h1>
             {mustahik.familyMembers.map((info, i) => (
-              <>
+              <div key={i}>
                 <p className="underline">তথ্য {i + 1}</p>
                 <section className="grid grid-cols-3 gap-4">
                   <div className="space-y-1">
@@ -197,7 +197,7 @@ export function ApplicantDetailsDialog(props: Props) {
                     <p className="text-sm">{info.ongoingMedicineOrTreatment || "--"}</p>
                   </div>
                 </section>
-              </>
+              </div>
             ))}
           </section>
 
@@ -206,18 +206,18 @@ export function ApplicantDetailsDialog(props: Props) {
             <section className="grid grid-cols-3 gap-4">
               <div className="space-y-1">
                 <Label>ঘর (শতাংশ)</Label>
-                <p className="text-sm">{mustahik.landAndDebtDesc.house || "--"}</p>
+                <p className="text-sm">{mustahik.landAndDebtDesc?.house || "--"}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>কৃষিজমি (শতাংশ)</Label>
-                <p className="text-sm">{mustahik.landAndDebtDesc.land || "--"}</p>
+                <p className="text-sm">{mustahik.landAndDebtDesc?.land || "--"}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>গরুর সংখ্যা</Label>
                 <p className="text-sm capitalize">
-                  {mustahik.landAndDebtDesc.numberOfCows}
+                  {mustahik.landAndDebtDesc?.numberOfCows || "--"}
                 </p>
               </div>
               <div className="space-y-1">
@@ -262,7 +262,7 @@ export function ApplicantDetailsDialog(props: Props) {
           <section>
             <h1 className="mb-2 text-lg">দেনার পরিমাণ</h1>
             {mustahik.debtDescriptions.map((info, i) => (
-              <>
+              <div key={i}>
                 <p className="underline">তথ্য {i + 1}</p>
                 <section className="grid grid-cols-3 gap-4">
                   <div className="space-y-1">
@@ -293,7 +293,7 @@ export function ApplicantDetailsDialog(props: Props) {
                     <p className="text-sm">{info.purpose}</p>
                   </div>
                 </section>
-              </>
+              </div>
             ))}
           </section>
 
@@ -343,32 +343,34 @@ export function ApplicantDetailsDialog(props: Props) {
             <section className="grid grid-cols-3 gap-4">
               <div className="space-y-1">
                 <Label>খাদ্য ব্যাবদ ব্যয়</Label>
-                <p className="text-sm">{mustahik.fieldsOfSpending.food}</p>
+                <p className="text-sm">{mustahik.fieldsOfSpending?.food}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>শিক্ষা ব্যাবদ ব্যয়</Label>
-                <p className="text-sm">{mustahik.fieldsOfSpending.education}</p>
+                <p className="text-sm">{mustahik.fieldsOfSpending?.education}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>ঔষধ / চিকিৎসা ব্যাবদ ব্যয়</Label>
                 <p className="text-sm capitalize">
-                  {mustahik.fieldsOfSpending.medicineOrTreatment}
+                  {mustahik.fieldsOfSpending?.medicineOrTreatment}
                 </p>
               </div>
               <div className="space-y-1">
                 <Label>ঋণের কিস্তি পরিশোধ</Label>
-                <p className="text-sm">{mustahik.fieldsOfSpending.debtInstallments}</p>
+                <p className="text-sm">{mustahik.fieldsOfSpending?.debtInstallments}</p>
               </div>
               <div className="space-y-1">
                 <Label>অন্যান্য খ্যাতে ব্যয়</Label>
-                <p className="text-sm">{mustahik.fieldsOfSpending.misc}</p>
+                <p className="text-sm">{mustahik.fieldsOfSpending?.misc}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>মোট বাৎসরিক ব্যয়</Label>
-                <p className="text-sm">{mustahik.fieldsOfSpending.totalYearlySpending}</p>
+                <p className="text-sm">
+                  {mustahik.fieldsOfSpending?.totalYearlySpending}
+                </p>
               </div>
             </section>
           </section>
@@ -378,42 +380,46 @@ export function ApplicantDetailsDialog(props: Props) {
             <section className="grid grid-cols-3 gap-4">
               <div className="space-y-1">
                 <Label>দীর্ঘস্থায়ী অসুস্থতা</Label>
-                <p className="text-sm">{mustahik.healthRelatedInfo.lastingSickness}</p>
+                <p className="text-sm">{mustahik.healthRelatedInfo?.lastingSickness}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>নিয়মিত ঔষধ / চিকিৎসা</Label>
                 <p className="text-sm">
-                  {mustahik.healthRelatedInfo.ongoingTreatmentOrMedicine}
+                  {mustahik.healthRelatedInfo?.ongoingTreatmentOrMedicine}
                 </p>
               </div>
 
               <div className="space-y-1">
                 <Label>গর্ভবতী / প্রসূতী নারী</Label>
                 <p className="text-sm capitalize">
-                  {mustahik.healthRelatedInfo.hasPregnancy}
+                  {mustahik.healthRelatedInfo?.hasPregnancy}
                 </p>
               </div>
               <div className="space-y-1">
                 <Label>জটিল রোগ / চিকিৎসা</Label>
-                <p className="text-sm">{mustahik.healthRelatedInfo.hasChronicSickness}</p>
+                <p className="text-sm">
+                  {mustahik.healthRelatedInfo?.hasChronicSickness}
+                </p>
               </div>
               <div className="space-y-1">
                 <Label>চোখের ছানি</Label>
-                <p className="text-sm">{mustahik.healthRelatedInfo.hasCataract}</p>
+                <p className="text-sm">{mustahik.healthRelatedInfo?.hasCataract}</p>
               </div>
 
               <div className="space-y-1">
                 <Label>স্রবণ সমস্যা</Label>
-                <p className="text-sm">{mustahik.healthRelatedInfo.hasHearingProblem}</p>
+                <p className="text-sm">{mustahik.healthRelatedInfo?.hasHearingProblem}</p>
               </div>
               <div className="space-y-1">
                 <Label>প্রতিবন্ধী</Label>
-                <p className="text-sm">{mustahik.healthRelatedInfo.hasDisability}</p>
+                <p className="text-sm">{mustahik.healthRelatedInfo?.hasDisability}</p>
               </div>
               <div className="space-y-1">
                 <Label>স্বাস্থ্যশিক্ষা</Label>
-                <p className="text-sm">{mustahik.healthRelatedInfo.hasHealthEducation}</p>
+                <p className="text-sm">
+                  {mustahik.healthRelatedInfo?.hasHealthEducation}
+                </p>
               </div>
             </section>
           </section>
@@ -426,19 +432,23 @@ export function ApplicantDetailsDialog(props: Props) {
                 <section className="space-y-4">
                   <div className="space-y-1">
                     <Label>ঘর নির্মাণ</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.insaniat.house}</p>
+                    <p className="text-sm">{mustahik.criteriaToGrant?.insaniat?.house}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>খাদ্য সহায়তা</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.insaniat.food}</p>
+                    <p className="text-sm">{mustahik.criteriaToGrant?.insaniat?.food}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>এতিম ভাতা</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.insaniat.orphan}</p>
+                    <p className="text-sm">
+                      {mustahik.criteriaToGrant?.insaniat?.orphan}
+                    </p>
                   </div>
                   <div className="space-y-1">
                     <Label>পরিধেয় বস্ত্র</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.insaniat.clothes}</p>
+                    <p className="text-sm">
+                      {mustahik.criteriaToGrant?.insaniat?.clothes}
+                    </p>
                   </div>
                 </section>
               </section>
@@ -448,50 +458,56 @@ export function ApplicantDetailsDialog(props: Props) {
                   <div className="space-y-1">
                     <Label>বিনিয়োগ পুঁজি</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.employment.biniyog}
+                      {mustahik.criteriaToGrant?.employment?.biniyog}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>কৃষিজমি</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.employment.land}</p>
+                    <p className="text-sm">
+                      {mustahik.criteriaToGrant?.employment?.land}
+                    </p>
                   </div>
                   <div className="space-y-1">
                     <Label>কুটির</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.employment.kutir}</p>
+                    <p className="text-sm">
+                      {mustahik.criteriaToGrant?.employment?.kutir}
+                    </p>
                   </div>
                   <div className="space-y-1">
                     <Label>উৎপাদন যন্ত্র</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.employment.cultivatingInstruments}
+                      {mustahik.criteriaToGrant?.employment?.cultivatingInstruments}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>গবাদি পশু</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.employment.cowsOrGoats}
+                      {mustahik.criteriaToGrant?.employment?.cowsOrGoats}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>হাঁস মুরগি</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.employment.hensOrDucks}
+                      {mustahik.criteriaToGrant?.employment?.hensOrDucks}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>ক্ষুদ্র ব্যাবসায়ের জন্য পুঁজি</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.employment.business}
+                      {mustahik.criteriaToGrant?.employment?.business}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>কৃষি যন্ত্র</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.employment.farmingEquipments}
+                      {mustahik.criteriaToGrant?.employment?.farmingEquipments}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>অন্যান্য</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.employment.misc}</p>
+                    <p className="text-sm">
+                      {mustahik.criteriaToGrant?.employment?.misc}
+                    </p>
                   </div>
                 </section>
               </section>
@@ -502,44 +518,46 @@ export function ApplicantDetailsDialog(props: Props) {
                   <div className="space-y-1">
                     <Label>শিশু শিক্ষা</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.education.childrenEducation}
+                      {mustahik.criteriaToGrant?.education?.childrenEducation}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>শিক্ষা সহায়তা</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.education.educationHelp}
+                      {mustahik.criteriaToGrant?.education?.educationHelp}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>পাঠ্যবই</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.education.books}</p>
+                    <p className="text-sm">
+                      {mustahik.criteriaToGrant?.education?.books}
+                    </p>
                   </div>
                   <div className="space-y-1">
                     <Label>শিক্ষা উপকরণ</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.education.instruments}
+                      {mustahik.criteriaToGrant?.education?.instruments}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>শিশু বস্ত্র</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.education.childrenClothing}
+                      {mustahik.criteriaToGrant?.education?.childrenClothing}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>পুষ্টিকর খাবার</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.education.food}</p>
+                    <p className="text-sm">{mustahik.criteriaToGrant?.education?.food}</p>
                   </div>
                   <div className="space-y-1">
                     <Label>কুরআন শিক্ষা</Label>
                     <p className="text-sm">
-                      {mustahik.criteriaToGrant.education.quranEducation}
+                      {mustahik.criteriaToGrant?.education?.quranEducation}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <Label>অন্যান্য</Label>
-                    <p className="text-sm">{mustahik.criteriaToGrant.education.misc}</p>
+                    <p className="text-sm">{mustahik.criteriaToGrant?.education?.misc}</p>
                   </div>
                 </section>
               </section>
