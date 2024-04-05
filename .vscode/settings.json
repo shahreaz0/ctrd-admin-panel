@@ -1,8 +1,14 @@
 {
   "typescript.tsdk": "../../node_modules/.pnpm/typescript@4.9.5/node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "css.lint.unknownAtRules": "ignore"
-
-
-  
+  "css.lint.unknownAtRules": "ignore",
+  "workbench.colorTheme": "Default Dark+",
+  "prettier.printWidth": 90,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "git.autofetch": true,
+  "editor.bracketPairColorization.enabled": true,
+  "terminal.explorerKind": "external",
+  "workbench.startupEditor": "none",
+  "editor.formatOnSave": true,
+  "extensions.ignoreRecommendations": true
 }
