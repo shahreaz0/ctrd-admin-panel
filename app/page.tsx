@@ -52,22 +52,8 @@ export default function Home() {
             Login
           </Link>
 
-{/*           <p className="pb-8 text-center font-bold text-blue-400 fade-in md:text-left lg:pb-6">
-            Download our app:
-          </p>
 
-          <div className="flex w-1/2 gap-4 pb-24 fade-in lg:pb-0">
-            <Image
-              src={appStore}
-              className="bounce-top-icons h-12 cursor-pointer"
-              alt="app store"
-            />
-            <Image
-              src={playStore}
-              className="bounce-top-icons h-12 cursor-pointer"
-              alt="play store"
-            />
-          </div> */}
+          </div>
         </div>
 
         <div className="w-full overflow-y-hidden py-6 xl:w-3/5">
