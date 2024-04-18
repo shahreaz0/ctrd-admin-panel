@@ -36,7 +36,7 @@ export default function Home() {
       <div className="container flex flex-col flex-wrap  px-6 md:flex-row ">
         <div className="flex w-full flex-col justify-center overflow-y-hidden lg:items-start xl:w-2/5">
           <h1 className="slide-in-bottom-h1 my-4 text-center text-3xl font-bold leading-tight text-primary md:text-left md:text-5xl">
-            CTRD Admin Panel
+            CTRD
           </h1>
           <p className="slide-in-bottom-subtitle  text-center text-base leading-normal md:text-left md:text-2xl">
             Coming Soon...
