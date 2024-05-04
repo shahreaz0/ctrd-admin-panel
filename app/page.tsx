@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 // import appStore from "@/public/home/app-store.svg";
 import comingSoon from "@/public/home/coming-soon.png";
 // import playStore from "@/public/home/play-store.svg";
@@ -11,6 +13,15 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
 export default function Home() {
+  const router = useRouter();
+  const currentPath = usePathname();
+
+  useEffect(() => {
+    if (currentPath !== "/") {
+      setTimeout(() => router.push(currentPath), 100);
+    }
+  }, []);
+
   return (
     <div
       className="h-screen bg-cover bg-right pb-14"
