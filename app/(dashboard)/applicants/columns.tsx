@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import type { MustahikWithProgramName } from "@/types/mustahik";
+import type { Mustahik } from "@/types/mustahik";
 import { generateAvatar } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -11,7 +11,7 @@ import { DataTableColumnHeader } from "@/components/core/data-table/data-table-c
 import { acceptanceStatuses, conditions, genders, programs } from "./data/data";
 import { TableRowActions } from "./table-row-actions";
 
-export const columns: ColumnDef<MustahikWithProgramName>[] = [
+export const columns: ColumnDef<Mustahik>[] = [
   {
     id: "select",
     header: ({ table }) => (

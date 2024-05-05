@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { DialogsProvider } from "@/components/dialogs-provider";
+import { MustahikFiltersProvider } from "@/components/mustahik-filters-provider";
 import { RQProvider } from "@/components/rq-provider";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -34,11 +35,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={cn("bg-background font-sans antialiased", fontSans.variable)}>
         <RQProvider>
           <DialogsProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              {children}
-              <Toaster richColors />
-              <TailwindIndicator />
-            </ThemeProvider>
+            <MustahikFiltersProvider>
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                {children}
+                <Toaster richColors />
+                <TailwindIndicator />
+              </ThemeProvider>
+            </MustahikFiltersProvider>
           </DialogsProvider>
         </RQProvider>
       </body>

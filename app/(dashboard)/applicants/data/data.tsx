@@ -49,7 +49,7 @@ export const genders = [
   },
   {
     label: "Other",
-    value: "3",
+    value: "2",
   },
 ];
 
