@@ -24,11 +24,7 @@ function fetcher({ queryKey }: QueryFunctionContext<[string, MustahikFilters]>) 
         indexes: null,
       },
     })
-    .then((res) => {
-      console.log(res);
-
-      return res.data;
-    });
+    .then((res) => res.data);
 }
 
 export function useGetAllMustahiks() {

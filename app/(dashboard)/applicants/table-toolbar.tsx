@@ -3,11 +3,19 @@
 import { useEffect, useState } from "react";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
+import { Download, Loader2 } from "lucide-react";
 
+import { exportMustahik } from "@/lib/export-mustahik";
 import { useDebounce } from "@/hooks/custom/use-debounce";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { DataTableFacetedFilter } from "@/components/core/data-table/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/core/data-table/data-table-view-options";
 import { useMustahikFilters } from "@/components/mustahik-filters-provider";
@@ -19,9 +27,9 @@ interface DataTableToolbarProps<TData> {
 }
 
 export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
-  // const isFiltered = table.getState().columnFilters.length > 0;
-
   const { data: programs } = useGetAllPrograms();
+
+  const [isPending, setIsPending] = useState(false);
 
   const { setMustahikFilters, mustahikFilters } = useMustahikFilters();
 
@@ -145,7 +153,49 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+
+      <div className="flex gap-x-2">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={isPending}
+                onClick={async () => {
+                  const p = {
+                    Condition: mustahikFilters.Condition,
+                    Status: mustahikFilters.Status,
+                    Program: mustahikFilters.Program,
+                    Gender: mustahikFilters.Gender,
+                  };
+
+                  setIsPending(true);
+
+                  await exportMustahik(p);
+
+                  setIsPending(false);
+                }}
+              >
+                {isPending ? (
+                  <>
+                    <Loader2 className="mr-1 h-4 w-4 animate-spin" /> Please wait...
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Export Mustahik</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   );
 }

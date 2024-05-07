@@ -2,6 +2,8 @@ import { Metadata } from "next";
 
 import { ApplicantNav } from "./applicant-nav";
 import { ApplicantTable } from "./applicant-table";
+import { CreateApplicantDialog } from "./create-applicant-dialog";
+import { ImportApplicantDialog } from "./import-applicant-dialog";
 
 export const metadata: Metadata = {
   title: "Applicants",
@@ -18,6 +20,10 @@ export default async function TaskPage() {
         </div>
 
         <ApplicantTable />
+
+        {/* Dialogs */}
+        <CreateApplicantDialog />
+        <ImportApplicantDialog />
       </div>
     </>
   );
