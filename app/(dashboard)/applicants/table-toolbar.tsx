@@ -5,8 +5,8 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 import { Download, Loader2 } from "lucide-react";
 
+import { exportMustahik } from "@/lib/export-mustahik";
 import { useDebounce } from "@/hooks/custom/use-debounce";
-import { useExportMustahiks } from "@/hooks/rq/mutahiks/use-export-mustahik";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,10 +27,9 @@ interface DataTableToolbarProps<TData> {
 }
 
 export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
-  // const isFiltered = table.getState().columnFilters.length > 0;
-
   const { data: programs } = useGetAllPrograms();
-  const { mutate: exportMustahik, isPending } = useExportMustahiks();
+
+  const [isPending, setIsPending] = useState(false);
 
   const { setMustahikFilters, mustahikFilters } = useMustahikFilters();
 
@@ -163,7 +162,7 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
                 size="sm"
                 variant="outline"
                 disabled={isPending}
-                onClick={() => {
+                onClick={async () => {
                   const p = {
                     Condition: mustahikFilters.Condition,
                     Status: mustahikFilters.Status,
@@ -171,11 +170,11 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
                     Gender: mustahikFilters.Gender,
                   };
 
-                  exportMustahik(p, {
-                    onSuccess: (data) => {
-                      console.log(data);
-                    },
-                  });
+                  setIsPending(true);
+
+                  await exportMustahik(p);
+
+                  setIsPending(false);
                 }}
               >
                 {isPending ? (
