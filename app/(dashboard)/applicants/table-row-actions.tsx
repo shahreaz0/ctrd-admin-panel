@@ -6,7 +6,7 @@ import { Row } from "@tanstack/react-table";
 import { CheckCircle2, MinusCircle } from "lucide-react";
 import { toast } from "sonner";
 
-import type { MustahikWithProgramName } from "@/types/mustahik";
+import type { Mustahik } from "@/types/mustahik";
 import { cn } from "@/lib/utils";
 import { useDeleteMustahik } from "@/hooks/rq/mutahiks/use-delete-mustahik";
 import { useMustahikApprove } from "@/hooks/rq/mutahiks/use-mustahik-approve";
@@ -34,7 +34,7 @@ import { useDialogStates } from "@/components/dialogs-provider";
 import { ApplicantDetailsDialog } from "./applicant-details-dialog";
 
 interface DataTableRowActionsProps {
-  row: Row<MustahikWithProgramName>;
+  row: Row<Mustahik>;
 }
 
 export function TableRowActions({ row }: DataTableRowActionsProps) {

@@ -1,31 +1,44 @@
 "use client";
 
-import { type Dispatch, type SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
+import { useDebounce } from "@/hooks/custom/use-debounce";
 import { useGetAllPrograms } from "@/hooks/rq/programs/use-get-all-programs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/core/data-table/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/core/data-table/data-table-view-options";
+import { useMustahikFilters } from "@/components/mustahik-filters-provider";
 
 import { acceptanceStatuses, conditions, genders } from "./data/data";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
-  setQuery: Dispatch<SetStateAction<string>>;
-  query: string;
 }
 
-export function TableToolbar<TData>({
-  table,
-  query,
-  setQuery,
-}: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
+  // const isFiltered = table.getState().columnFilters.length > 0;
 
   const { data: programs } = useGetAllPrograms();
+
+  const { setMustahikFilters, mustahikFilters } = useMustahikFilters();
+
+  const [reset, setReset] = useState(false);
+
+  const [q, setQ] = useState("");
+  const debouncedSearchName = useDebounce(q, 400);
+
+  useEffect(() => {
+    setMustahikFilters((prev) => ({ ...prev, searchName: debouncedSearchName }));
+  }, [debouncedSearchName]);
+
+  const isFiltered =
+    !!mustahikFilters.Condition.length ||
+    !!mustahikFilters.Status.length ||
+    !!mustahikFilters.Gender.length ||
+    !!mustahikFilters.Program.length;
 
   const programsOptions = programs?.map((program) => ({
     value: program.id.toString(),
@@ -37,41 +50,73 @@ export function TableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Search..."
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          value={q}
+          onChange={(event) => setQ(event.target.value)}
           className="h-8 w-[150px] lg:w-[250px]"
         />
         {table.getColumn("condition") && (
           <DataTableFacetedFilter
-            column={table.getColumn("condition")}
             title="Condition"
             options={conditions}
+            reset={reset}
+            onValueChange={(value) => {
+              setMustahikFilters((prev) => {
+                return {
+                  ...prev,
+                  Condition: value,
+                };
+              });
+            }}
           />
         )}
 
         {table.getColumn("acceptanceStatus") && (
           <DataTableFacetedFilter
-            column={table.getColumn("acceptanceStatus")}
             title="Status"
             options={acceptanceStatuses}
+            reset={reset}
+            onValueChange={(value) => {
+              setMustahikFilters((prev) => {
+                return {
+                  ...prev,
+                  Status: value,
+                };
+              });
+            }}
           />
         )}
 
         {table.getColumn("gender") && (
           <DataTableFacetedFilter
-            column={table.getColumn("gender")}
             title="Gender"
             options={genders}
+            reset={reset}
+            onValueChange={(value) => {
+              setMustahikFilters((prev) => {
+                return {
+                  ...prev,
+                  Gender: value,
+                };
+              });
+            }}
           />
         )}
 
         {programsOptions && table.getColumn("programName") && (
           <>
             <DataTableFacetedFilter
+              onValueChange={(value) => {
+                setMustahikFilters((prev) => {
+                  return {
+                    ...prev,
+                    Program: value,
+                  };
+                });
+              }}
               className="w-[350px]"
-              column={table.getColumn("programName")}
               title="Program"
               options={programsOptions}
+              reset={reset}
             />
           </>
         )}
@@ -79,7 +124,20 @@ export function TableToolbar<TData>({
         {isFiltered && (
           <Button
             variant="ghost"
-            onClick={() => table.resetColumnFilters()}
+            onClick={() => {
+              setMustahikFilters((prev) => {
+                return {
+                  ...prev,
+                  Program: [],
+                  Status: [],
+                  Condition: [],
+                  Gender: [],
+                };
+              });
+
+              setReset(true);
+              setTimeout(() => setReset(false), 100);
+            }}
             className="h-8 px-2 lg:px-3"
           >
             Reset
