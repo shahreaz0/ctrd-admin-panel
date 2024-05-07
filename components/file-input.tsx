@@ -13,6 +13,7 @@ interface IFileInputProps
   label?: string;
   accept: DropzoneOptions["accept"];
   setFiles?: React.Dispatch<React.SetStateAction<FileWithPath[]>>;
+  formats?: string;
 }
 
 export function FileInput(props: IFileInputProps) {
@@ -72,7 +73,7 @@ export function FileInput(props: IFileInputProps) {
             Drag & drop files or <span className="text-[#2563EB] underline">Browse</span>
           </p>
           <p className="mt-2 text-xs font-normal text-[#676767]">
-            Supported formats: Only .jpg and .png
+            Supported formats: Only {props.formats || ".jpg and .png"}
           </p>
         </section>
 

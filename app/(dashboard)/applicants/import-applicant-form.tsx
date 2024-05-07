@@ -48,10 +48,10 @@ export function ImportApplicantForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FileInput
             accept={{
-              "text/csv": [],
               "application/vnd.ms-excel": [],
             }}
             name="file"
+            formats=".xlsx"
           />
 
           <Button type="submit" className="mt-4" size="sm" disabled={isPending}>

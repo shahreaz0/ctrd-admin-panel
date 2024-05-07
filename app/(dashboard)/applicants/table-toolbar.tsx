@@ -17,7 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DataTableFacetedFilter } from "@/components/core/data-table/data-table-faceted-filter";
-import { DataTableViewOptions } from "@/components/core/data-table/data-table-view-options";
+// import { DataTableViewOptions } from "@/components/core/data-table/data-table-view-options";
 import { useMustahikFilters } from "@/components/mustahik-filters-provider";
 
 import { acceptanceStatuses, conditions, genders } from "./data/data";
@@ -183,7 +183,7 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
                   </>
                 ) : (
                   <>
-                    <Download className="h-4 w-4" />
+                    <Download className="h-4 w-4" strokeWidth={1.2} />
                   </>
                 )}
               </Button>
@@ -194,7 +194,7 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
           </Tooltip>
         </TooltipProvider>
 
-        <DataTableViewOptions table={table} />
+        {/* <DataTableViewOptions table={table} /> */}
       </div>
     </div>
   );

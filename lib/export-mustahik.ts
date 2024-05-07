@@ -19,8 +19,6 @@ export async function exportMustahik(
     document.body.appendChild(link);
     link.click();
 
-    console.log("clicked");
-
     link.remove();
   } catch (error) {
     //

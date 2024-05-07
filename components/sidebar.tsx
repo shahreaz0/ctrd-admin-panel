@@ -31,7 +31,7 @@ export function Sidebar() {
   const { data: user } = useGetUserInfo();
 
   return (
-    <div className="flex h-screen w-[250px] flex-col justify-between border-e bg-[#F1F1F1]">
+    <div className="flex h-screen w-[240px] flex-col justify-between border-e bg-[#F1F1F1]">
       <div className="px-4 py-6">
         <Link href="/">
           {/* <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
