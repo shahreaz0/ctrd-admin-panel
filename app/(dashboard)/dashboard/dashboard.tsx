@@ -1,7 +1,8 @@
 "use client";
 
 import { useGetUserInfo } from "@/hooks/rq/auth/use-get-user-info";
-import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/upsert-mustahik-form";
+
+// import { CreateMustahikForm } from "@/app/(dashboard)/dashboard/upsert-mustahik-form";
 
 import { Programs } from "./programs";
 import { Stats } from "./stats";
@@ -20,14 +21,14 @@ export function Dashboard() {
 
       <Stats />
 
-      {user?.roles?.includes("ADMINISTRATOR") && (
+      {/* {user?.roles?.includes("ADMINISTRATOR") && (
         <section>
           <p className="mb-4 text-base font-semibold text-primary">
             Add A Mustahik Under Program
           </p>
           <CreateMustahikForm />
         </section>
-      )}
+      )} */}
     </section>
   );
 }
