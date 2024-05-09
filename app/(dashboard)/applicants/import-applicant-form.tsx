@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 import { getBase64 } from "@/lib/utils";
@@ -29,14 +30,20 @@ export function ImportApplicantForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const file = (await getBase64(values.file)) as string;
 
+    // console.log(JSON.stringify());
+
     importMustahik(
-      { file },
+      { file: file.split("base64,")[1] },
       {
         onSuccess: () => {
           setDialogsStates((prev) => ({
             ...prev,
             importApplicantDialog: false,
           }));
+
+          toast.success("Imported Successfully", {
+            description: "Mustahik's imported successfully.",
+          });
         },
       }
     );
@@ -48,7 +55,7 @@ export function ImportApplicantForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FileInput
             accept={{
-              "application/vnd.ms-excel": [],
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [],
             }}
             name="file"
             formats=".xlsx"
