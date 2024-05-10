@@ -110,7 +110,7 @@ export function TableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
           />
         )}
 
-        {programsOptions && table.getColumn("programName") && (
+        {programsOptions && table.getColumn("programId") && (
           <>
             <DataTableFacetedFilter
               onValueChange={(value) => {

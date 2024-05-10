@@ -65,8 +65,12 @@ export function Programs() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>{program.name}</CardTitle>
-                  <CardDescription>{program.description}</CardDescription>
+                  <CardTitle>
+                    <span className="mr-2">#{program.id}</span> {program.name}
+                  </CardTitle>
+                  <CardDescription className="mt-2">
+                    {program.description}
+                  </CardDescription>
                 </div>
 
                 <Avatar>
